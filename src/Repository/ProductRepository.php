@@ -22,19 +22,18 @@ class ProductRepository extends ServiceEntityRepository
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function search($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.title LIKE :val')
             ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('p.title', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Product
@@ -47,6 +46,7 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
 
     // *** LEFT JOIN WITH SQL ***
     public function getAllProducts(): array

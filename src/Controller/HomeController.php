@@ -4,11 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Admin\Messages;
 use App\Entity\Product;
-use App\Entity\Setting;
 use App\Entity\User;
 use App\Form\Admin\MessagesType;
 use App\Form\UserType;
 use App\Repository\Admin\CommentRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\ImageRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SettingRepository;
@@ -21,18 +21,23 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Knp\Component\Pager\PaginatorInterface;
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(SettingRepository $settingRepository, ProductRepository $productRepository)
+    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
         $slider = $productRepository->findBy([],['title'=>'ASC'],3);
-        $product = $productRepository->findBy([],['title'=>'DESC'],6);
-        $newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
+        $categories = $categoryRepository->findAll();
+        $products = $paginator->paginate(
+        $productRepository->findBy([],['title'=>'DESC']), /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        9 /*limit per page*/
+        );
+        //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
         // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
         // dump($slider);
@@ -41,8 +46,9 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'setting' => $setting,
             'slider' => $slider,
-            'product' => $product,
-            'newproducts' => $newproducts,
+            'products' => $products,
+            'categories' => $categories
+            //'newproducts' => $newproducts,
         ]);
     }
 
@@ -178,6 +184,34 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
 
+    }
+    /**
+     * @Route("/search", name="search_product", methods={"GET"})
+     */
+    public function search(PaginatorInterface $paginator, CategoryRepository $categoryRepository, SettingRepository $settingRepository, ProductRepository $productRepository, Request $request) : Response
+    {
+        $query = $request->request->get('query');
+        $setting = $settingRepository->findBy(['id'=>3]);
+        $slider = $productRepository->findBy([],['title'=>'ASC'],3);
+        $products = $paginator->paginate(
+            $productRepository->search($query), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            9 /*limit per page*/
+            );
+        $categories = $categoryRepository->findAll();
+        //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
+
+        // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
+        // dump($slider);
+        // die();
+        return $this->render('home/index.html.twig', [
+            'controller_name' => 'HomeController',
+            'categories' => $categories,
+            'setting' => $setting,
+            'slider' => $slider,
+            'products' => $products,
+            //'newproducts' => $newproducts,
+        ]);
     }
 
 

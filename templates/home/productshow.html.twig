@@ -74,16 +74,16 @@
 
                         <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
                             <div class="control-group">
-                                <label class="control-label"><span>Fiyatı: {{ product.price }} TL</span></label>
+                                <label class="control-label"><span>Price: {{ product.price }} XAF</span></label>
                                 <br>
                                 <div class="controls">
-                                    Alacağınız Adet:
-                                    <input type="number" name="shopcart[Q]" class="span6" value="1" placeholder="Qty" max="{{ product.amount }}">
+                                    Quantity:
+                                    <input type="number" name="shopcart[Q]" class="form-control" value="1" placeholder="Qty" min="1" max="{{ product.amount }}">
                                     <input type="hidden" name="shopcart[ID]" value="{{ product.id }}">
                                 </div>
                             </div>
 
-                            <h4> {{ product.amount }} Adet stokta var</h4>
+                            <h4> {{ product.amount }} examplaire(s) en stock</h4>
                             <p> {{ product.description }}</p>
                             <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
 

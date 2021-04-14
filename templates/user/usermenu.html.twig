@@ -8,8 +8,12 @@
                     <div class="brands-name">
                         <ul class="nav nav-pills nav-stacked">
 
-                            <img src="{{asset('/uploads/images/' ~ app.user.image)}}"  style="height:90px; -webkit-border-radius: 90px; " alt="User Image" />
-
+                            
+                            {% if app.user.image %}
+                                   <img src="{{asset('/uploads/images/' ~ app.user.image)}}"  style="height:90px; -webkit-border-radius: 90px; " alt="User Image" />
+                                    {% else %}
+                                    <i class="fa fa-user" ></i>
+                                    {% endif %}
                             {{ app.user.name }} {{ app.user.surname }}
                             <li><a href="/user"> <span class="pull-right"></span>My Profile</a></li>
                             <li><a href="/userpanel/edit"> <span class="pull-right"></span>Edit Profile</a></li>

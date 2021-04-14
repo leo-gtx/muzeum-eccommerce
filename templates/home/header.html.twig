@@ -59,15 +59,26 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="/newuser"><i class="fa fa-user"></i> Register</a></li>
+                            
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <li>
-                                    <a href="/user"><img src="{{asset('uploads/images/' ~ app.user.image)}}" style="height: 30px; border-radius: 40%"/>
+                                    <a href="/shopcart">
+                                    <i class="fa fa-shopping-cart"></i> My cart 
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/user">
+                                    {% if app.user.image %}
+                                    <img src="{{asset('uploads/images/' ~ app.user.image)}}" style="height: 30px; border-radius: 40%"/>
+                                    {% else %}
+                                    <i class="fa fa-user" ></i>
+                                    {% endif %}
                                         {{ app.user.name }} {{ app.user.surname }}
                                     </a>
                                 </li>
                                 <li><a href="/logout">Logout</a></li>
                             {% else %}
+                                <li><a href="/newuser"><i class="fa fa-user"></i> Register</a></li>
                                 <li>
                                     <a href="/loginuser"><i class="fa fa-lock"></i> Login</a>
                                 </li>
@@ -101,9 +112,11 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
+                    <form method="GET" action={{path('search_product')}} >
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search"/>
+                        <input type="text" name="query" placeholder="Search"/>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

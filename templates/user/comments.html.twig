@@ -3,30 +3,38 @@
 {% block title %}{{ app.user.name }} Profile{% endblock %}
 
 {% block body %}
-
+<!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Mes commentaires</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">Mes commentaires</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        {{ include('user/usermenu.html.twig') }}
-                    </div>
-                </div>
-                <div class="col-sm-9 padding-right">
+               
+                <div class="col-sm-12">
 
                     <div class="left-sidebar">
                         <div class="brands_products"><!--brands_products-->
-                            <h3><a href="#">User Comment List</a></h3>
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Subject</th>
-                                    <th>Comment</th>
-                                    <th>Status</th>
-                                    <th>Product</th>
-                                    <th>Created_at</th>
-                                    <th>Rate</th>
-                                    <th>actions</th>
+                                    <th>Objet</th>
+                                    <th>Commentaire</th>
+                                    <th>Produit</th>
+                                    <th>Créé le</th>
+                                    <th>Note</th>
+                                    <th>action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -34,17 +42,20 @@
                                     <tr>
                                         <td>{{ comment.subject }}</td>
                                         <td>{{ comment.comment }}</td>
-                                        <td>{{ comment.status }}</td>
                                         <td nowrap><a href="{{ path('product_show', {'id': comment.productid}) }}">{{ comment.title }}</a></td>
                                         <td>{{ comment.created_at }}</td>
                                         <td>{{ comment.rate }}</td>
                                         <td>
-                                            <a href="" class="btn btn-danger">Delete</a>
+                                            <form method="post" action="{{path('user_delete_comment',{'id':comment.id})}}" onsubmit="return confirm('Voulez vous supprimez ce commentaire?');">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ app.user.id) }}">
+                                                <button class="genric-btn danger circle">Supprimer</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="10">no records found</td>
+                                        <td colspan="10">Aucun commentaire</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

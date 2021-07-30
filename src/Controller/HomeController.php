@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin\Comment;
 use App\Entity\Admin\Messages;
 use App\Entity\Product;
 use App\Entity\User;
 use App\Form\Admin\MessagesType;
+use App\Form\User\CommentType;
 use App\Form\UserType;
 use App\Repository\Admin\CommentRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ImageRepository;
 use App\Repository\ProductRepository;
 use App\Repository\SettingRepository;
+use App\Repository\ShopcartRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,49 +25,90 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Knp\Component\Pager\PaginatorInterface;
+
 class HomeController extends AbstractController
 {
+
     /**
      * @Route("/", name="home")
      */
     public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
-        $slider = $productRepository->findBy([],['title'=>'ASC'],3);
+        $slider = $productRepository->findBy(['status'=> 'True'],['title'=>'ASC'],3);
         $categories = $categoryRepository->findAll();
-        $products = $paginator->paginate(
-        $productRepository->findBy([],['title'=>'DESC']), /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        9 /*limit per page*/
-        );
+        $parameter = $request->get('category');
+        $limit = $request->get('limit');
+        $order = $request->get('order');
+        $query = $request->get('query');
+        $promotedProducts = $productRepository->findBy(['isPromoted'=>true],['title'=>'ASC']);
+        
+        if(empty($limit)){
+            $limit = 12;
+        }
+        if(empty($order) || $order != 'ASC' && $order != 'DESC'){
+            $order = 'ASC';
+        }
+        if(!empty($query)){
+            $products = $paginator->paginate(
+                $productRepository->findSearch($query), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                $limit /*limit per page*/
+                );
+        }
+        elseif(!empty($parameter)){
+            $parameter  = $categoryRepository->find($parameter);
+            $products = $paginator->paginate(
+                $productRepository->findBy(['category'=>$parameter, 'status'=> 'True'],['title'=>$order]), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                $limit /*limit per page*/
+                );
+        }else{
+            $products = $paginator->paginate(
+                $productRepository->findBy(['status'=> 'True'],['title'=>$order]), /* query NOT result */
+                $request->query->getInt('page', 1), /*page number*/
+                $limit /*limit per page*/
+                );
+        }
+      
         //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
         // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
         // dump($slider);
         // die();
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
             'setting' => $setting,
             'slider' => $slider,
             'products' => $products,
-            'categories' => $categories
-            //'newproducts' => $newproducts,
+            'categories' => $categories,
+           // 'countItemsInCard' => count($shopcart)
+            'promotedProducts' => $promotedProducts,
         ]);
     }
 
     /**
      * @Route("/product/{id}", name="product_show", methods={"GET"})
      */
-    public function show(Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository): Response
+    public function show(SettingRepository $settingRepository, ShopcartRepository $shopcartRepository,Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository, UserRepository $userRepository): Response
     {
         $images = $imageRepository->findBy(['product'=>$id]);
         $comments = $commentRepository->findBy(['productid'=>$id,'status'=>'True']);
-
+        $users = $userRepository->findAll();
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class,$comment,[
+            'action' => $this->generateUrl('user_new_comment', ['id'=>$id]),
+            'attr' => [
+                'class'=>'contact_form'
+                ]
+        ]);
 
         return $this->render('home/productshow.html.twig', [
             'product' => $product,
             'images' => $images,
             'comments' => $comments,
+            'users' => $users,
+            'form' => $form->createView(),
+            'setting' => $settingRepository->findAll()
 
         ]);
     }
@@ -83,12 +127,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/contact", name="home_contact", methods={"GET","POST"})
      */
-    public function contact(SettingRepository $settingRepository, Request $request): Response
+    public function contact(SettingRepository $settingRepository, Request $request, \Swift_Mailer $mailer): Response
     {
         $message = new Messages();
         $form = $this->createForm(MessagesType::class, $message);
         $form->handleRequest($request);
-        $submittedToken = $request->request->get('token');
+        $submittedToken = $request->get('token');
         $setting=$settingRepository->findAll(); // Get setting data
         // dump($request);
         // die();
@@ -100,31 +144,27 @@ class HomeController extends AbstractController
                 $message->setIp($_SERVER['REMOTE_ADDR']);
                 $entityManager->persist($message);
                 $entityManager->flush();
-                $this->addFlash('success','Your message has been sent successfully');
+                $this->addFlash('success','Votre message à été envoyé!');
 
                 // ************ SEND EMAIL ************
 
-                $email = (new Email())
-                    ->from($setting[0]->getSmtpemail())
-                    ->to($form['email']->getData())
-                    //->cc('cc@example.com')
-                    //->bcc('bcc@example.com')
-                    //->replyTo('fabien@example.com')
-                    //->priority(Email::PRIORITY_HIGH)
-                    ->subject('AllHoliday Your Request')
-                    // ->text('Simple Text')
-                    ->html("Dear ".$form['name']->getData() ."<br>
-                    <p>We will eveluate your requests and contact you as soon as possible</p>
-                    Thank You for your message<br> 
-                    =====================================
-                    <br>".$setting[0]->getCompany()." <br>
-                    Address : ".$setting[0]->getAddress()."<br>
-                    Phone : ".$setting[0]->getPhone()."<br>"
-                    );
+                $message = (new \Swift_Message('Museum Message de '.$message->getName()))
+                // On attribue l'expéditeur
+                ->setFrom($message->getEmail())
+                // On attribue le destinataire
+                ->setTo('support@devmight.com')
+                // On crée le texte avec la vue
+                ->setBody(
+                    $this->renderView(
+                        'email/contact.html.twig', [
+                            'contact' => $message,
 
-                $transport = new GmailTransport($setting[0]->getSmtpemail(), $setting[0]->getSmtppassword());
-                $mailer = new Mailer($transport);
-                $mailer->send($email);
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
 
                 // ************ SEND EMAIL ************
 
@@ -142,76 +182,56 @@ class HomeController extends AbstractController
     }
 
 
-    /**
-     * @Route("/newuser", name="new_user", methods={"GET","POST"})
+    
+ /**
+     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      */
-    public function newuser(Request $request, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function sitemap(Request $request)
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        // Nous récupérons le nom d'hôte depuis l'URL
+        $hostname = $request->getSchemeAndHttpHost();
 
-        $submittedToken = $request->request->get('token');
+        // On initialise un tableau pour lister les URLs
+        $urls = [];
 
-        if($this->isCsrfTokenValid('user-form', $submittedToken)){
-            if($form->isSubmitted()){
-                $emaildata=$userRepository->findBy(
-                    ['email' => $user->getEmail()]
-                );
-                if($emaildata == null){
-                    $em = $this->getDoctrine()->getManager();
-                    $user->setPassword(
-                        $passwordEncoder->encodePassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-                    //$user->setRoles("ROLE_USER");
-                    $user->setRoles($form->get("roles")->getData());
-                    $em->persist($user);
-                    $em->flush();
-                    $this->addFlash('success','Üye kaydınız başarıyla gerçekleşmiştir. <br> Log in olabilirsiniz');
-                    return $this->redirectToRoute('login_user');
-                }
-                else{
-                    $this->addFlash('error', ' '. $user->getEmail(). " maili zaten kayıtlı!");
+        // On ajoute les URLs "statiques"
+        $urls[] = ['loc' => $this->generateUrl('home')];
+        $urls[] = ['loc' => $this->generateUrl('home_about')];
+        $urls[] = ['loc' => $this->generateUrl('app_register')];
+        $urls[] = ['loc' => $this->generateUrl('login_user')];
 
-                }
-            }
+        // add dynamic urls, like blog posts from your DB
+        foreach ($this->getDoctrine()->getRepository(Product::class)->findAll() as $product) {
+            $created_at = $product->getCreatedAt();
+
+            $images = [
+                'loc' => '/uploads/images/'.$product->getImage(), // URL to image
+                'title' => $product->getTitle()    // Optional, text describing the image
+            ];
+
+            $urls[] = [
+                'loc' => $this->generateUrl('user_product_show', [
+                    'id' => $product->getId(),
+                ]),
+                'lastmod' => $product->getUpdatedAt() ? $product->getUpdatedAt()->format('Y-m-d'):'',
+                'image' => $images
+            ];
         }
-        return $this->render('home/newuser.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
 
-    }
-    /**
-     * @Route("/search", name="search_product", methods={"GET"})
-     */
-    public function search(PaginatorInterface $paginator, CategoryRepository $categoryRepository, SettingRepository $settingRepository, ProductRepository $productRepository, Request $request) : Response
-    {
-        $query = $request->request->get('query');
-        $setting = $settingRepository->findBy(['id'=>3]);
-        $slider = $productRepository->findBy([],['title'=>'ASC'],3);
-        $products = $paginator->paginate(
-            $productRepository->search($query), /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            9 /*limit per page*/
-            );
-        $categories = $categoryRepository->findAll();
-        //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
-        // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
-        // dump($slider);
-        // die();
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'categories' => $categories,
-            'setting' => $setting,
-            'slider' => $slider,
-            'products' => $products,
-            //'newproducts' => $newproducts,
-        ]);
+        // Fabrication de la réponse XML
+        $response = new Response(
+            $this->renderView('sitemap/index.html.twig', [
+                'urls' => $urls,
+                'hostname' => $hostname]
+            )
+        );
+
+        // Ajout des entêtes
+        $response->headers->set('Content-Type', 'text/xml');
+
+        // On envoie la réponse
+        return $response;
     }
 
 

@@ -22,6 +22,7 @@ class SettingType extends AbstractType
             ->add('phone')
             ->add('fax')
             ->add('email')
+            ->add('isBlackfriday')
             ->add('smtpserver')
             ->add('smtpemail')
             ->add('smtppassword')

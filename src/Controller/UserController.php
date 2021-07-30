@@ -112,7 +112,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/{id}", name="user_show", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function show(User $user): Response
     {
@@ -131,11 +131,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-
+        $submittedToken = $request->get('_token');
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             //if ($this->isCsrfTokenValid('user-form' . $user->getId(), $submittedToken)) {
             // **************** file upload ****************
             /** @var file $file */
             $file = $form['image']->getData();
@@ -163,6 +164,7 @@ class UserController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('user_index');
+        //}
         }
 
         return $this->render('user/edit.html.twig', [
@@ -187,7 +189,7 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
@@ -204,12 +206,13 @@ class UserController extends AbstractController
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        $submittedToken = $request->request->get('token');
 
-        if ($form->isSubmitted()) {
-            if ($this->isCsrfTokenValid('comment', $submittedToken)) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            //if ($this->isCsrfTokenValid('comment', $submittedToken)) {
                 $entityManager = $this->getDoctrine()->getManager();
+                $comment->setAuthor($this->getUser());
                 $comment->setStatus('New');
+                $comment->setCreatedAt(new \DateTime('now'));
                 $comment->setIp($_SERVER['REMOTE_ADDR']);
                 $comment->setProductid($id);
                 $user = $this->getUser();
@@ -217,14 +220,91 @@ class UserController extends AbstractController
                 $entityManager->persist($comment);
                 $entityManager->flush();
 
-                $this->addFlash('success','Your comment has been sent successfully');
+                $this->addFlash('success','Votre commentaire à bien été envoyé!');
 
                 return $this->redirectToRoute('product_show', ['id' => $id]);
             }
 
             return $this->redirectToRoute('product_show', ['id' => $id]);
-        }
+        //}
 
 
     }
+
+    /**
+     * @Route("/deletecomment/{id}", name="user_delete_comment", methods={"DELETE"})
+     */
+    public function deletecomment(Request $request, $id, CommentRepository $commentRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $this->getUser()->getId(), $request->get('_token'))) {
+        $comment = $commentRepository->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($comment);
+            $entityManager->flush();
+            
+        }
+        return $this->redirectToRoute('user_comments');
+
+
+    }
+     /**
+     * @Route("/favorite/{id}", name="user_toggle_favorite", methods={"GET"})
+     */
+    public function toggle(Request $request, $id, ProductRepository $productRepository): Response
+    {
+         //My function
+       function my_in_array(Object $p, Array $a){
+        foreach ($a as $key) {
+            if($p->getId() == $key->getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+    //
+    //My function
+    function remove_in_array(Object $p, Array $a):Array{
+        $array = [];
+        foreach ($a as $key) {
+            if($p->getId() != $key->getId()){
+                array_push($array, $key);
+            }
+        }
+        return $array;
+    }
+    //
+       $action = $request->get('action');
+       $user = $this->getUser();
+       $product = $productRepository->find($id);
+       $array = $user->getFavorites();
+       if(my_in_array($product, $array)){
+           if($action=='remove'){
+               $array = remove_in_array($product, $array);
+                $user->setFavorites($array);
+           }
+           
+       }else{
+            array_push($array, $product);
+            $user->setFavorites($array);
+       }
+       $entityManager = $this->getDoctrine()->getManager();
+       $entityManager->persist($user);
+       $entityManager->flush();
+       return $this->redirectToRoute('user_show_favorites');
+      
+
+    }
+
+     /**
+     * @Route("/favorites", name="user_show_favorites")
+     */
+    public function showFavorites(): Response
+    {
+       $user = $this->getUser();
+       return $this->render('user/favorites.html.twig', [
+        'favorites' => $user->getFavorites(),
+    ]);
+
+    }
+
 }

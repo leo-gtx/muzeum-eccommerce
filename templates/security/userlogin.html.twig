@@ -1,54 +1,75 @@
 {% extends 'homebase.html.twig' %}
 {% block title %}User Login{% endblock %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="left-sidebar">
-                    <div class="brands_products"><!--brands_products-->
-                        <form method="post" action="/login">
-                            {% if error %}
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Connexion</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Se connecter</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+    <!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="{{asset('assets/client/img/login.jpg')}}" alt="">
+						<div class="hover">
+							<h4>Faite comme chez vous!</h4>
+							<p>Réalisez des achats de qualité en toute tranquilité. Bienvenue chez Museum.</p>
+							<a class="primary-btn" href="{{path('app_register')}}">S'inscrire</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Connexion</h3>
+						<form class="row login_form" action="/login" method="post" id="contactForm" novalidate="novalidate">
+							{% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
                             {% if app.user %}
                                 <div class="mb-3">
-                                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                    Connectez en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
                                  </div>
                             {% endif %}
-                            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                            <label for="inputEmail">Email</label>
-                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-                            <label for="inputPassword">Password</label>
-                            <input type="password" name="password" id="inputPassword" class="form-control" required>
-                            <input type="hidden" name="_csrf_token"
+                            <div class="col-md-12 form-group">
+								<input type="email" class="form-control" id="name" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="name" name="password" placeholder="Mot de passe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                                 <input type="hidden" name="_csrf_token"
                                    value="{{ csrf_token('authenticate') }}"
                             >
-                            {#
-                                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                See https://symfony.com/doc/current/security/remember_me.html
+							</div>
+							<div class="col-md-12 form-group">
+								<div class="creat_account">
+									<input type="checkbox" name="_remember_me" id="f-option2">
+									<label for="f-option2">Se souvenir de moi</label>
+								</div>
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Se connecter</button>
+								<a href="#">Mot de passe oublier?</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
 
-                                <div class="checkbox mb-3">
-                                    <label>
-                                        <input type="checkbox" name="_remember_me"> Remember me
-                                    </label>
-                                </div>
-                            #}
-                            <button class="btn btn-lg btn-primary" type="submit">
-                                Sign in
-                            </button>
-                            <br>
-                            <br>
-                            <br>
-                            If you are not register, please sign up!
-                            <a href="{{ path('new_user') }}" class="btn btn-lg btn-primary">Sign Up</a>
-
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section>
+   
 {% endblock %}
 

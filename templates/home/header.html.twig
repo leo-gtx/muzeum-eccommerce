@@ -1,124 +1,64 @@
-<header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="contactinfo">
-                        <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="social-icons pull-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--/header_top-->
-
-    <div class="header-middle"><!--header-middle-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="logo pull-left">
-                        <a href="/"><img src="{{asset('assets')}}/images/home/logo.png" alt="" /></a>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                USA
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canada</a></li>
-                                <li><a href="#">UK</a></li>
-                            </ul>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default dropdown-toggle usa" data-toggle="dropdown">
-                                DOLLAR
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Canadian Dollar</a></li>
-                                <li><a href="#">Pound</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="shop-menu pull-right">
-                        <ul class="nav navbar-nav">
-                            
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                <li>
-                                    <a href="/shopcart">
-                                    <i class="fa fa-shopping-cart"></i> My cart 
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/user">
-                                    {% if app.user.image %}
-                                    <img src="{{asset('uploads/images/' ~ app.user.image)}}" style="height: 30px; border-radius: 40%"/>
-                                    {% else %}
-                                    <i class="fa fa-user" ></i>
-                                    {% endif %}
-                                        {{ app.user.name }} {{ app.user.surname }}
-                                    </a>
-                                </li>
-                                <li><a href="/logout">Logout</a></li>
+<!-- Start Header Area -->
+	<header class="header_area sticky-header">
+		<div class="main_menu">
+			<nav class="navbar navbar-expand-lg navbar-light main_box">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<a class="navbar-brand logo_h" href="index.html"><img src="{{asset('assets/client/img/logo.png')}}" alt="museum-logo"></a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+						<ul class="nav navbar-nav menu_nav ml-auto">
+							<li class="nav-item"><a class="nav-link" href="{{path('home')}}">Acceuil</a></li>
+							<li class="nav-item"><a class="nav-link" href="{{path('home_contact')}}">Contactez-nous</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{path('home_about')}}">A propos</a></li>
+                            {% if app.user %}
+                            <li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">{{app.user.name}}</a>
+								<ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="/user/edit">Mon profile</a></li>
+									<li class="nav-item"><a class="nav-link" href="/orders">Mes Commandes</a></li>
+									<li class="nav-item"><a class="nav-link" href="/user/comments">Mes Commentaires</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{path('user_show_favorites')}}">Mes favories</a></li>
+									<li class="nav-item"><a class="nav-link" href="/logout">Deconnexion</a></li>
+								</ul>
+							</li>
                             {% else %}
-                                <li><a href="/newuser"><i class="fa fa-user"></i> Register</a></li>
-                                <li>
-                                    <a href="/loginuser"><i class="fa fa-lock"></i> Login</a>
-                                </li>
+                            <li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Connexion</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="{{path('login_user')}}">Se Connecter</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{path('app_register')}}">S'inscrire</a></li>
+								</ul>
+							</li>
                             {% endif %}
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--/header-middle-->
-
-    <div class="header-bottom"><!--header-bottom-->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-9">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="mainmenu pull-left">
-                        <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="/" class="active">Home</a></li></li>
-                            <li><a href="/contact">Contact</a></li>
-                            <li><a href="/about">About</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <form method="GET" action={{path('search_product')}} >
-                    <div class="search_box pull-right">
-                        <input type="text" name="query" placeholder="Search"/>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div><!--/header-bottom-->
-</header><!--/header-->
+							
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="nav-item"><a href="{{path('shopcart_index')}}" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item">
+								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="search_input" id="search_input_box">
+			<div class="container">
+				<form method="get" action="{{path('home')}}" class="d-flex justify-content-between">
+					<input type="text" class="form-control" id="search_input" name="query" placeholder="Rechercher un produit...">
+					<button type="submit" class="btn"></button>
+					<span class="lnr lnr-cross" id="close_search"  title="Close Search"></span>
+				</form>
+			</div>
+		</div>
+	</header>
+	<!-- End Header Area -->

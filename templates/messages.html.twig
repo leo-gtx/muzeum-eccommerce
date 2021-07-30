@@ -3,7 +3,7 @@
         {% if ( label == 'success') %}
             <div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
-                <h4><i class="icon fa fa-check"></i> Başarılı!</h4>
+                <h4><i class="icon fa fa-check"></i> Info!</h4>
                 {{ flash|raw }}
             </div>
         {% elseif ( label == 'error') %}
@@ -17,7 +17,7 @@
         {% elseif ( label == 'warning') %}
             <div class="alert alert-warning alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                <h4><i class="icon fa fa-warning"></i> Uyarı!</h4>
+                <h4><i class="icon fa fa-warning"></i> Attention!</h4>
                 {{ flash|raw }}
             </div>
         {% endif %}

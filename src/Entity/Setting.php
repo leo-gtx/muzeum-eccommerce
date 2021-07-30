@@ -111,6 +111,11 @@ class Setting
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isBlackfriday;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -340,6 +345,18 @@ class Setting
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIsBlackfriday(): ?bool
+    {
+        return $this->isBlackfriday;
+    }
+
+    public function setIsBlackfriday(bool $isBlackfriday): self
+    {
+        $this->isBlackfriday = $isBlackfriday;
 
         return $this;
     }

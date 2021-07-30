@@ -2,6 +2,7 @@
 
 namespace App\Entity\Admin;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,6 +61,12 @@ class Comment
      * @ORM\Column(type="integer", nullable=true)
      */
     private $productid;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -170,6 +177,18 @@ class Comment
     public function setProductid(?int $productid): self
     {
         $this->productid = $productid;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

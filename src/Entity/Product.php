@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -97,6 +98,22 @@ class Product
      * @ORM\Column(type="integer", nullable=true)
      */
     private $userid;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPromoted;
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
     public function __construct()
     {
@@ -321,6 +338,18 @@ class Product
     public function setUserid(?int $userid): self
     {
         $this->userid = $userid;
+
+        return $this;
+    }
+
+    public function getIsPromoted(): ?bool
+    {
+        return $this->isPromoted;
+    }
+
+    public function setIsPromoted(bool $isPromoted): self
+    {
+        $this->isPromoted = $isPromoted;
 
         return $this;
     }

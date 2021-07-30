@@ -1,0 +1,25 @@
+<!-- Start Filter Bar -->
+<form method="get" >
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+					<div class="sorting">
+						<select name="order" >
+							<option value="ASC" selected>Ordre croissant</option>
+							<option value="DESC">Ordre décroissant</option>
+						</select>
+					</div>
+					<div class="sorting mr-auto">
+						<select name="limit">
+							<option value="12" selected>Afficher 12</option>
+							<option value="18">Afficher 18</option>
+							<option value="27">Afficher 27</option>
+						</select>
+					</div>
+                    <div class="sorting" >
+                    <button class="genric-btn primary circle" type="submit">Filtrer</button>
+                    </div>
+					
+					{{ knp_pagination_render(products)}}
+                    
+				</div>
+				<!-- End Filter Bar -->
+</form>

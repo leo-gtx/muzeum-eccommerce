@@ -80,6 +80,17 @@ class User implements UserInterface
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $favorites = [];
+
+    public function __construct()
+    {
+        $this->roles = ['ROLE_USER'];
+        $this->favorites = [];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -265,4 +276,17 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getFavorites(): ?array
+    {
+        return $this->favorites ? $this->favorites : [];
+    }
+
+    public function setFavorites(?array $favorites): self
+    {
+        $this->favorites = $favorites;
+
+        return $this;
+    }
+
 }

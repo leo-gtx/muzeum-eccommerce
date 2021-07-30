@@ -33,7 +33,7 @@ class OrdersController extends AbstractController
     /**
      * @Route("/new", name="orders_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ShopcartRepository $shopcartRepository): Response
+    public function new(Request $request,OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, \Swift_Mailer $mailer): Response
     {
         $orders = new Orders();
         $form = $this->createForm(OrdersType::class, $orders);
@@ -42,17 +42,29 @@ class OrdersController extends AbstractController
         $user = $this->getUser(); // Calling login user data
         $userid = $user->getid();
         $total = $shopcartRepository->getUserShopCartTotal($userid); // Get total amount of user shopcart
+        //Get shopcart items
+        $em = $this->getDoctrine()->getManager();
 
-        $submittedToken = $request->request->get('token'); // get csrf token information
+        $sql = "SELECT p.title, p.price , s.*
+
+                FROM shopcart s , product p
+                
+                WHERE s.userid = $userid AND p.id = s.productid ";
+
+        $statement = $em->getConnection()->prepare($sql);
+        $statement->bindValue('userid', $user->getid());
+        $statement->execute();
+        $shopcart = $statement->fetchAll();
+
+        $submittedToken = $request->get('token'); // get csrf token information
         if($this->isCsrfTokenValid('form-order', $submittedToken)){
             if ($form->isSubmitted()) {
                 // Kredi kartı bilgilerini ilgili banka servisine gönder
                 // Onay gelirse kaydetmeye devam et yoksa order sayfasına hata gönder
-
                 $entityManager = $this->getDoctrine()->getManager();
                 $orders->setUserid($userid);
                 $orders->setAmount($total);
-
+                $orders->setCreatedAt(new \DateTime('now'));
                 $orders->setStatus('New');
                 $entityManager->persist($orders);
                 $entityManager->flush();
@@ -83,8 +95,33 @@ class OrdersController extends AbstractController
                 ')
                     ->setParameter('userid', $userid);
                 $query->execute();
-                $this->addFlash('success', 'Siparişleriniz Başarıyla Gerçekleştirilmiştir <br> Teşekkür ederiz');
-                return $this->redirectToRoute('orders_index');
+                $this->addFlash('success', 'Votre commande à été effectué!');
+
+                //Send an email notification
+                $orderdetail = $orderDetailRepository->findBy(
+                    ['orderid' => $orderid]
+                );
+                $message = (new \Swift_Message('Museum Commande'))
+                // On attribue l'expéditeur
+                ->setFrom($this->getParameter('app.address'))
+                // On attribue le destinataire
+                ->setTo($user->getEmail())
+                // On crée le texte avec la vue
+                ->setBody(
+                    $this->renderView(
+                        'email/confirmation.html.twig', [
+                            'orderDetail' => $orderdetail,
+                            'order' => $orders,
+
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+            $message->setTo('support@devmight.com');
+            $mailer->send($message);
+                return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
             }
 
 
@@ -93,6 +130,7 @@ class OrdersController extends AbstractController
             'order' => $orders,
             'total' => $total,
             'form' => $form->createView(),
+            'shopcart'=>$shopcart
         ]);
     }
 
@@ -104,7 +142,7 @@ class OrdersController extends AbstractController
         $user = $this->getUser(); // Calling login user data
         $userid = $user->getid();
         $orderid = $order->getid();
-
+        
         $orderdetail = $orderDetailRepository->findBy(
             ['orderid' => $orderid]
         );

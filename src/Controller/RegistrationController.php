@@ -18,7 +18,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -38,7 +38,28 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-            return $this->redirectToRoute('app_login');
+             // ************ SEND EMAIL ************
+
+             $message = (new \Swift_Message('Museum Nouveau Compte'))
+             // On attribue l'expéditeur
+             ->setFrom($this->getParameter('app.address'))
+             // On attribue le destinataire
+             ->setTo($user->getEmail())
+             // On crée le texte avec la vue
+             ->setBody(
+                 $this->renderView(
+                     'email/newuser.html.twig', [
+                         'user' => $user,
+
+                     ]
+                 ),
+                 'text/html'
+             )
+         ;
+         $mailer->send($message);
+
+             // ************ SEND EMAIL ************
+            return $this->redirectToRoute('login_user');
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -48,7 +69,7 @@ class RegistrationController extends AbstractController
             );
         }
 
-        return $this->render('registration/adminregister.html.twig', [
+        return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

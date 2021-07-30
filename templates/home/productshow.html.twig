@@ -5,165 +5,223 @@
 {% block description %}{{ product.description }}{% endblock %}
 
 {% block body %}
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-7">
-                    <div class="recommended_items">
-                        <h2 class="title text-center">Product Gallery</h2>
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Détail du produit</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{path('home')}}">Acceuil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">{{product.title}}</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
 
-                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-
-                                <div class="item active">
-                                    {% for rs in images %}
-                                        <div class="col-sm-4">
-                                            <div class="product-image-wrapper">
-                                                <div class="single-products">
-                                                    <div class="productinfo text-center">
-                                                        <a href="{{ path('product_show', {'id': rs.id}) }} " class="btn btn-default add-to-cart">
-                                                            <img src="{{ asset('uploads/images/' ~ rs.image) }}" alt="" style="height: 268px; width: 160px;" alt="" />
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-5 padding-right">
-                    <div class="left-sidebar">
-                        <div class="brands_products"><!--brands_products-->
-                            <h2>{{ product.title }}</h2>
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th>Description</th>
-                                    <td>{{ product.description }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Amount</th>
-                                    <td>{{ product.amount }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Price</th>
-                                    <td>{{ product.price }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Type</th>
-                                    <td>{{ product.type }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Year</th>
-                                    <td>{{ product.year }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
-                            <div class="control-group">
-                                <label class="control-label"><span>Price: {{ product.price }} XAF</span></label>
-                                <br>
-                                <div class="controls">
-                                    Quantity:
-                                    <input type="number" name="shopcart[Q]" class="form-control" value="1" placeholder="Qty" min="1" max="{{ product.amount }}">
-                                    <input type="hidden" name="shopcart[ID]" value="{{ product.id }}">
-                                </div>
-                            </div>
-
-                            <h4> {{ product.amount }} examplaire(s) en stock</h4>
-                            <p> {{ product.description }}</p>
-                            <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
-
-                                <button type="submit" class="btn btn-default add-to-cart"><span class="fa fa-shopping-cart"></span>Add to cart</button>
-
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="category-tab shop-details-tab"><!--category-tab-->
-                <div class="col-sm-12">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a href="#details" data-toggle="tab">Features & Price</a></li>
-                        <li class=""><a href="#companyprofile" data-toggle="tab">Product Detail Information</a></li>
-                        <li class=""><a href="#reviews" data-toggle="tab">Comments</a></li>
-                    </ul>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane fade active in" id="details">
-                        <div class="col-sm-12">
-                            <p><b>Features and Price List</b></p>
-                            <p></p>
-                        </div>
-                    </div>
-
-
-                    <div class="tab-pane fade active in" id="companyprofile">
-                        <div class="col-sm-12">
-                            <p> {{ product.detail |raw }}</p>
-
-                        </div>
-                    </div>
-
-                    <div class="tab-pane fade active in" id="reviews">
-                        {% for rs in comments %}
-                            <div class="col-sm-12">
-                                <h5>{{ rs.subject }} [Rate : {{ rs.rate }}]</h5>
-                                <p>
-                                    {{ rs.comment }}
-                                </p>
-                                <hr>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <h2 class="title text-center">Write your comment</h2>
-            {% if app.user %}
-                <div class="status alert alert-success" style="display: none"></div>
-                {{ include('messages.html.twig') }}
-                <form action="{{ path('user_new_comment', {'id': product.id}) }}" id="main-contact-form" class="contact-form row" name="comment" method="post">
-                    <div class="form-group col-md-12">
-                        <input type="text" id="comment_subject" name="comment[subject]" class="form-control" required="required" placeholder="Subject">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <select id="comment_rate" name="comment[rate]" class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <textarea id="comment_comment" name="comment[comment]" required="required" class="form-control" rows="8" placeholder="Comment"></textarea>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <input type="hidden" name="token" value="{{ csrf_token('comment') }}">
-                        <input type="submit" name="submit" class="btn btn-primary pull-right" value="Send Comment">
-                    </div>
-
-
+    	<!--================Single Product Area =================-->
+	<div class="product_image_area">
+		<div class="container">
+			<div class="row s_product_inner">
+				<div class="col-lg-6">
+					<div class="s_Product_carousel">
+                    {% for rs in images %}
+						<div class="single-prd-item">
+							<img class="img-fluid" src="{{ asset('uploads/images/' ~ rs.image) | imagine_filter('detail_thumb') }}" style="height:555;width:600;" alt="{{rs.title}}">
+						</div>
+                    {% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-5 offset-lg-1">
+                <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
+					<div class="s_product_text">
+						<h3>{{product.title}}</h3>
+						<h2>{{product.price}} FCFA</h2>
+						<ul class="list">
+							<li><a class="active" href="#"><span>Categorie</span> : {{product.category.title}}</a></li>
+							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>
+						</ul>
+						<p>{{product.description}}</p>
+						<div class="product_count">
+							<label for="qty">Quantité:</label>
+                            <input type="number" name="shopcart[Q]" id="sst" class="input-text qty" value="1" placeholder="Qté" min="1" max="{{ product.amount }}">
+                            <input type="hidden" name="shopcart[ID]" value="{{ product.id }}">
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{product.amount}}) result.value++;return false;"
+							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+						</div>
+                        <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
+						<div class="card_area d-flex align-items-center">
+							<button type="submit" class="primary-btn" style="border:none;" >Ajouter au panier</button>
+							<a class="icon_btn" href="{{path('user_toggle_favorite', {'id': product.id })}}"><i class="lnr lnr lnr-heart"></i></a>
+						</div>
+					</div>
                 </form>
-            {% else %}
-                <li>
-                    <a href="/loginuser"><i class="fa fa-lock"></i>If you want to add comment please login</a>
-                </li>
-            {% endif %}
-        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--================End Single Product Area =================-->
+
+    <!--================Product Description Area =================-->
+	<section class="product_description_area">
+		<div class="container">
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					 aria-selected="false">Specification</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					 aria-selected="false">Reviews</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<p>{{ product.detail |raw }}</p>
+				</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					<div class="table-responsive">
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<h5>Width</h5>
+									</td>
+									<td>
+										<h5>128mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Height</h5>
+									</td>
+									<td>
+										<h5>508mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Depth</h5>
+									</td>
+									<td>
+										<h5>85mm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Weight</h5>
+									</td>
+									<td>
+										<h5>52gm</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Quality checking</h5>
+									</td>
+									<td>
+										<h5>yes</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Freshness Duration</h5>
+									</td>
+									<td>
+										<h5>03days</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>When packeting</h5>
+									</td>
+									<td>
+										<h5>Without touch of hand</h5>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<h5>Each Box contains</h5>
+									</td>
+									<td>
+										<h5>60pcs</h5>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="row total_rate">
+								<div class="col-6">
+									<div class="box_total">
+										<h5>Total</h5>
+										<h4>{% if comments|length > 0 %}{% set foo = 0 %}{% for rs in comments %} {% set foo = foo + rs.rate %} {% endfor %} {{ (foo / comments|length)|number_format(1, '.', ',') }}{% endif %}</h4>
+										<h6>({{comments|length}}) Notes</h6>
+									</div>
+								</div>
+								
+							</div><br>
+							<div class="review_list">
+                                {% for rs in comments %}
+								<div class="review_item">
+									<div class="media">
+                                        
+                                            
+                                                  <div class="d-flex">
+                                                        <img src="{{asset('uploads/images/' ~ rs.author.image)}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar-{{rs.author.name}}">
+                                                  </div>  
+                                               
+                                        
+										
+										<div class="media-body">
+											<h4></h4>
+                                            {% for i in 1.. rs.rate %}
+											<i class="fa fa-star"></i>
+                                            {% endfor %}
+										</div>
+									</div>
+                                        
+                                                  <h5>{{rs.author.name}}</h5> 
+                                    
+									<p>{{rs.comment}}</p>
+								</div>
+                                {% endfor %}
+							</div>
+						</div>
+                        {% if app.user %}
+						<div class="col-lg-6">
+                        {{ include('messages.html.twig') }}
+							<div class="review_box">
+								<h4>Ajouter votre commentaire</h4>
+								{{form_start(form)}}
+                                {{ form_widget(form) }}
+                                <div class="col-md-12 text-right">
+										 <button class="primary-btn">{{ button_label|default('Envoyez') }}</button>
+									</div>
+                               
+                                {{form_end(form)}}
+							</div>
+						</div>
+                        {% else %}
+                            <a href="/loginuser"><i class="fa fa-lock"></i>If you want to add comment please login</a>
+                        {% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Product Description Area =================-->
+
+   
     </section>
 {% endblock %}

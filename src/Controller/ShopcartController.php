@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Shopcart;
 use App\Form\ShopcartType;
+use App\Repository\ProductRepository;
 use App\Repository\ShopcartRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,7 @@ class ShopcartController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $sql = "SELECT p.title, p.price , s.*
+        $sql = "SELECT p.title, p.price , p.amount, p.image, s.*
 
                 FROM shopcart s , product p
                 
@@ -48,28 +49,52 @@ class ShopcartController extends AbstractController
     /**
      * @Route("/new", name="shopcart_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,ShopcartRepository $shopcartRepository, ProductRepository $productRepository): Response
     {
         $shopcart = new Shopcart();
         $form = $this->createForm(ShopcartType::class, $shopcart);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-
+            $entityManager = $this->getDoctrine()->getManager();
             $params = $request->request->get('shopcart');
             // dump($params['Q']);
             //dump($request);
             //die();
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $shopcart->setProductid($params['ID']);
+            $oldShopcart = $shopcartRepository->findOneBy(['productid'=>$params['ID']]);
+            if(!empty($oldShopcart)){
+                $oldShopcart->setQuantity($oldShopcart->getQuantity() + $params['Q']);
+                $entityManager->persist($oldShopcart);
+            }else{
+                $shopcart->setProductid($params['ID']);
             $shopcart->setQuantity($params['Q']);
             $user = $this->getUser();
             $shopcart->setUserid($user->getid());
             $entityManager->persist($shopcart);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('shopcart_index');
+        }
+        $product = $productRepository->find((int) $request->get('productId'));
+
+        if($request->isMethod('GET') && !empty($product)){
+            $entityManager = $this->getDoctrine()->getManager();
+            $shopcart->setProductid($request->get('productId'));
+            $oldShopcart = $shopcartRepository->findOneBy(['productid'=>$request->get('productId')]);
+            if(!empty($oldShopcart)){
+                $oldShopcart->setQuantity($oldShopcart->getQuantity() + 1);
+                $entityManager->persist($oldShopcart);
+            }else{
+                $shopcart->setQuantity(1);
+                $user = $this->getUser();
+                $shopcart->setUserid($user->getid());
+                $entityManager->persist($shopcart);
+            }
+            
+            $entityManager->flush();
+            return $this->redirectToRoute('shopcart_index');
+
         }
 
         return $this->render('shopcart/new.html.twig', [
@@ -117,7 +142,7 @@ class ShopcartController extends AbstractController
         $entityManager->remove($shopcart);
         $entityManager->flush();
         return $this->redirectToRoute('shopcart_index');
-        $this->addFlash('success','Ürün sepetten silindi');
+        $this->addFlash('success','Produit supprimé avec succès!');
     }
     /**
      * @Route("/{id}", name="shopcart_delete")

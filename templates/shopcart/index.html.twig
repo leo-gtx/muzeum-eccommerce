@@ -3,67 +3,169 @@
 {% block title %} Shopcart{% endblock %}
 
 {% block body %}
-    <section>
+ <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        {{ include('user/usermenu.html.twig') }}
-                    </div>
-                </div>
-                <div class="col-sm-9 padding-right">
-
-                    <div class="left-sidebar">
-                        <div class="brands_products"><!--brands_products-->
-                            <section>
-                                <div class="container">
-                                    <div class="row">
-                                        <h1>Shopcart index</h1>
-                                        {{ include ('messages.html.twig') }}
-
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Product Name</th>
-                                                <th>Sale Price</th>
-                                                <th>Quantity</th>
-                                                <th>Total</th>
-                                                <th>actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% set total = 0 %}
-                                            {% for shopcart in shopcarts %}
-                                                <tr>
-                                                    <td>{{ shopcart.id }}</td>
-                                                    <td>{{ shopcart.title }}</td>
-                                                    <td>{{ shopcart.price }}</td>
-                                                    <td>{{ shopcart.quantity }}</td>
-                                                    <td>{{ shopcart.quantity * shopcart.price }}</td>
-                                                    <td>
-                                                        <a href="{{ path('shopcart_del', {'id': shopcart.id}) }}" onclick="return confirm('Silinecek Emin misin?');" class = "btn btn-danger">Delete</a>
-                                                    </td>
-                                                </tr>
-                                                {% set total = total + (shopcart.quantity * shopcart.price) %}
-                                            {% else %}
-                                                <tr>
-                                                    <td colspan="5">Shopcart is Empty</td>
-                                                </tr>
-                                            {% endfor %}
-                                            <tr>
-                                                <td colspan="5"> <b>Total Amount: {{ total }} XAF</b></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                        <a href="{{ path('orders_new') }}" class="btn btn-block btn-success btn-large" >Proceed to Order</a>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                    </div>
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Mon Panier</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{{path('shopcart_index')}}">Mon panier</a>
+                    </nav>
                 </div>
             </div>
         </div>
     </section>
+    <!-- End Banner Area -->
+    {{ include('messages.html.twig') }}
+     <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% set total = 0 %}
+                            {% for shopcart in shopcarts %}
+                            <tr>
+                                <td>
+                                    <div class="media">
+                                    
+                                        <div class="d-flex">
+                                            <img src="{{ asset('uploads/images/' ~ shopcart.image) | imagine_filter('shopcart_thumb') }}" alt="{{shopcart.title}}">
+                                        </div>
+                                        <div class="media-body">
+                                            <p>{{shopcart.title}}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h5>{{shopcart.price}} FCFA</h5>
+                                </td>
+                                <td>
+                                    <div class="product_count">
+                                        <input type="number" name="qty" id="sst" max="{{shopcart.amount}}" min="1" value="{{shopcart.quantity}}" title="Quantité:"
+                                            class="input-text qty">
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{shopcart.amount}} ) result.value++;return false;"
+                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                    </div>
+                                    <p style="clor:tomato;" >{{ shopcart.quantity > shopcart.amount ? 'Stock insufissant': '' }}</p>
+                                </td>
+                                <td >
+                                    <h5>{{ shopcart.price * shopcart.quantity }}</h5>
+                                    
+                                </td>
+                                <td>
+                                        <a href="{{ path('shopcart_del', {'id': shopcart.id}) }}" onclick="return confirm('Voulez vous retirez ce produit de votre panier?');" class="genric-btn danger radius" >Retirer</a>
+                                </td>
+                            
+                                
+                            </tr>
+                            {% set total = total + (shopcart.quantity * shopcart.price) %}
+                            {% else %}
+                            <tr>
+                                <td colspan="6"> <b>Votre panier est vide</b></td>
+                            </tr>
+                            {% endfor %}
+                            <tr class="bottom_button">
+                                <td>
+                                    <a class="gray_btn" href="#">MAJ mon panier</a>
+                                </td>
+                                <td>
+
+                                </td>
+                               <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <div class="cupon_text d-flex align-items-center">
+                                        <input type="text" placeholder="Coupon Code">
+                                        <a class="primary-btn" href="#">Appliquer</a>
+                                        <a class="gray_btn" href="#">Annuler</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Sous-Total</h5>
+                                </td>
+                                <td>
+                                    <h5>{{total}} FCFA</h5>
+                                </td>
+                            </tr>
+                            <tr class="shipping_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Livraison</h5>
+                                </td>
+                                <td>
+                                    <div class="shipping_box">
+                                        <ul class="list">
+                                            <li class="active"><a href="#">Frais de livraison: Gratuit</a></li>
+                                        </ul>
+                                        {#<a class="gray_btn" href="#">Update Details</a>#}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                            <td>
+
+                                </td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" href="{{ path('home') }}">Continuez les boutiques</a>
+                                        <a class="primary-btn" href="{{ path('orders_new') }}">Finalisez</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+
+
 {% endblock %}

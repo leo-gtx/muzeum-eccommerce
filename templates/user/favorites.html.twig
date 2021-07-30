@@ -1,0 +1,71 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %} Favories{% endblock %}
+
+{% block body %}
+ <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Mes favories</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">Mes favories</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <section class="lattest-product-area pb-40 category-list">
+					<div id="productList" class="row">
+                    {% if favorites|length > 0 %}
+                    {% for product in favorites %}
+						<!-- single product -->
+						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
+
+								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+								<img class="img-fluid" src="{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}" alt="{{product.slug}}">
+								</a>
+								<div class="product-details">
+									<h6>{{product.title}}</h6>
+									<div class="price">
+										<h6>{{product.price}}</h6><h6> FCFA</h6>
+										<h6 class="l-through">{{product.isPromoted ? product.price + (product.price * 0.4) : product.price + (product.price * 0.15) }} FCFA</h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="{{path('shopcart_new', {'productId':product.id})}}" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Ajouter au panier</p>
+										</a>
+										
+										{# <a href="" class="social-info">
+											<span class="lnr lnr-sync"></span>
+											<p class="hover-text">compare</p>
+										</a> #}
+										<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">voir plus</p>
+										</a>
+										<a href="{{path('user_toggle_favorite', {'id': product.id, 'action':'remove' })}}" class="social-info">
+											<span class="lnr lnr-trash"></span>
+											<p class="hover-text">Retirer</p>
+										</a>
+									</div>
+								</div>
+							
+						</div>
+                    {% endfor %}
+                    {% else %}
+					<div class="col-12">
+						<blockquote class="generic-blockquote">
+							Vous n'avez encore aucun favorie!
+						</blockquote>
+					</div>
+                    {% endif %}
+					</div>
+				</section>
+{% endblock %}

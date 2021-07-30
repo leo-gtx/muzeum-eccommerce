@@ -5,61 +5,74 @@
 {% block description %}{{setting[0].description}}{% endblock %}
 
 {% block body %}
-<div id="contact-page" class="container">
-    <div class="bg">
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Contactez nous</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{path('home')}}">Acceuil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{{path('home_contact')}}">Contact</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- End Banner Area -->
+<!--================Contact Area =================-->
+	<section class="contact_area section_gap_bottom">
+		<div class="container">
+            <iframe id="mapBox" class="mapBox" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6701909936955!2d9.741557214760096!3d4.08739079702789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4b3ad27c5eac367!2sMULTI%20LAYERS%20SOLUTIONS%20(MLS)!5e0!3m2!1sfr!2scm!4v1627296118562!5m2!1sfr!2scm" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="contact-form">
-                    <h2 class="title text-center">Contact Form</h2>
-
-                    <div class="status alert alert-success" style="display: none"></div>
-                    {{ include('messages.html.twig') }}
-                    <form id="main-contact-form" class="contact-form row" name="messages" method="post">
-                        <div class="form-group col-md-6">
-                            <input type="text" id="messages_name" name="messages[name]" class="form-control" required="required" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="email" id="messages_email" name="messages[email]" class="form-control" required="required" placeholder="Email">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <input type="text" id="messages_subject" name="messages[subject]" class="form-control" required="required" placeholder="Subject">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <textarea id="messages_message" name="messages[message]" required="required" class="form-control" rows="8" placeholder="Your Message Here"></textarea>
-                        </div>
-                        <div class="form-group col-md-12">
+            
+			<div class="row">
+                {{ include('messages.html.twig') }}
+				<div class="col-lg-3">
+					<div class="contact_info">
+						<div class="info_item">
+							<i class="lnr lnr-home"></i>
+							<h6>Douala, Cameroun</h6>
+							<p>Bonamoussadi, Carrefour Eto'o</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-phone-handset"></i>
+							<h6><a href="#">+237 697 93 53 20</a></h6>
+							<p>Lundi à Vendredi de 9h à 18h</p>
+						</div>
+						<div class="info_item">
+							<i class="lnr lnr-envelope"></i>
+							<h6><a href="#">support@devmight.com</a></h6>
+							<p>Envoyez nous vos messages quand vous voulez!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<form class="row contact_form"  method="post" id="contactForm" novalidate="novalidate">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input type="text" class="form-control" id="name" name="messages[name]" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control" id="email" name="messages[email]" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" id="subject" name="messages[subject]" placeholder="Enter Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<textarea class="form-control" name="messages[message]" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+							</div>
+						</div>
+						<div class="col-md-12 text-right">
                             <input type="hidden" name="token" value="{{ csrf_token('form-message') }}">
-                            <input type="submit" name="submit" class="btn btn-primary pull-right" value="Send a Message">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="col-sm-8">
-                <div class="contact-info">
-                    <div class="social-networks">
-                        <h2 class="title text-center">Social Networking</h2>
-                        <ul>
-                            <li>
-                                <a href="{{ setting[0].facebook }}" title="Facebook"><i class="fa fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ setting[0].twitter }}" title="Twitter"><i class="fa fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="{{ setting[0].instagram }}" title="Instagram"><i class="fa fa-instagram"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <h2 class="title text-center">Contact Information </h2>
-                    <address>
-                        {{ setting[0].contact |  raw }}
-                    </address>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
+							<button type="submit" value="submit" class="primary-btn">Send Message</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================Contact Area =================-->
     {% endblock %}

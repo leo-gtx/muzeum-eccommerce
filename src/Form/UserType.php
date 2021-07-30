@@ -8,6 +8,7 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -20,16 +21,10 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'ADMIN' => 'ROLE_ADMIN',
-                    'USER' => 'ROLE_USER'
-                ],
-            ])
-
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label'=>'Mot de passe',
                 'mapped' => true,
                 'constraints' => [
                     new NotBlank([
@@ -43,8 +38,12 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('name')
-            ->add('surname')
+            ->add('name',TextType::class,[
+                'label'=>'Nom'
+            ])
+            ->add('surname',TextType::class,[
+                'label'=>'Prénom'
+            ])
             ->add('image', FileType::class, [
                 'label' => 'Image',
                 'mapped' => false,
@@ -59,19 +58,19 @@ class UserType extends AbstractType
                     ])
                 ],
             ])
-            ->add('status', ChoiceType::class, [
-                'choices' => [
-                    'True' => 'True',
-                    'False' => 'False'
-                ],
+            ->add('address',TextType::class,[
+                'label'=>'Addresse'
             ])
-            ->add('address')
-            ->add('phone')
-            ->add('city')
+            ->add('phone',TextType::class,[
+                'label'=>'Telephone'
+            ])
+            ->add('city',TextType::class,[
+                'label'=>'Ville'
+            ])
         ;
 
         // roles field data transformer
-        $builder->get('roles')
+       /* $builder->get('roles')
             ->addModelTransformer(new CallbackTransformer(
                 function ($rolesArray) {
                     // transform the array to a string
@@ -81,7 +80,7 @@ class UserType extends AbstractType
                     // transform the string back to an array
                     return [$rolesString];
                 }
-            ));
+            ));*/
     }
 
     public function configureOptions(OptionsResolver $resolver)

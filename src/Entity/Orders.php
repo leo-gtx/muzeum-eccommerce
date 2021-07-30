@@ -71,6 +71,7 @@ class Orders
      */
     private $created_at;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -207,6 +208,18 @@ class Orders
     public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

@@ -1,15 +1,39 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Register{% endblock %}
+{% extends 'homebase.html.twig' %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Inscription</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">S'inscrire</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-md-12">
+					
+                        {{form_start(registrationForm,{'attr':{'class': 'contact_form'}})}}
+						{{form_widget(registrationForm)}}
+                        <button type="submit" class="primary-btn">Créer mon compte</button>
+                        {{form_end(registrationForm)}}
+					
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}

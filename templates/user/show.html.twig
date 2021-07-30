@@ -3,65 +3,63 @@
 {% block title %}{{ app.user.name }} Profile{% endblock %}
 
 {% block body %}
+<!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Mon Profile</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">Mon profile</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        {{ include('user/usermenu.html.twig') }}
-                    </div>
-                </div>
-                <div class="col-sm-9 padding-right">
+               
+                <div class="col-sm-12">
 
                     <div class="left-sidebar">
                         <div class="brands_products"><!--brands_products-->
-
-                            <h3><a href="#">Edit User Profile Information</a></h3>
                             <table class="table">
                                 <tbody>
-                                <tr>
-                                    <th>Id</th>
-                                    <td>{{ app.user.id }}</td>
+                                 <tr>
+                                    <th>Photo de profile</th>
+                                    <td>{% if app.user.image %}<img src="{{ asset('uploads/images/' ~ app.user.image) | imagine_filter('shopcart_thumb')}}" alt="avatar">{% else %} Aucune de photo de profile {% endif %}</td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
                                     <td>{{ app.user.email }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Roles</th>
-                                    <td>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Password</th>
-                                    <td>{{ app.user.password }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Name</th>
+                                    <th>Nom</th>
                                     <td>{{ app.user.name }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Surname</th>
+                                    <th>Prénom</th>
                                     <td>{{ app.user.surname }}</td>
                                 </tr>
+                               
                                 <tr>
-                                    <th>Image</th>
-                                    <td>{{ app.user.image }}</td>
+                                    <th>Ville</th>
+                                    <td>{{ app.user.city }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status</th>
-                                    <td>{{ app.user.status }}</td>
+                                    <th>Téléphone</th>
+                                    <td>{{ app.user.phone }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Created_at</th>
-                                    <td>{{ app.user.createdAt ? app.user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Updated_at</th>
-                                    <td>{{ app.user.updatedAt ? app.user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <th>Statut</th>
+                                    <td>{{ app.user.status ? 'Activé': 'Désactivé' }}</td>
                                 </tr>
                                 </tbody>
                             </table>
-                            <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="btn btn-success">Edit Profile</a>
+                            <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="genric-btn success circle arrow">Modifier mon profile</a>
                         </div>
                     </div>
 

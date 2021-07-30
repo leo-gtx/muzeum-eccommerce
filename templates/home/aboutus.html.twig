@@ -5,12 +5,27 @@
 {% block description %}{{setting[0].description}}{% endblock %}
 
 {% block body %}
+<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>A propos de nous</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{{path('home')}}">Acceuil<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{{path('home_about')}}">A propos</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+<!-- End Banner Area -->
     <section>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="blog-post-area">
-                        <h2 class="title text-center">About Us</h2>
+
                         <div class="single-blog-post">
                             {{ setting[0].aboutus | raw }}
                         </div>

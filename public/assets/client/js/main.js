@@ -50,7 +50,7 @@ $(document).ready(function(){
     ==================================*/
     $(".active-banner-slider").owlCarousel({
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
@@ -63,7 +63,7 @@ $(document).ready(function(){
     ==================================*/
     $(".active-product-area").owlCarousel({
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,
@@ -76,7 +76,7 @@ $(document).ready(function(){
     ==================================*/
     $(".s_Product_carousel").owlCarousel({
       items:1,
-      autoplay:false,
+      autoplay:true,
       autoplayTimeout: 5000,
       loop:true,
       nav:false,
@@ -88,7 +88,7 @@ $(document).ready(function(){
     ==================================*/
     $(".active-exclusive-product-slider").owlCarousel({
         items:1,
-        autoplay:false,
+        autoplay:true,
         autoplayTimeout: 5000,
         loop:true,
         nav:true,

@@ -81,7 +81,13 @@
 						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
 
 								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
-								<img class="img-fluid" src="{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}" alt="{{product.slug}}">
+									<div class="scene" style="height: 300px;width: 200px;">
+										<div class="dvd-box">
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}');">{{product.title}}</div>
+											<div class="cover back">{{product.title}}</div>
+											<div class="spine"></div>
+										</div>
+									</div>
 								</a>
 								<div class="product-details">
 									<h6>{{product.title}}</h6>

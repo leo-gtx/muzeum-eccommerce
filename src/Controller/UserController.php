@@ -49,7 +49,7 @@ class UserController extends AbstractController
     public function products(ProductRepository $productRepository): Response
     {
         $user = $this->getUser();
-        return $this->render('/user/product .html.twig', [
+        return $this->render('/user/product.html.twig', [
             'products' => $productRepository->findBy(['userid'=>$user->getId()]),
         ]);
     }
@@ -201,7 +201,7 @@ class UserController extends AbstractController
     /**
      * @Route("/newcomment/{id}", name="user_new_comment", methods={"GET","POST"})
      */
-    public function newcomment(Request $request, $id): Response
+    public function newcomment(Request $request, $id, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -209,10 +209,16 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //if ($this->isCsrfTokenValid('comment', $submittedToken)) {
+                $oldComment = $commentRepository->findBy(['author'=>$this->getUser()]);
+                if(sizeof($oldComment) > 0){
+                    $this->addFlash('warning','Vous avez déjà commenté cet article!');
+
+                    return $this->redirectToRoute('product_show', ['id' => $id]);
+                }
                 $entityManager = $this->getDoctrine()->getManager();
                 $comment->setAuthor($this->getUser());
                 $comment->setStatus('New');
-                $comment->setCreatedAt(new \DateTime('now'));
+                $comment->setCreatedAt(new \DateTimeImmutable());
                 $comment->setIp($_SERVER['REMOTE_ADDR']);
                 $comment->setProductid($id);
                 $user = $this->getUser();

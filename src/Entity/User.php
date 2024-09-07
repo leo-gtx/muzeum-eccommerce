@@ -80,15 +80,15 @@ class User implements UserInterface
      */
     private $city;
 
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $favorites = [];
+    // /**
+    //  * @ORM\Column(type="array", nullable=true)
+    //  */
+    // private $favorites = [];
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
-        $this->favorites = [];
+        // $this->favorites = [];
     }
 
     public function getId(): ?int
@@ -277,16 +277,16 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getFavorites(): ?array
-    {
-        return $this->favorites ? $this->favorites : [];
-    }
+    // public function getFavorites(): ?array
+    // {
+    //     return $this->favorites ? $this->favorites : [];
+    // }
 
-    public function setFavorites(?array $favorites): self
-    {
-        $this->favorites = $favorites;
+    // public function setFavorites(?array $favorites): self
+    // {
+    //     $this->favorites = $favorites;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
 }

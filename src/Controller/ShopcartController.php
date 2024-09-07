@@ -34,10 +34,10 @@ class ShopcartController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.userid = $id AND p.id = s.productid ";
+                WHERE s.userid = :userid AND p.id = s.productid ";
 
         $statement = $em->getConnection()->prepare($sql);
-        $statement->bindValue('userid', $user->getid());
+        $statement->bindValue(':userid', $user->getid());
         $statement->execute();
         $shopcart = $statement->fetchAll();
         //dump($shopcart);

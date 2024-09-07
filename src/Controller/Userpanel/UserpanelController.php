@@ -45,7 +45,7 @@ class UserpanelController extends AbstractController
                 $user->setCity($request->request->get(["city"]));
                 $user->setPhone($request->request->get(["phone"]));
                 $this->getDoctrine()->getManager()->flush();
-                $this->addFlash('success','Üye bilgisi başarıyla güncellendi');
+                $this->addFlash('success','Modification enregistrée!');
                 return $this->redirectToRoute("userpanel_show");
             }
 

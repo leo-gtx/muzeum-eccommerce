@@ -32,7 +32,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository)
+    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
         $slider = $productRepository->findBy(['status'=> 'True'],['title'=>'ASC'],3);
@@ -70,7 +70,7 @@ class HomeController extends AbstractController
                 $limit /*limit per page*/
                 );
         }
-      
+        $shopcarts = $shopcartRepository->findBy(['userid'=>$this->getUser()]);
         //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
         // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
@@ -81,7 +81,7 @@ class HomeController extends AbstractController
             'slider' => $slider,
             'products' => $products,
             'categories' => $categories,
-           // 'countItemsInCard' => count($shopcart)
+            'countItemsInCard' => count($shopcarts),
             'promotedProducts' => $promotedProducts,
         ]);
     }

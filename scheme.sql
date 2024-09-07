@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Tablo için tablo yapısı `category`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL,
   `parentid` int(11) DEFAULT NULL,
   `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -57,7 +57,7 @@ INSERT INTO `category` (`id`, `parentid`, `title`, `keywords`, `description`, `i
 -- Tablo için tablo yapısı `comment`
 --
 
-CREATE TABLE `comment` (
+CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL,
   `subject` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `comment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -97,7 +97,7 @@ INSERT INTO `comment` (`id`, `subject`, `comment`, `status`, `ip`, `userid`, `cr
 -- Tablo için tablo yapısı `image`
 --
 
-CREATE TABLE `image` (
+CREATE TABLE IF NOT EXISTS `image` (
   `id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `title` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -137,7 +137,7 @@ INSERT INTO `image` (`id`, `product_id`, `title`, `image`) VALUES
 -- Tablo için tablo yapısı `messages`
 --
 
-CREATE TABLE `messages` (
+CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL,
   `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `subject` varchar(75) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -188,7 +188,7 @@ INSERT INTO `messages` (`id`, `name`, `subject`, `message`, `status`, `ip`, `not
 -- Tablo için tablo yapısı `migration_versions`
 --
 
-CREATE TABLE `migration_versions` (
+CREATE TABLE IF NOT EXISTS `migration_versions` (
   `version` varchar(14) COLLATE utf8mb4_unicode_ci NOT NULL,
   `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -220,7 +220,7 @@ INSERT INTO `migration_versions` (`version`, `executed_at`) VALUES
 -- Tablo için tablo yapısı `orders`
 --
 
-CREATE TABLE `orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL,
   `userid` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
@@ -266,7 +266,7 @@ INSERT INTO `orders` (`id`, `userid`, `amount`, `name`, `address`, `city`, `phon
 -- Tablo için tablo yapısı `order_detail`
 --
 
-CREATE TABLE `order_detail` (
+CREATE TABLE IF NOT EXISTS `order_detail` (
   `id` int(11) NOT NULL,
   `orderid` int(11) DEFAULT NULL,
   `userid` int(11) DEFAULT NULL,
@@ -317,7 +317,7 @@ INSERT INTO `order_detail` (`id`, `orderid`, `userid`, `productid`, `price`, `qu
 -- Tablo için tablo yapısı `product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -366,7 +366,7 @@ INSERT INTO `product` (`id`, `category_id`, `title`, `keywords`, `description`, 
 -- Tablo için tablo yapısı `setting`
 --
 
-CREATE TABLE `setting` (
+CREATE TABLE IF NOT EXISTS `setting` (
   `id` int(11) NOT NULL,
   `title` varchar(150) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -402,7 +402,7 @@ INSERT INTO `setting` (`id`, `title`, `keywords`, `description`, `company`, `add
 -- Tablo için tablo yapısı `shopcart`
 --
 
-CREATE TABLE `shopcart` (
+CREATE TABLE IF NOT EXISTS `shopcart` (
   `id` int(11) NOT NULL,
   `userid` int(11) DEFAULT NULL,
   `productid` int(11) DEFAULT NULL,

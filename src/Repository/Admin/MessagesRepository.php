@@ -4,7 +4,8 @@ namespace App\Repository\Admin;
 
 use App\Entity\Admin\Messages;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+//use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Messages|null find($id, $lockMode = null, $lockVersion = null)

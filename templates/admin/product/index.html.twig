@@ -37,7 +37,7 @@
     </div>
 
     <!-- END: Subheader -->
-    <div class="m-content">
+    <div class="d-flex m-content">
 
         <!--begin::Portlet-->
         <div class="m-portlet">
@@ -63,7 +63,7 @@
                         <th>Description</th>
                         <th>Image</th>
                         <th>Amount</th>
-                        <th>Detail</th>
+                       
                         <th>Price</th>
                         <th>Type</th>
                         <th>Year</th>
@@ -83,7 +83,7 @@
                             <td>{{ product.description }}</td>
                             <td><img src="{{ asset('uploads/images/' ~ product.image) }}" height="40"> </td>
                             <td>{{ product.amount }}</td>
-                            <td>{{ product.detail }}</td>
+                         
                             <td>{{ product.price }}</td>
                             <td>{{ product.type }}</td>
                             <td>{{ product.year }}</td>
@@ -116,9 +116,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-
-
-
             </div>
         </div>
     </div>

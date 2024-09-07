@@ -49,10 +49,10 @@ class OrdersController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.userid = $userid AND p.id = s.productid ";
+                WHERE s.userid = :userid AND p.id = s.productid ";
 
         $statement = $em->getConnection()->prepare($sql);
-        $statement->bindValue('userid', $user->getid());
+        $statement->bindValue(':userid', $user->getid());
         $statement->execute();
         $shopcart = $statement->fetchAll();
 
@@ -101,26 +101,30 @@ class OrdersController extends AbstractController
                 $orderdetail = $orderDetailRepository->findBy(
                     ['orderid' => $orderid]
                 );
-                $message = (new \Swift_Message('Museum Commande'))
-                // On attribue l'expéditeur
-                ->setFrom($this->getParameter('app.address'))
-                // On attribue le destinataire
-                ->setTo($user->getEmail())
-                // On crée le texte avec la vue
-                ->setBody(
-                    $this->renderView(
-                        'email/confirmation.html.twig', [
-                            'orderDetail' => $orderdetail,
-                            'order' => $orders,
+                try {
+                    $message = (new \Swift_Message('Museum Commande'))
+                    // On attribue l'expéditeur
+                    ->setFrom($this->getParameter('app.address'))
+                    // On attribue le destinataire
+                    ->setTo($user->getEmail())
+                    // On crée le texte avec la vue
+                    ->setBody(
+                        $this->renderView(
+                            'email/confirmation.html.twig', [
+                                'orderDetail' => $orderdetail,
+                                'order' => $orders,
 
-                        ]
-                    ),
-                    'text/html'
-                )
-            ;
-            $mailer->send($message);
-            $message->setTo('support@devmight.com');
-            $mailer->send($message);
+                            ]
+                        ),
+                        'text/html'
+                    );
+                    $mailer->send($message);
+                    $message->setTo('leonel@ndlpixel.com');
+                    $mailer->send($message);
+                } catch (Swift_TransportException $e) {
+                    echo $e->getMessage();
+                }
+                
                 return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
             }
 

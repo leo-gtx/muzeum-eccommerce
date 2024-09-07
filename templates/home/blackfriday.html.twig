@@ -37,13 +37,23 @@
 						
 						<!-- single exclusive carousel -->
 						<div class="single-exclusive-slider">
-							<img class="img-fluid" src="{{ asset('uploads/images/' ~ product.image) | imagine_filter('exclusive_thumb') }}" alt="{{product.slug}}">
+							<a href="{{path('product_show', {'id':product.id})}}">
+								<div class="scene">
+									<div class="dvd-box">
+										<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('exclusive_thumb') }}');">{{product.slug}}</div>
+										<div class="cover back"></div>
+										<div class="spine"></div>
+									</div>
+								</div>
+							</a>
 							<div class="product-details">
+								<a href="{{path('product_show', {'id':product.id})}}">
 								<div class="price">
 									<h6>{{product.price}} FCFA</h6>
 									<h6 class="l-through">{{product.price + (product.price * 0.40)}} FCFA</h6>
 								</div>
 								<h4>{{product.title}}</h4>
+								</a>
 								<div class="add-bag d-flex align-items-center justify-content-center">
 									<a class="add-btn" href="{{path('shopcart_new', {'productId':product.id})}}"><span class="ti-bag"></span></a>
 									<span class="add-text text-uppercase">Ajouter au panier</span>

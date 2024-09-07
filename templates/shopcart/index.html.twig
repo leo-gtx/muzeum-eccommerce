@@ -42,7 +42,13 @@
                                     <div class="media">
                                     
                                         <div class="d-flex">
-                                            <img src="{{ asset('uploads/images/' ~ shopcart.image) | imagine_filter('shopcart_thumb') }}" alt="{{shopcart.title}}">
+                                            <div class="scene" style="height: 200px;width: 100px;">
+                                                <div class="dvd-box">
+                                                    <div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ shopcart.image) | imagine_filter('shopcart_thumb') }}');">{{shopcart.title}}</div>
+                                                    <div class="cover back">{{shopcart.title}}</div>
+                                                    <div class="spine"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="media-body">
                                             <p>{{shopcart.title}}</p>
@@ -79,7 +85,7 @@
                                 <td colspan="6"> <b>Votre panier est vide</b></td>
                             </tr>
                             {% endfor %}
-                            <tr class="bottom_button">
+                            <!-- <tr class="bottom_button">
                                 <td>
                                     <a class="gray_btn" href="#">MAJ mon panier</a>
                                 </td>
@@ -99,44 +105,44 @@
                                         <a class="gray_btn" href="#">Annuler</a>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
                                 <td>
                                     <h5>Sous-Total</h5>
                                 </td>
                                 <td>
                                     <h5>{{total}} FCFA</h5>
                                 </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
                             </tr>
                             <tr class="shipping_area">
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
                                 <td>
                                     <h5>Livraison</h5>
                                 </td>
                                 <td>
                                     <div class="shipping_box">
                                         <ul class="list">
-                                            <li class="active"><a href="#">Frais de livraison: Gratuit</a></li>
+                                            <li class="active"><a href="#">Frais de livraison: Gratuite</a></li>
                                         </ul>
                                         {#<a class="gray_btn" href="#">Update Details</a>#}
                                     </div>
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
                                 </td>
                             </tr>
                             <tr class="out_button_area">
@@ -144,19 +150,19 @@
 
                                 </td>
                                 <td>
-
+                                    
                                 </td>
                                 <td>
-
-                                </td>
-                                            <td>
-
+                                    
                                 </td>
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="{{ path('home') }}">Continuez les boutiques</a>
                                         <a class="primary-btn" href="{{ path('orders_new') }}">Finalisez</a>
                                     </div>
+                                </td>
+                                <td>
+                                    
                                 </td>
                             </tr>
                         </tbody>

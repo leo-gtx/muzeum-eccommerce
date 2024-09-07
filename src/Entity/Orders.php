@@ -71,6 +71,26 @@ class Orders
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPaid;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentLink;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $paymentId;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $deliveryFees;
+
 
     public function getId(): ?int
     {
@@ -220,6 +240,54 @@ class Orders
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(?bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getPaymentLink(): ?string
+    {
+        return $this->paymentLink;
+    }
+
+    public function setPaymentLink(?string $paymentLink): self
+    {
+        $this->paymentLink = $paymentLink;
+
+        return $this;
+    }
+
+    public function getPaymentId(): ?string
+    {
+        return $this->paymentId;
+    }
+
+    public function setPaymentId(?string $paymentId): self
+    {
+        $this->paymentId = $paymentId;
+
+        return $this;
+    }
+
+    public function getDeliveryFees(): ?int
+    {
+        return $this->deliveryFees;
+    }
+
+    public function setDeliveryFees(?int $deliveryFees): self
+    {
+        $this->deliveryFees = $deliveryFees;
 
         return $this;
     }

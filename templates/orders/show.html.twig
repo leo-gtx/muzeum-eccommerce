@@ -24,6 +24,15 @@
 	<section class="order_details section_gap">
 		<div class="container">
 			<h3 class="title_confirmation">Merci. Votre commande à bien été reçu.</h3>
+			{% if order.isPaid %}
+				<div style="height:100px;width:100%;">
+						<img src="{{asset('assets/client/img/paid.png')}}" alt="muzeum-logo">
+				</div>
+			{% else %}
+				<div class="my-3 d-flex justify-content-center">
+                    <a class="primary-btn" href="{{ order.paymentLink }}">Procéder Au Paiement</a>
+                </div>
+			{% endif %}
 			<div class="row order_d_inner">
 				<div class="col-lg-4">
 					<div class="details_item">
@@ -32,8 +41,8 @@
 							<li><a href="#"><span>Numéro de la commande</span> : #{{order.id}}</a></li>
 							<li><a href="#"><span>Date</span> : {{order.createdAt|date('d M Y H:i:s')}}</a></li>
 							<li><a href="#"><span>Total</span> : {{order.amount}} FCFA</a></li>
-							<li><a href="#"><span>Methode de paiement</span> : Paiement à livraison</a></li>
                             <li><a href="#"><span>Statut</span> : {{order.status}}</a></li>
+							<li><a href="#"><span>Payé</span> : {{order.isPaid ? '':'En attente du paiement'}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -109,6 +118,7 @@
 									<p>Gratuit</p>
 								</td>
 							</tr>
+							
 							<tr>
 								<td>
 									<h4>Total</h4>
@@ -120,8 +130,20 @@
 									<p>{{order.amount}} FCFA</p>
 								</td>
 							</tr>
+							<tr>
+							<td></td>
+							<td></td>
+								<td>
+									
+								</td>
+							</tr>
 						</tbody>
 					</table>
+					{% if not order.isPaid %}
+						<div class="checkout_btn_inner d-flex justify-content-center">
+							<a class="primary-btn" href="{{ order.paymentLink }}">Procéder Au Paiement</a>
+						</div>
+					{% endif %}
 				</div>
 			</div>
 		</div>

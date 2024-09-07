@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * @Route("/orders")
@@ -119,13 +120,44 @@ class OrdersController extends AbstractController
                         'text/html'
                     );
                     $mailer->send($message);
-                    $message->setTo('leonel@ndlpixel.com');
-                    $mailer->send($message);
+                    //$message->setTo('leonel@ndlpixel.com');
+                    //$mailer->send($message);
                 } catch (Swift_TransportException $e) {
                     echo $e->getMessage();
                 }
-                
-                return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
+                // Redirect To Payment
+                $orderId = $orders->getId();
+                $data = [
+                    'shopName'      => "MUZEUM",
+                    'area'          => "XAF",
+                    'amount'        => $orders->getAmount(),
+                    'email'         => $user->getEmail(),
+                    'orderId'     => $orderId,
+                    'description' => 'Paiement de la commande #'.$orderId.' sur Muzeum📦',
+                    'apiKey'      => 'RyR49yPWLC57ccf1f4FmBtq2m_zB6V_oiFH_pCnzFz0',
+                    'currency'      => "XAF",
+                    'successUrl'  =>  '',
+                    'failureUrl'   => '',
+                    'customer'      => [
+                        'email'        => $user->getEmail(),
+                        "phone_number" => $user->getPhone(),
+                        "name"         => $user->getName()
+                    ],
+                ];
+                $client = HttpClient::create();
+                $response = $client->request(
+                    'POST',
+                    'https://checkout.soleaspay.com?mode=api',
+                    [
+                        'body' => $data
+                    ]
+                    
+                );
+                $orders->setPaymentLink($response->toArray()['link']);
+                $orders->setIsPaid(false);
+                $entityManager->persist($orders);
+                $entityManager->flush();
+                return $this->redirect($response->toArray()['link']);
             }
 
 

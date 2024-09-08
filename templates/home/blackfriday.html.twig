@@ -42,7 +42,7 @@
 									<div class="dvd-box">
 										<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('exclusive_thumb') }}');">{{product.slug}}</div>
 										<div class="cover back"></div>
-										<div class="spine"></div>
+										<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
 									</div>
 								</div>
 							</a>

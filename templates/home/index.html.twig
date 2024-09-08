@@ -84,8 +84,8 @@
 									<div class="scene" style="height: 300px;width: 200px;">
 										<div class="dvd-box">
 											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}');">{{product.title}}</div>
-											<div class="cover back">{{product.title}}</div>
-											<div class="spine"></div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
 										</div>
 									</div>
 								</a>

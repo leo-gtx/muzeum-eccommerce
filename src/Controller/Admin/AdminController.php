@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
+use App\Repository\ShopcartRepository;
+
 
 
 /**
@@ -19,10 +22,28 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_admin")
      */
-    public function index()
+    public function index(
+        UserRepository $userRepository,
+        OrdersRepository $ordersRepository,
+        ShopcartRepository $shopcartRepository
+    )
     {
+        $users = $userRepository->findAll();
+        $orders = $ordersRepository->findAll();
+        $shopcarts = $shopcartRepository->findAll();
+        $totalRevenue = $ordersRepository->getTotalRevenue();
+        $totalPotentialRevenue = $ordersRepository->getTotalPotentialRevenue();
+        $monthlyRevenue = $ordersRepository->getMonthlyRevenue();
+        $monthlyPotentialRevenue = $ordersRepository->getMonthlyPotentialRevenue();
         return $this->render('admin/admin/index.html.twig', [
             'controller_name' => 'AdminController',
+            'customers'=> count($users),
+            'orders' => count($orders),
+            'abandonnedCarts' => count($shopcarts),
+            'totalRevenue' => $totalRevenue,
+            'totalPotentialRevenue' => $totalPotentialRevenue,
+            'monthlyRevenue' => $monthlyRevenue,
+            'monthlyPotentialRevenue' => $monthlyPotentialRevenue,
         ]);
     }
 

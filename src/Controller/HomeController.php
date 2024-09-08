@@ -44,7 +44,7 @@ class HomeController extends AbstractController
         $promotedProducts = $productRepository->findBy(['isPromoted'=>true],['title'=>'ASC']);
         
         if(empty($limit)){
-            $limit = 12;
+            $limit = 18;
         }
         if(empty($order) || $order != 'ASC' && $order != 'DESC'){
             $order = 'ASC';

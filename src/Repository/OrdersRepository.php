@@ -48,4 +48,69 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
     */
+    /**
+     * Get total revenue from paid orders
+     */
+    public function getTotalRevenue(): float
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('SUM(o.amount)')
+            ->where('o.isPaid = :isPaid')
+            ->setParameter('isPaid', true);
+
+        return (float) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get total potential revenue from all orders (paid and unpaid)
+     */
+    public function getTotalPotentialRevenue(): float
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('SUM(o.amount)');
+
+        return (float) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get revenue for each month from Jan to Dec
+     */
+    public function getMonthlyRevenue(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('MONTH(o.created_at) as month, SUM(o.amount) as totalRevenue')
+            ->where('o.isPaid = :isPaid')
+            ->setParameter('isPaid', true)
+            ->groupBy('month')
+            ->orderBy('month', 'ASC');
+
+        return $this->formatMonthlyResult($qb->getQuery()->getResult());
+    }
+
+    /**
+     * Get potential revenue for each month from Jan to Dec
+     */
+    public function getMonthlyPotentialRevenue(): array
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('MONTH(o.created_at) as month, SUM(o.amount) as totalPotentialRevenue')
+            ->groupBy('month')
+            ->orderBy('month', 'ASC');
+
+        return $this->formatMonthlyResult($qb->getQuery()->getResult());
+    }
+
+    /**
+     * Helper method to format the monthly result, filling in months with no orders
+     */
+    private function formatMonthlyResult(array $data): array
+    {
+        $monthlyRevenue = array_fill(1, 12, 0); // Initialize array with 0 from Jan to Dec
+
+        foreach ($data as $row) {
+            $monthlyRevenue[$row['month']] = (float) $row['totalRevenue'];
+        }
+
+        return $monthlyRevenue;
+    }
 }

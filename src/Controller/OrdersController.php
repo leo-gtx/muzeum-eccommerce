@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/orders")
@@ -34,7 +35,7 @@ class OrdersController extends AbstractController
     /**
      * @Route("/new", name="orders_new", methods={"GET","POST"})
      */
-    public function new(Request $request,OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, \Swift_Mailer $mailer): Response
+    public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, \Swift_Mailer $mailer): Response
     {
         $orders = new Orders();
         $form = $this->createForm(OrdersType::class, $orders);
@@ -127,6 +128,8 @@ class OrdersController extends AbstractController
                 }
                 // Redirect To Payment
                 $orderId = $orders->getId();
+                $successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId]);
+                $failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId]);
                 $data = [
                     'shopName'      => "MUZEUM",
                     'area'          => "XAF",
@@ -136,8 +139,8 @@ class OrdersController extends AbstractController
                     'description' => 'Paiement de la commande #'.$orderId.' sur Muzeum📦',
                     'apiKey'      => 'RyR49yPWLC57ccf1f4FmBtq2m_zB6V_oiFH_pCnzFz0',
                     'currency'      => "XAF",
-                    'successUrl'  =>  '',
-                    'failureUrl'   => '',
+                    'successUrl'  =>  $successUrl,
+                    'failureUrl'   => $failedUrl,
                     'customer'      => [
                         'email'        => $user->getEmail(),
                         "phone_number" => $user->getPhone(),
@@ -169,6 +172,25 @@ class OrdersController extends AbstractController
             'shopcart'=>$shopcart
         ]);
     }
+
+     /**
+     * @Route("/confirm/{id}", name="orders_confirm", methods={"GET"})
+     */
+    public function confirm(Request $request, Orders $order, OrdersRepository $ordersRepository): Response
+    {
+        $user = $this->getUser(); // Calling login user data
+        $userid = $user->getid();
+        $orderid = $order->getid();
+        $order = $ordersRepository->find($orderid);
+        $order->setIsPaid(true);
+        var_dump($request);
+        //$order->setPaymentId($request->get('id'));
+        $entityManager->persist($order);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
+    }
+
 
     /**
      * @Route("/{id}", name="orders_show", methods={"GET"})

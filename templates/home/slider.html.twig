@@ -25,8 +25,8 @@
 									<div class="scene">
 										<div class="dvd-box">
 											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ rs.image) | imagine_filter('slider_thumb') }}');">DVD Cover Front</div>
-											<div class="cover back">DVD Cover Back</div>
-											<div class="spine"></div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{rs.title}}</span></div>
 										</div>
 									</div>
                                 </a>

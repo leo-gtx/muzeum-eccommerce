@@ -26,9 +26,8 @@ class OrdersController extends AbstractController
     public function index(OrdersRepository $ordersRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
-        $userid = $user->getid();
         return $this->render('orders/index.html.twig', [
-            'orders' => $ordersRepository->findBy(['userid' => $userid]),
+            'orders' => $ordersRepository->findBy(['user' => $user], ['created_at'=> 'DESC']),
         ]);
     }
 
@@ -42,7 +41,7 @@ class OrdersController extends AbstractController
         $form->handleRequest($request);
 
         $user = $this->getUser(); // Calling login user data
-        $userid = $user->getid();
+        $userid = $user->getId();
         $total = $shopcartRepository->getUserShopCartTotal($userid); // Get total amount of user shopcart
         //Get shopcart items
         $em = $this->getDoctrine()->getManager();
@@ -51,7 +50,7 @@ class OrdersController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.userid = :userid AND p.id = s.productid ";
+                WHERE s.user = :userid AND p.id = s.productid ";
 
         $statement = $em->getConnection()->prepare($sql);
         $statement->bindValue(':userid', $user->getid());
@@ -64,7 +63,7 @@ class OrdersController extends AbstractController
                 // Kredi kartı bilgilerini ilgili banka servisine gönder
                 // Onay gelirse kaydetmeye devam et yoksa order sayfasına hata gönder
                 $entityManager = $this->getDoctrine()->getManager();
-                $orders->setUserid($userid);
+                $orders->setUser($user);
                 $orders->setAmount($total);
                 $orders->setCreatedAt(new \DateTime('now'));
                 $orders->setStatus('New');
@@ -73,14 +72,14 @@ class OrdersController extends AbstractController
 
                 $orderid = $orders->getId(); // Get last insert orders data id
 
-                $shopcart = $shopcartRepository->getUserShopCart($userid);
+                $shopcart = $shopcartRepository->getUserShopCart($user);
 
                 foreach ($shopcart as $item) {
                     $orderdetail = new OrderDetail();
                     // Filling OrderDetails data from shopcart
-                    $orderdetail->setOrderid($orderid);
-                    $orderdetail->setUserid($user->getid()); // login user id
-                    $orderdetail->setProductid($item["productid"]);
+                    $orderdetail->setOrderParent($orders);
+                    $orderdetail->setUser($user); // login user id
+                    $orderdetail->setProduct($item["product"]);
                     $orderdetail->setPrice($item["price"]);
                     $orderdetail->setQuantity($item["quantity"]);
                     $orderdetail->setAmount($item["total"]);
@@ -93,15 +92,15 @@ class OrdersController extends AbstractController
                 // Delete User Shopcart Products
                 $entityManager = $this->getDoctrine()->getManager();
                 $query = $entityManager->createQuery('
-                DELETE FROM App\Entity\Shopcart s WHERE s.userid=:userid
+                DELETE FROM App\Entity\Shopcart s WHERE s.user=:user
                 ')
-                    ->setParameter('userid', $userid);
+                    ->setParameter('user', $userid);
                 $query->execute();
                 $this->addFlash('success', 'Votre commande à été effectué!');
 
                 //Send an email notification
                 $orderdetail = $orderDetailRepository->findBy(
-                    ['orderid' => $orderid]
+                    ['orderParent' => $orders]
                 );
                 try {
                     $message = (new \Swift_Message('Museum Commande'))
@@ -128,8 +127,10 @@ class OrdersController extends AbstractController
                 }
                 // Redirect To Payment
                 $orderId = $orders->getId();
-                $successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId]);
-                $failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId]);
+                //$successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
+                //$failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
+                $successUrl = "https://my-muzeum.com/product/26";
+                $failedUrl = "https://my-muzeum.com/product/26";
                 $data = [
                     'shopName'      => "MUZEUM",
                     'area'          => "XAF",
@@ -179,12 +180,12 @@ class OrdersController extends AbstractController
     public function confirm(Request $request, Orders $order, OrdersRepository $ordersRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
-        $userid = $user->getid();
-        $orderid = $order->getid();
-        $order = $ordersRepository->find($orderid);
+        $orderid = $order->getId();
+        $order = $ordersRepository->find($order);
         $order->setIsPaid(true);
-        var_dump($request);
-        //$order->setPaymentId($request->get('id'));
+        $data = json_decode($request->query('soleaspay_data'));
+        $order->setPaymentId($data->payId);
+        $order->setStatus('completed');
         $entityManager->persist($order);
         $entityManager->flush();
         
@@ -198,11 +199,9 @@ class OrdersController extends AbstractController
     public function show(Orders $order, OrderDetailRepository $orderDetailRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
-        $userid = $user->getid();
-        $orderid = $order->getid();
         
         $orderdetail = $orderDetailRepository->findBy(
-            ['orderid' => $orderid]
+            ['orderParent' => $order]
         );
         return $this->render('orders/show.html.twig', [
             'order' => $order,

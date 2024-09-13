@@ -51,12 +51,12 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Parentid</th>
+                        <th>Parent</th>
                         <th>Title</th>
                         <th>Keywords</th>
                         <th>Description</th>
                         <th>Image</th>
-                        <th>Status</th>
+                        <th>Active</th>
                         <th>actions</th>
                     </tr>
                     </thead>
@@ -64,12 +64,12 @@
                     {% for category in categories %}
                         <tr>
                             <td>{{ category.id }}</td>
-                            <td>{{ category.parentid }}</td>
+                            <td>{{ category.parent ? category.parent.title:'' }}</td>
                             <td>{{ category.title }}</td>
                             <td>{{ category.keywords }}</td>
                             <td>{{ category.description }}</td>
                             <td>{{ category.image }}</td>
-                            <td>{{ category.status }}</td>
+                            <td>{{ category.isActive ? 'Oui': 'Non' }}</td>
                             <td>
                                 <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-info">Show</a>
                             </td>

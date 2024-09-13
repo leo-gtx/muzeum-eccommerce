@@ -1,0 +1,156 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %}{{setting[0].title}}{% endblock %}
+{% block keywords %}{{setting[0].keywords}}{% endblock %}
+{% block description %}{{setting[0].description}}{% endblock %}
+{% block stylesheets %}
+<style>
+
+</style>
+{% endblock %}
+
+{% block body %}
+    
+	
+	<!-- start features Area -->
+	<section class="features-area section_gap">
+		<div class="container">
+			<div class="row features-inner">
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('assets/client/img/features/f-icon1.png')}}" alt="">
+						</div>
+						<h6>Free Delivery</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('assets/client/img/features/f-icon2.png')}}" alt="">
+						</div>
+						<h6>Return Policy</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('assets/client/img/features/f-icon3.png')}}" alt="">
+						</div>
+						<h6>24/7 Support</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+				<!-- single features -->
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="single-features">
+						<div class="f-icon">
+							<img src="{{asset('assets/client/img/features/f-icon4.png')}}" alt="">
+						</div>
+						<h6>Secure Payment</h6>
+						<p>Free Shipping on all order</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end features Area -->
+    <!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-3 col-lg-4 col-md-5">
+				{% block sidebar %} {% include('home/sidebar.html.twig') %}{% endblock %}
+			</div>
+			<div class="col-xl-9 col-lg-8 col-md-7">
+				<!-- Start Filter Bar -->
+				{% include('home/filterbar.html.twig') %}
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div id="productList" class="row">
+                    {% if products|length > 0 %}
+                    {% for product in products %}
+						<!-- single product -->
+						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
+
+								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+									<div class="scene" style="height: 300px;width: 200px;">
+										<div class="dvd-box">
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}');">{{product.title}}</div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
+										</div>
+									</div>
+								</a>
+								<div class="product-details">
+									<h6>{{product.title}}</h6>
+									<div class="price">
+										<h6>{{product.price}}</h6><h6> FCFA</h6>
+										<h6 class="l-through">{{product.isPromoted ? product.price + (product.price * 0.4) : product.price + (product.price * 0.15) }} FCFA</h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="{{path('shopcart_new', {'productId':product.id})}}" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Ajouter au panier</p>
+										</a>
+										<a href="{{path('user_toggle_favorite', {'id': product.id })}}" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Favorie</p>
+										</a>
+										{# <a href="" class="social-info">
+											<span class="lnr lnr-sync"></span>
+											<p class="hover-text">compare</p>
+										</a> #}
+										<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">voir plus</p>
+										</a>
+									</div>
+								</div>
+							
+						</div>
+                    {% endfor %}
+                    {% else %}
+					<div class="col-12">
+						<blockquote class="generic-blockquote">
+							Aucun produit trouvé!
+						</blockquote>
+					</div>
+                    {% endif %}
+					</div>
+				</section>
+				<!-- End Best Seller -->
+				<!-- Start Filter Bar -->
+				{% include('home/filterbar.html.twig') %}
+				<!-- End Filter Bar -->
+			</div>
+		</div>
+	</div>
+
+
+
+{% endblock %}
+
+ {% block javascripts %} 
+{{parent()}}
+<script>
+$("#price-range").on("click",function(){
+	$("#productList .single-product").filter(function (index){
+		
+		if( $(this).data("price") >= parseInt($("#lower-value").text(),10) && $(this).data("price") <= parseInt($("#upper-value").text(),10)){
+			$(this).show()
+		} else{
+			$(this).hide()
+		}
+
+	})		
+})
+
+</script>
+{% endblock %} 

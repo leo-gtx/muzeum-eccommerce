@@ -11,10 +11,14 @@
 
 {% block body %}
     {% block slider %} {% include('home/slider.html.twig') %}{% endblock %}
-	{% if setting[0].isBlackfriday %}
-	{% include('home/blackfriday.html.twig')%}
+    
+	{% if events|length > 0 %}
+		
+		{% for event in events %}
+			{% include('home/blackfriday.html.twig')%}
+		{% endfor %}
 	{% endif %}
-    <!-- start features Area -->
+	<!-- start features Area -->
 	<section class="features-area section_gap">
 		<div class="container">
 			<div class="row features-inner">
@@ -69,9 +73,7 @@
 				{% block sidebar %} {% include('home/sidebar.html.twig') %}{% endblock %}
 			</div>
 			<div class="col-xl-9 col-lg-8 col-md-7">
-				<!-- Start Filter Bar -->
-				{% include('home/filterbar.html.twig') %}
-				<!-- End Filter Bar -->
+				
 				<!-- Start Best Seller -->
 				<section class="lattest-product-area pb-40 category-list">
 					<div id="productList" class="row">
@@ -83,7 +85,7 @@
 								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
 									<div class="scene" style="height: 300px;width: 200px;">
 										<div class="dvd-box">
-											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}');">{{product.title}}</div>
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.title}}</div>
 											<div class="cover back"></div>
 											<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
 										</div>

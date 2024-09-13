@@ -54,10 +54,16 @@ class ProductRepository extends ServiceEntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
 
+        // $sql = '
+        // SELECT h.*,c.title as catname,u.name,u.surname FROM product h
+        // JOIN category c ON c.id = h.category_id
+        // JOIN user u ON u.id = h.user_id
+        // ORDER BY c.title ASC        
+        // ';
         $sql = '
         SELECT h.*,c.title as catname,u.name,u.surname FROM product h
         JOIN category c ON c.id = h.category_id
-        JOIN user u ON u.id = h.userid
+        JOIN user u
         ORDER BY c.title ASC        
         ';
         $stmt = $conn->prepare($sql);
@@ -65,4 +71,6 @@ class ProductRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAll();
     }
+
+    
 }

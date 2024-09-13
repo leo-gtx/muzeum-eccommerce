@@ -67,7 +67,22 @@ class OrdersRepository extends ServiceEntityRepository
     public function getTotalPotentialRevenue(): float
     {
         $qb = $this->createQueryBuilder('o')
-            ->select('SUM(o.amount)');
+            ->select('SUM(o.amount)')
+            ->where('o.status != :status')
+            ->setParameter('status', 'canceled');
+
+        return (float) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * Get total lost revenue from all orders (paid and unpaid)
+     */
+    public function getTotalLostRevenue(): float
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->select('SUM(o.amount)')
+            ->where('o.status = :status')
+            ->setParameter('status', 'canceled');
 
         return (float) $qb->getQuery()->getSingleScalarResult();
     }
@@ -78,7 +93,7 @@ class OrdersRepository extends ServiceEntityRepository
     public function getMonthlyRevenue(): array
     {
         $qb = $this->createQueryBuilder('o')
-            ->select('MONTH(o.created_at) as month, SUM(o.amount) as totalRevenue')
+            ->select("DATE_FORMAT(o.created_at, '%m') as month, SUM(o.amount) as totalRevenue")
             ->where('o.isPaid = :isPaid')
             ->setParameter('isPaid', true)
             ->groupBy('month')
@@ -93,7 +108,9 @@ class OrdersRepository extends ServiceEntityRepository
     public function getMonthlyPotentialRevenue(): array
     {
         $qb = $this->createQueryBuilder('o')
-            ->select('MONTH(o.created_at) as month, SUM(o.amount) as totalPotentialRevenue')
+            ->select("DATE_FORMAT(o.created_at, '%m') as month, SUM(o.amount) as totalRevenue")
+            ->where('o.status != :status')
+            ->setParameter('status', 'canceled')
             ->groupBy('month')
             ->orderBy('month', 'ASC');
 
@@ -108,7 +125,7 @@ class OrdersRepository extends ServiceEntityRepository
         $monthlyRevenue = array_fill(1, 12, 0); // Initialize array with 0 from Jan to Dec
 
         foreach ($data as $row) {
-            $monthlyRevenue[$row['month']] = (float) $row['totalRevenue'];
+            $monthlyRevenue[(int) $row['month'] -1] = (float) $row['totalRevenue'];
         }
 
         return $monthlyRevenue;

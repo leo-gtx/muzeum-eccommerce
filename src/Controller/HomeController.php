@@ -16,6 +16,7 @@ use App\Repository\ProductRepository;
 use App\Repository\SettingRepository;
 use App\Repository\ShopcartRepository;
 use App\Repository\UserRepository;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,45 +33,58 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository)
+    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository, EventRepository $eventRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
         $slider = $productRepository->findBy(['status'=> 'True'],['title'=>'ASC'],3);
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findBy(['isActive'=>true],['title'=>'ASC']);
         $parameter = $request->get('category');
         $limit = $request->get('limit');
         $order = $request->get('order');
         $query = $request->get('query');
         $promotedProducts = $productRepository->findBy(['isPromoted'=>true],['title'=>'ASC']);
+        $currentLimit = 27;
+        $currentOrder = 'ASC';
         
-        if(empty($limit)){
-            $limit = 18;
+        if($limit){
+            $defaultLimit = $limit;
         }
-        if(empty($order) || $order != 'ASC' && $order != 'DESC'){
-            $order = 'ASC';
+        if($order && ($order == 'ASC' || $order == 'DESC')){
+            $currentOrder = $order;
         }
         if(!empty($query)){
             $products = $paginator->paginate(
                 $productRepository->findSearch($query), /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
-                $limit /*limit per page*/
+                $currentLimit /*limit per page*/
                 );
         }
         elseif(!empty($parameter)){
             $parameter  = $categoryRepository->find($parameter);
             $products = $paginator->paginate(
-                $productRepository->findBy(['category'=>$parameter, 'status'=> 'True'],['title'=>$order]), /* query NOT result */
+                $productRepository->findBy(['category'=>$parameter, 'status'=> 'True'],['title'=>$currentOrder]), /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
-                $limit /*limit per page*/
+                $currentLimit /*limit per page*/
                 );
+            
         }else{
             $products = $paginator->paginate(
-                $productRepository->findBy(['status'=> 'True'],['title'=>$order]), /* query NOT result */
+                $productRepository->findBy(['status'=> 'True'],['title'=>$currentOrder]), /* query NOT result */
                 $request->query->getInt('page', 1), /*page number*/
-                $limit /*limit per page*/
+                $currentLimit /*limit per page*/
                 );
         }
-        $shopcarts = $shopcartRepository->findBy(['userid'=>$this->getUser()]);
+
+        if($query || $parameter || $limit || $order) {
+            return $this->render('home/filtered.html.twig', [
+                'setting' => $setting,
+                'products' => $products,
+                'categories' => $categories,
+            ]);
+        }
+
+        $shopcarts = $shopcartRepository->findBy(['user'=>$this->getUser()]);
+        $events = $eventRepository->findActiveEventsWithinTimeframe();
         //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
         // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
@@ -81,8 +95,8 @@ class HomeController extends AbstractController
             'slider' => $slider,
             'products' => $products,
             'categories' => $categories,
-            'countItemsInCard' => count($shopcarts),
             'promotedProducts' => $promotedProducts,
+            'events' => $events
         ]);
     }
 
@@ -152,7 +166,7 @@ class HomeController extends AbstractController
                 // On attribue l'expéditeur
                 ->setFrom($message->getEmail())
                 // On attribue le destinataire
-                ->setTo('support@devmight.com')
+                ->setTo('leonel@ndlpixel.com')
                 // On crée le texte avec la vue
                 ->setBody(
                     $this->renderView(

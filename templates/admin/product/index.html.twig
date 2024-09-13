@@ -12,7 +12,8 @@
     <div class="m-subheader ">
         <div class="d-flex align-items-center">
             <div class="mr-auto">
-                <h3 class="m-subheader__title m-subheader__title--separator">Product List Page</h3>
+                
+                <a href="{{ path('admin_product_new') }}" class="btn btn-success">Create New Product</a>
                 <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                     <li class="m-nav__item m-nav__item--home">
                         <a href="/admin" class="m-nav__link m-nav__link--icon">
@@ -35,7 +36,7 @@
             </div>
         </div>
     </div>
-
+    {{ include('messages.html.twig') }}
     <!-- END: Subheader -->
     <div class="d-flex m-content">
 
@@ -51,7 +52,7 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-                <a href="{{ path('admin_product_new') }}" class="btn btn-success">Create New Product</a>
+                
 
                 <table class="table">
                     <thead>
@@ -87,8 +88,9 @@
                             <td>{{ product.price }}</td>
                             <td>{{ product.type }}</td>
                             <td>{{ product.year }}</td>
+                            
                             <td>
-                                <a href="{{ path('admin_user_show', {'id': product.userid}) }}">
+                                <a href="{{ path('admin_user_show', {'id': product.user.id}) }}">
                                     {{ product.name }} {{ product.surname }}
                                 </a>
                             </td>

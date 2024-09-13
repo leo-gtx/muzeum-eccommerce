@@ -56,6 +56,26 @@ class ProductController extends AbstractController
                 $product->setImage($fileName);
             }
             // **************** file upload ****************
+            // **************** downloadable file upload ****************
+            /** @var file $file */
+            $file = $form['file']->getData();
+            if($file){
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                // Move the file to the directory where brachures are stored
+                try{
+                    $file->move(
+                        $this->getParameter('files_directory'), // in Servis.yaml defined folder for
+                        $fileName
+                    );
+                } catch (FileException $e){
+                    // ... handle exception f something happens during file upload
+                    throw new Exception($e->getMessage(), 1);
+                    
+                }
+                $product->setFile($fileName);
+            }
+            unset($file);
+            // **************** file upload ****************
             $user = $this->getUser();
             $product->setUserid($user->getId());
             $entityManager->persist($product);
@@ -108,6 +128,26 @@ class ProductController extends AbstractController
                 }
                 $product->setImage($fileName); // Related upload file name with Product table image field
             }
+            // **************** downloadable file upload ****************
+            /** @var file $file */
+            $file = $form['file']->getData();
+            if($file){
+                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+                // Move the file to the directory where brachures are stored
+                try{
+                    $file->move(
+                        $this->getParameter('files_directory'), // in Servis.yaml defined folder for
+                        $fileName
+                    );
+                } catch (FileException $e){
+                    // ... handle exception f something happens during file upload
+                    throw new Exception($e->getMessage(), 1);
+                    
+                }
+                $product->setFile($fileName);
+            }
+            unset($file);
+            // **************** file upload ****************
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_product_index');
@@ -135,9 +175,13 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+            if(count($product->getImages()) > 0){
+                $this->addFlash('error', 'Echec lors de la suppression de ce produit. Supprimez d\'abord les images de ce produits!');
+            }else{
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('admin_product_index');

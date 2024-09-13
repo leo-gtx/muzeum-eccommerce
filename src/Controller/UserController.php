@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Admin\Comment;
+use App\Entity\Product;
 use App\Entity\User;
 use App\Form\Admin\CommentType;
 use App\Form\UserType;
 use App\Repository\Admin\CommentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
+use App\Repository\OrdersRepository;
+use App\Repository\OrderDetailRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,16 +53,19 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         return $this->render('/user/product.html.twig', [
-            'products' => $productRepository->findBy(['userid'=>$user->getId()]),
+            'products' => $productRepository->findBy(['user'=>$user]),
         ]);
     }
 
     /**
      * @Route("/orders", name="user_orders", methods={"GET"})
      */
-    public function orders(): Response
+    public function orders(OrdersRepository $ordersRepository): Response
     {
-        return $this->render('/user/orders.html.twig');
+        $orders = $ordersRepository->findBy(['user' => $this->getUser()],['createdAt' => 'DESC']);
+        return $this->render('/user/orders.html.twig', [
+            'orders' => $orders
+        ]);
     }
 
 
@@ -258,47 +264,28 @@ class UserController extends AbstractController
      */
     public function toggle(Request $request, $id, ProductRepository $productRepository): Response
     {
-         //My function
-       function my_in_array(Object $p, Array $a){
+       function my_in_array($p,  $a){
         foreach ($a as $key) {
             if($p->getId() == $key->getId()){
                 return true;
             }
         }
         return false;
-    }
-    //
-    //My function
-    function remove_in_array(Object $p, Array $a):Array{
-        $array = [];
-        foreach ($a as $key) {
-            if($p->getId() != $key->getId()){
-                array_push($array, $key);
-            }
         }
-        return $array;
-    }
-    //
-       $action = $request->get('action');
-       $user = $this->getUser();
-       $product = $productRepository->find($id);
-       $array = $user->getFavorites();
-       if(my_in_array($product, $array)){
-           if($action=='remove'){
-               $array = remove_in_array($product, $array);
-                $user->setFavorites($array);
-           }
-           
-       }else{
-            array_push($array, $product);
-            $user->setFavorites($array);
-       }
-       $entityManager = $this->getDoctrine()->getManager();
-       $entityManager->persist($user);
-       $entityManager->flush();
-       return $this->redirectToRoute('user_show_favorites');
+        
+        $user = $this->getUser();
+        $product = $productRepository->find($id);
+        $array = $this->getUser()->getFavorites();
+        if(my_in_array($product, $array)){
+                $user->removeFavorite($product);
+        }else{
+                $user->addFavorite($product);
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('user_show_favorites');
       
-
     }
 
      /**
@@ -311,6 +298,19 @@ class UserController extends AbstractController
         'favorites' => $user->getFavorites(),
     ]);
 
+    }
+
+    /**
+     * @Route("/library", name="user_library")
+     */
+    public function library(OrderDetailRepository $orderDetailRepository): Response
+    {
+        $user = $this->getUser();
+        $products = $orderDetailRepository->findProductsByUser($user->getId());
+
+        return $this->render('user/library.html.twig', [
+            'products' => $products
+        ]);
     }
 
 }

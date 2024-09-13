@@ -1206,6 +1206,35 @@ h1, h2, h3, h4, h5, h6 {
 /* banner area css
 ============================================================================================ */
 
+.floating-cart {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #fff;
+  color: #000;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 108, 0, 0.2);
+  z-index: 1000;
+}
+
+.floating-cart, a {
+  text-decoration: none;
+  color: #000;
+}
+
+#cart-count {
+  background-color: #F79837;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 50%;
+  font-size: 14px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
 
 .scene {
   width: 300px;
@@ -1213,6 +1242,14 @@ h1, h2, h3, h4, h5, h6 {
   perspective: 1000px;
   margin: auto;
 }
+@media (max-width: 991px) {
+  .scene {
+    width: 200px;
+    height: 300px; 
+    perspective: 1000px;
+    margin: auto;
+  } }
+
 
 .dvd-box {
   position: relative;
@@ -1249,7 +1286,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .front {
   transform: translateZ(15px);
-  background-color: #312d2d;
+  background-color: #ecf0f1;
   background-size: 100% 100%;
   background-repeat:no-repeat;
   background-attachment: fixed; 
@@ -1343,7 +1380,7 @@ h1, h2, h3, h4, h5, h6 {
       margin: 0; }
   @media (max-width: 991px) {
     .banner-area .banner-img {
-      display: none; } }
+      display: block; } }
 
 .add-bag {
   margin-top: 30px; }

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * @Route("/shopcart")
@@ -34,7 +35,7 @@ class ShopcartController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.userid = :userid AND p.id = s.productid ";
+                WHERE s.user = :userid AND p.id = s.productid ";
 
         $statement = $em->getConnection()->prepare($sql);
         $statement->bindValue(':userid', $user->getid());
@@ -61,16 +62,17 @@ class ShopcartController extends AbstractController
             // dump($params['Q']);
             //dump($request);
             //die();
-            $oldShopcart = $shopcartRepository->findOneBy(['productid'=>$params['ID']]);
+            $oldShopcart = $shopcartRepository->findOneBy(['product'=>$params['ID']]);
             if(!empty($oldShopcart)){
                 $oldShopcart->setQuantity($oldShopcart->getQuantity() + $params['Q']);
                 $entityManager->persist($oldShopcart);
             }else{
-                $shopcart->setProductid($params['ID']);
-            $shopcart->setQuantity($params['Q']);
-            $user = $this->getUser();
-            $shopcart->setUserid($user->getid());
-            $entityManager->persist($shopcart);
+                $product = $productRepository->find($params['ID']);
+                $shopcart->setProduct($params['ID']);
+                $shopcart->setQuantity($params['Q']);
+                $user = $this->getUser();
+                $shopcart->setUser($user);
+                $entityManager->persist($shopcart);
             }
             $entityManager->flush();
 
@@ -80,15 +82,16 @@ class ShopcartController extends AbstractController
 
         if($request->isMethod('GET') && !empty($product)){
             $entityManager = $this->getDoctrine()->getManager();
-            $shopcart->setProductid($request->get('productId'));
-            $oldShopcart = $shopcartRepository->findOneBy(['productid'=>$request->get('productId')]);
+            $product = $productRepository->find($request->get('productId'));
+            $shopcart->setProduct($product);
+            $oldShopcart = $shopcartRepository->findOneBy(['product'=>$product]);
             if(!empty($oldShopcart)){
                 $oldShopcart->setQuantity($oldShopcart->getQuantity() + 1);
                 $entityManager->persist($oldShopcart);
             }else{
                 $shopcart->setQuantity(1);
                 $user = $this->getUser();
-                $shopcart->setUserid($user->getid());
+                $shopcart->setUser($user);
                 $entityManager->persist($shopcart);
             }
             
@@ -156,5 +159,19 @@ class ShopcartController extends AbstractController
         }
 
         return $this->redirectToRoute('shopcart_index');
+    }
+
+    /**
+     * @Route("/cart/count", name="shopcart_count", methods={"GET"})
+     */
+    public function getCartCount(ShopcartRepository $shopcartRepository): JsonResponse
+    {
+        // Assuming you have the user's ID from the session or token
+        $userId = $this->getUser()->getId(); 
+        
+        // Query the number of items in the cart for the logged-in user
+        $cartCount = $shopcartRepository->countItemsInCart($userId);
+        // 
+        return new JsonResponse(['cartCount' => $cartCount]);
     }
 }

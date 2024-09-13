@@ -9,7 +9,21 @@
                         {% set count = count+1 %}
 						<!-- single-slide -->
 						<div class="row single-slide {% if count == 1 %} active {% endif %}">
-							<div class="col-lg-5 col-sm-12 my-5">
+							<div class="col-lg-7 col-sm-7 my-5">
+								<div class="banner-img">
+								<a href="{{ path('product_show', {'id': rs.id}) }} ">
+									<div class="scene">
+										<div class="dvd-box">
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ rs.image) }}');"></div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{rs.title}}</span></div>
+										</div>
+									</div>
+                                </a>
+                                    
+								</div>
+							</div>
+							<div class="col-lg-5 col-sm-5 my-5">
 								<div class="banner-content">
 									<h1>{{rs.title}}</h1>
 									<p>{{rs.description}}</p>
@@ -19,21 +33,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-7 col-sm-12 my-5">
-								<div class="banner-img">
-								<a href="{{ path('product_show', {'id': rs.id}) }} ">
-									<div class="scene">
-										<div class="dvd-box">
-											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ rs.image) | imagine_filter('slider_thumb') }}');">DVD Cover Front</div>
-											<div class="cover back"></div>
-											<div class="spine"><span class="vertical-text">{{rs.title}}</span></div>
-										</div>
-									</div>
-                                </a>
-                                    <!--<img class="img-fluid" src="{{ asset('uploads/images/' ~ rs.image) | imagine_filter('slider_thumb') }}" alt="{{rs.slug}}" style="height:384px;width: 657px;" >-->
-                                
-								</div>
-							</div>
+							
 						</div>
                     {% endfor %}
 					</div>

@@ -90,14 +90,10 @@ class Product
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="product", cascade={"persist", "remove"})
      */
     private $images;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $userid;
 
     /**
      * @Gedmo\Slug(fields={"title"})
@@ -110,6 +106,23 @@ class Product
      */
     private $isPromoted;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Event::class, mappedBy="products")
+     */
+    private $events;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="products")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $user;
+
+
     public function getSlug()
     {
         return $this->slug;
@@ -118,6 +131,7 @@ class Product
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +309,22 @@ class Product
     }
 
     /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
      * @return Collection|Image[]
      */
     public function getImages(): Collection
@@ -327,19 +357,7 @@ class Product
 
     public function __toString()
     {
-        return $this->getImage();
-    }
-
-    public function getUserid(): ?int
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(?int $userid): self
-    {
-        $this->userid = $userid;
-
-        return $this;
+        return $this->getTitle();
     }
 
     public function getIsPromoted(): ?bool
@@ -350,6 +368,57 @@ class Product
     public function setIsPromoted(bool $isPromoted): self
     {
         $this->isPromoted = $isPromoted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            $event->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

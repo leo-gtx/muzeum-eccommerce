@@ -3,11 +3,11 @@
 	<section class="exclusive-deal-area">
 		<div class="container-fluid">
 			<div class="row justify-content-center align-items-center">
-				<div class="col-lg-6 no-padding exclusive-left">
-					<div class="row clock_sec clockdiv" id="clockdiv">
+				<div class="col-lg-6 no-padding exclusive-left" style="background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
+					<div class="row clock_sec clockdiv" id="clockdiv{{event.id}}">
 						<div class="col-lg-12">
-							<h1>Black Friday Hot Deal Ends Soon!</h1>
-							<p>Achetez à bas prix!</p>
+							<h1>{{event.title}}</h1>
+							<p>{{event.description}}</p>
 						</div>
 						<div class="col-lg-12">
 							<div class="row clock-wrap">
@@ -33,14 +33,14 @@
 				</div>
 				<div class="col-lg-6 no-padding exclusive-right">
 					<div class="active-exclusive-product-slider">
-					{% for product in promotedProducts %}
+					{% for product in event.products %}
 						
 						<!-- single exclusive carousel -->
 						<div class="single-exclusive-slider">
 							<a href="{{path('product_show', {'id':product.id})}}">
 								<div class="scene">
 									<div class="dvd-box">
-										<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('exclusive_thumb') }}');">{{product.slug}}</div>
+										<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.slug}}</div>
 										<div class="cover back"></div>
 										<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
 									</div>
@@ -49,8 +49,8 @@
 							<div class="product-details">
 								<a href="{{path('product_show', {'id':product.id})}}">
 								<div class="price">
-									<h6>{{product.price}} FCFA</h6>
-									<h6 class="l-through">{{product.price + (product.price * 0.40)}} FCFA</h6>
+									<h6>{{product.price - (product.price * (event.discount/100))}} FCFA</h6>
+									<h6 class="l-through">{{product.price}} FCFA</h6>
 								</div>
 								<h4>{{product.title}}</h4>
 								</a>
@@ -67,4 +67,25 @@
 			</div>
 		</div>
 	</section>
+		<script src="{{asset('assets/client/js/countdown.js')}}"></script>
+		<script>
+			// Parse the event start and end times
+			var startAt = new Date("{{ event.startAt | date('Y-m-d H:i:s') }}");
+			var endAt = new Date("{{ event.endAt | date('Y-m-d H:i:s') }}");
+
+			// Calculate the total event duration (in milliseconds)
+			var totalDuration = endAt - startAt;
+
+			// Calculate the time elapsed since the event started
+			var now = new Date();
+			var timeElapsed = now - startAt;
+
+			// Calculate the remaining time by subtracting the elapsed time from the total duration
+			var remainingTime = totalDuration - timeElapsed;
+
+			// Set the deadline to the current time plus the remaining time
+			var deadline = new Date(now.getTime() + remainingTime);
+			initializeClock('clockdiv{{event.id}}', deadline);
+		</script>
+
 	<!-- End exclusive deal Area -->

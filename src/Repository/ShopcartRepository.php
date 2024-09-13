@@ -55,9 +55,9 @@ class ShopcartRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
         $query = $em->createQuery('
-        SELECT p.title, p.price, s.quantity, s.productid, s.userid, (p.price * s.quantity) as total
+        SELECT p.title, p.price, s.quantity, s.product, s.user, (p.price * s.quantity) as total
         FROM App\Entity\Shopcart s, App\Entity\Product p
-        WHERE s.productid = p.id and s.userid=:userid
+        WHERE s.product = p.id and s.user=:userid
         ')
             ->setParameter('userid', $userid);
         return $query->getResult();
@@ -72,7 +72,7 @@ class ShopcartRepository extends ServiceEntityRepository
         $query = $em->createQuery('
         SELECT sum(p.price * s.quantity) as total
         FROM App\Entity\Shopcart s, App\Entity\Product p
-        WHERE s.productid = p.id and s.userid=:userid
+        WHERE s.product = p.id and s.user=:userid
         ')
             ->setParameter('userid', $userid);
         $result = $query->getResult();
@@ -92,7 +92,7 @@ class ShopcartRepository extends ServiceEntityRepository
         $query = $em->createQuery('
         SELECT count(s.id) as shopcount
         FROM App\Entity\Shopcart s
-        WHERE s.userid=:userid
+        WHERE s.user=:userid
         ')
             ->setParameter('userid', $userid);
         $result = $query->getResult();
@@ -103,6 +103,19 @@ class ShopcartRepository extends ServiceEntityRepository
         else{
             return 0;
         }
+    }
+
+    /**
+     * Count the number of items in the user's cart
+     */
+    public function countItemsInCart(int $userId): int
+    {
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.quantity)')
+            ->where('s.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 

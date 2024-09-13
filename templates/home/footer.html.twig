@@ -49,6 +49,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</div>
 	</footer>
+	<!-- End footer Area -->
 	<!-- WhatsApp Floating Button -->
     <a href="#" class="whatsapp-btn" id="whatsappButton">
         <img src="{{asset('assets/client/img/whatsapp.svg')}}" alt="WhatsApp Icon">
@@ -57,8 +58,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     <!-- Message Input Box -->
     <div class="message-box" id="messageBox">
         <div class="input-container">
-            <input type="text" id="whatsapp-message" placeholder="Type your message...">
-            <button onclick="sendWhatsAppMessage()">Send</button>
+            <input type="text" id="whatsapp-message" placeholder="Saisissez votre message...">
+            <button onclick="sendWhatsAppMessage()">Envoyer</button>
         </div>
     </div>
-	<!-- End footer Area -->
+	{% if app.user %}
+	<!-- Cart Button -->
+	<div id="cart-button" class="floating-cart">
+		<a href="{{path('shopcart_index')}}" class="link" id="cart-link">
+			<span class="ti-bag"></span>
+			<span class="h6" id="cart-count">0</span> <!-- Number of items in cart -->
+		</a>
+	</div>
+	{% endif %}

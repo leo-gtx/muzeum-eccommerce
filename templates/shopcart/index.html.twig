@@ -44,9 +44,9 @@
                                         <div class="d-flex">
                                             <div class="scene" style="height: 200px;width: 100px;">
                                                 <div class="dvd-box">
-                                                    <div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ shopcart.image) | imagine_filter('shopcart_thumb') }}');">{{shopcart.title}}</div>
-                                                    <div class="cover back">{{shopcart.title}}</div>
-                                                    <div class="spine"></div>
+                                                    <div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ shopcart.image) }}');">{{shopcart.title}}</div>
+                                                    <div class="cover back"></div>
+                                                    <div class="spine"><span class="vertical-text">{{shopcart.title}}</span></div>
                                                 </div>
                                             </div>
                                         </div>

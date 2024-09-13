@@ -19,9 +19,12 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     * @ORM\JoinColumn(name="parent", referencedColumnName="id", nullable=true)
      */
-    private $parentid;
+    private $parent;
+
+    
 
     /**
      * @ORM\Column(type="string", length=150, nullable=true)
@@ -43,10 +46,6 @@ class Category
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $status;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -63,6 +62,11 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -73,14 +77,16 @@ class Category
         return $this->id;
     }
 
-    public function getParentid(): ?int
+    // Getters and setters...
+
+    public function getParent(): ?Category
     {
-        return $this->parentid;
+        return $this->parent;
     }
 
-    public function setParentid(?int $parentid): self
+    public function setParent(?Category $parent): self
     {
-        $this->parentid = $parentid;
+        $this->parent = $parent;
 
         return $this;
     }
@@ -133,17 +139,6 @@ class Category
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -167,6 +162,22 @@ class Category
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -199,4 +210,21 @@ class Category
 
         return $this;
     }
+    public function toString(): string
+    {
+        return $this->title;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
 }

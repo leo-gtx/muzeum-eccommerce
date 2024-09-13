@@ -261,11 +261,11 @@ $(document).ready(function(){
             range: {
                 // Starting at 500, step the value by 500,
                 // until 4000 is reached. From there, step by 1000.
-                'min': [ 1000 ],
+                'min': [ 500 ],
                 '0%' : [ 1000, 500],
-                '10%': [ 100000, 1000 ],
-                '50%': [ 500000, 5000 ],
-                'max': [ 1000000 ]
+                '10%': [ 10000, 1000 ],
+                '50%': [ 100000, 10000 ],
+                'max': [ 200000 ]
             }
         });
 

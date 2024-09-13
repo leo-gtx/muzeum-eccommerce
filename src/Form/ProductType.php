@@ -48,7 +48,30 @@ class ProductType extends AbstractType
                 ),
             ))
             ->add('price')
-            ->add('type')
+            ->add('file', FileType::class, [
+                'label' => 'Upload Downlodable File (pdf, zip, audio, video), <= 200 MB',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200M',
+                        'mimeTypes' => [
+                            'application/pdf',
+                            'application/zip',
+                            'audio/*',
+                            'video/*',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid File less or equal than 200M',
+                    ])
+                ],
+            ])
+            ->add('type', ChoiceType::class, [
+                'label' => 'Version du produit',
+                'choices' => [
+                    'Digitale' => 'DIGITAL',
+                    'Physique' => 'PHYSICS'
+                ]
+            ])
             ->add('year')
             ->add('writer')
             ->add('isPromoted')

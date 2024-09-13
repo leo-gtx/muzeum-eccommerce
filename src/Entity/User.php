@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -80,15 +82,22 @@ class User implements UserInterface
      */
     private $city;
 
-    // /**
-    //  * @ORM\Column(type="array", nullable=true)
-    //  */
-    // private $favorites = [];
+    /**
+     * @ORM\ManyToMany(targetEntity=Product::class)
+     */
+    private $favorites;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="user")
+     */
+    private $products;
+
 
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         // $this->favorites = [];
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,6 +243,22 @@ class User implements UserInterface
         return $this->updated_at;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
     public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
@@ -288,5 +313,59 @@ class User implements UserInterface
 
     //     return $this;
     // }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Product $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites[] = $favorite;
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Product $favorite): self
+    {
+        $this->favorites->removeElement($favorite);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getUser() === $this) {
+                $product->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

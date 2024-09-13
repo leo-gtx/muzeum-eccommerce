@@ -35,6 +35,7 @@ class AdminController extends AbstractController
         $totalPotentialRevenue = $ordersRepository->getTotalPotentialRevenue();
         $monthlyRevenue = $ordersRepository->getMonthlyRevenue();
         $monthlyPotentialRevenue = $ordersRepository->getMonthlyPotentialRevenue();
+        $totalLostRevenue = $ordersRepository->getTotalLostRevenue();
         return $this->render('admin/admin/index.html.twig', [
             'controller_name' => 'AdminController',
             'customers'=> count($users),
@@ -44,6 +45,7 @@ class AdminController extends AbstractController
             'totalPotentialRevenue' => $totalPotentialRevenue,
             'monthlyRevenue' => $monthlyRevenue,
             'monthlyPotentialRevenue' => $monthlyPotentialRevenue,
+            'totalLostRevenue' => $totalLostRevenue
         ]);
     }
 

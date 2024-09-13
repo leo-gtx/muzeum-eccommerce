@@ -16,49 +16,28 @@ class Shopcart
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $userid;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $productid;
+    
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $quantity;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     */
+    private $product;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserid(): ?int
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(?int $userid): self
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
-
-    public function getProductid(): ?int
-    {
-        return $this->productid;
-    }
-
-    public function setProductid(?int $productid): self
-    {
-        $this->productid = $productid;
-
-        return $this;
-    }
 
     public function getQuantity(): ?int
     {
@@ -68,6 +47,30 @@ class Shopcart
     public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
 
         return $this;
     }

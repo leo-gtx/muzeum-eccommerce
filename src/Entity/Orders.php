@@ -19,11 +19,6 @@ class Orders
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $userid;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     private $amount;
 
     /**
@@ -90,6 +85,11 @@ class Orders
      * @ORM\Column(type="integer", nullable=true)
      */
     private $deliveryFees;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $user;
 
 
     public function getId(): ?int
@@ -232,6 +232,22 @@ class Orders
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -288,6 +304,18 @@ class Orders
     public function setDeliveryFees(?int $deliveryFees): self
     {
         $this->deliveryFees = $deliveryFees;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

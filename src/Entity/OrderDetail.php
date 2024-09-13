@@ -19,21 +19,6 @@ class OrderDetail
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $orderid;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $userid;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $productid;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     private $price;
 
     /**
@@ -56,46 +41,27 @@ class OrderDetail
      */
     private $status;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     */
+    private $product;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Orders::class, cascade={"persist", "remove"})
+     */
+    private $orderParent;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getOrderid(): ?int
-    {
-        return $this->orderid;
-    }
-
-    public function setOrderid(?int $orderid): self
-    {
-        $this->orderid = $orderid;
-
-        return $this;
-    }
-
-    public function getUserid(): ?int
-    {
-        return $this->userid;
-    }
-
-    public function setUserid(?int $userid): self
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
-
-    public function getProductid(): ?int
-    {
-        return $this->productid;
-    }
-
-    public function setProductid(?int $productid): self
-    {
-        $this->productid = $productid;
-
-        return $this;
-    }
 
     public function getPrice(): ?int
     {
@@ -153,6 +119,42 @@ class OrderDetail
     public function setStatus(?string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getOrderParent(): ?Orders
+    {
+        return $this->orderParent;
+    }
+
+    public function setOrderParent(?Orders $orderParent): self
+    {
+        $this->orderParent = $orderParent;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

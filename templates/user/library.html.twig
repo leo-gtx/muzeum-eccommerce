@@ -1,0 +1,72 @@
+{% extends 'homebase.html.twig' %}
+
+{% block title %} Bibliothèque{% endblock %}
+
+{% block body %}
+ <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Ma Bibliothèque</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="#">Ma Bibliothèque</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <section class="lattest-product-area pb-40 category-list px-5">
+					<div id="productList" class="row">
+                    {% if products|length > 0 %}
+                    {% for product in products %}
+						<!-- single product -->
+						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
+
+								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+								<div class="scene" style="height: 300px;width: 200px;">
+										<div class="dvd-box">
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image)  }}');">{{product.title}}</div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
+										</div>
+									</div>
+								</a>
+								<div class="product-details">
+									<h6>{{product.title}}</h6>
+									{#<div class="price">
+										<h6>{{product.price}}</h6><h6> XAF</h6>
+										<h6 class="l-through">{{product.isPromoted ? product.price + (product.price * 0.4) : product.price + (product.price * 0.15) }} XAF</h6>
+									</div>#}
+									<div class="prd-bottom">
+										
+										<a href="{{ path('product_download', {'id': product.id})}}" class="social-info">
+											<span class="lnr lnr-download"></span>
+											<p class="hover-text">Télécharger</p>
+										</a>
+										<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">voir plus</p>
+										</a>
+										{#<a href="{{path('user_toggle_favorite', {'id': product.id, 'action':'remove' })}}" class="social-info">
+											<span class="lnr lnr-trash"></span>
+											<p class="hover-text">Retirer</p>
+										</a>#}
+									</div>
+								</div>
+							
+						</div>
+                    {% endfor %}
+                    {% else %}
+					<div class="col-12">
+						<blockquote class="generic-blockquote">
+							Vous n'avez encore aucun produit téléchargeable!
+						</blockquote>
+					</div>
+                    {% endif %}
+					</div>
+				</section>
+{% endblock %}

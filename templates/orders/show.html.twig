@@ -80,6 +80,7 @@
 								<th scope="col">Produit</th>
 								<th scope="col">Quantité</th>
 								<th scope="col">Total</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -94,6 +95,7 @@
 								<td>
 									<p>{{ detail.price * detail.quantity }} FCFA</p>
 								</td>
+								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.productid })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></></a></td>{% endif %}
 							</tr>
                         {% endfor %}
 							<tr>
@@ -103,8 +105,8 @@
 								<td>
 									<h5></h5>
 								</td>
-								<td>
-									<p>FCFA {{order.amount}}</p>
+								<td colspan="2">
+									<p>XAF {{order.amount}}</p>
 								</td>
 							</tr>
 							<tr>
@@ -112,9 +114,9 @@
 									<h4>Frais de livraison</h4>
 								</td>
 								<td>
-									<h5></h5>
+									
 								</td>
-								<td>
+								<td colspan="2">
 									<p>Gratuit</p>
 								</td>
 							</tr>
@@ -124,9 +126,9 @@
 									<h4>Total</h4>
 								</td>
 								<td>
-									<h5></h5>
+									
 								</td>
-								<td>
+								<td colspan="2">
 									<p>{{order.amount}} FCFA</p>
 								</td>
 							</tr>

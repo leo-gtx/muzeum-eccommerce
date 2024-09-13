@@ -12,7 +12,7 @@ class OrdersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userid')
+            ->add('user')
             ->add('amount')
             ->add('name')
             ->add('address')

@@ -12,8 +12,8 @@ class ShopcartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('userid')
-            ->add('productid')
+            ->add('user')
+            ->add('product')
             ->add('quantity')
         ;
     }

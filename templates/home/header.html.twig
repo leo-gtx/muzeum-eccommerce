@@ -22,7 +22,8 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">{{app.user.name}}</a>
 								<ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" href="/user/edit">Mon profile</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{path('user_edit', {'id': app.user.id})}}">Mon profile</a></li>
+									<li class="nav-item"><a class="nav-link" href="{{path("user_library")}}">Ma Bibliothèque</a></li>
 									<li class="nav-item"><a class="nav-link" href="/orders">Mes Commandes</a></li>
 									<li class="nav-item"><a class="nav-link" href="/user/comments">Mes Commentaires</a></li>
 									<li class="nav-item"><a class="nav-link" href="{{path('user_show_favorites')}}">Mes favories</a></li>
@@ -42,7 +43,6 @@
 							
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="{{path('shopcart_index')}}" class="cart"><span class="ti-bag"></span></a></li>{% if countItemsInCard is defined and countItemsInCard > 0 %}<span class="badge badge-pill badge-success">{{countItemsInCard}}</span>{% endif %}
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>

@@ -1,0 +1,118 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Event List{% endblock %}
+
+{% block body %}
+    <SCRIPT language="JavaScript" type="text/javascript">
+        function openWin(windowsURL, windowName, windowFeatures ) { window.open(windowsURL, windowName,windowFeatures); }
+    </SCRIPT>
+
+
+                <!-- BEGIN: Subheader -->
+                <div class="m-subheader ">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-auto">
+                            <a href="{{ path('admin_event_new') }}" class="btn btn-success">Create New Event</a>
+                            <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+                                <li class="m-nav__item m-nav__item--home">
+                                    <a href="#" class="m-nav__link m-nav__link--icon">
+                                        <i class="m-nav__link-icon la la-home"></i>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator">-</li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">Home</span>
+                                    </a>
+                                </li>
+                                <li class="m-nav__separator">-</li>
+                                <li class="m-nav__item">
+                                    <a href="" class="m-nav__link">
+                                        <span class="m-nav__link-text">Category</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END: Subheader -->
+                <div class="m-content">
+
+                    <!--begin::Portlet-->
+                    <div class="m-portlet">
+                        <div class="m-portlet__head">
+                            <div class="m-portlet__head-caption">
+                                <div class="m-portlet__head-title">
+                                    <h3 class="m-portlet__head-text">
+                                        Event List
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-portlet__body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ event.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <td>{{ event.title }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ event.description }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Discount</th>
+                                    <td>{{ event.discount }}%</td>
+                                </tr>
+                                <tr>
+                                    <th>Products</th>
+                                    {% for product in event.products %}
+                                    <a href="{{path('admin_product_show', {'id': product.id})}}">
+                                        <td>{{ product.title }}</td>
+                                    </a>
+                                    {% endfor %}
+                                </tr>
+                                
+                                <tr>
+                                    <th>Image</th>
+                                    <td><img src="{{ asset('uploads/images/' ~ event.image) }}" height="100"> </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Start Date</th>
+                                    <td>{{ event.startAt ? event.startAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>End Date</th>
+                                    <td>{{ event.endAt ? event.endAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                        
+                                <tr>
+                                    <th>Created_at</th>
+                                    <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Updated_at</th>
+                                    <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <a href="{{ path('admin_event_index') }}" class="btn btn-info">Back to List</a>
+
+                            <a href="{{ path('admin_event_edit', {'id': event.id}) }}" class="btn btn-success">Edit</a>
+
+                            {{ include('admin/event/_delete_form.html.twig') }}
+
+
+                        </div>
+                    </div>
+                </div>
+
+{% endblock %}

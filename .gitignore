@@ -3,9 +3,9 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/public/bundles/
-/var/
-/vendor/
+#/public/bundles/
+#/var/
+#/vendor/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
@@ -24,5 +24,7 @@
 ###< phpunit/phpunit ###
 
 ###> liip/imagine-bundle ###
-/public/media/cache/
+#/public/media/cache/
 ###< liip/imagine-bundle ###
+
+scheme.sql

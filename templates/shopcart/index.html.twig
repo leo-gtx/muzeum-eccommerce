@@ -44,33 +44,33 @@
                                         <div class="d-flex">
                                             <div class="scene" style="height: 200px;width: 100px;">
                                                 <div class="dvd-box">
-                                                    <div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ shopcart.image) }}');">{{shopcart.title}}</div>
+                                                    <div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ shopcart.product.image) }}');">{{shopcart.product.title}}</div>
                                                     <div class="cover back"></div>
-                                                    <div class="spine"><span class="vertical-text">{{shopcart.title}}</span></div>
+                                                    <div class="spine"><span class="vertical-text">{{shopcart.product.title}}</span></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="media-body">
-                                            <p>{{shopcart.title}}</p>
+                                            <p>{{shopcart.product.title}}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>{{shopcart.price}} XAF</h5>
+                                    <h5>{{shopcart.product.price}} XAF</h5>
                                 </td>
                                 <td>
                                     <div class="product_count">
-                                        <input type="number" name="qty" id="sst" max="{{shopcart.amount}}" min="1" value="{{shopcart.quantity}}" title="Quantité:"
+                                        <input type="number" name="qty" id="sst" max="{{shopcart.product.amount}}" min="1" value="{{shopcart.quantity}}" title="Quantité:"
                                             class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{shopcart.amount}} ) result.value++;return false;"
+                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{shopcart.product.amount}} ) result.value++;return false;"
                                             class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                                         <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                                             class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                     </div>
-                                    <p style="clor:tomato;" >{{ shopcart.quantity > shopcart.amount ? 'Stock insufissant': '' }}</p>
+                                    <p style="color:tomato;" >{{ shopcart.quantity > shopcart.product.amount ? 'Stock insufissant': '' }}</p>
                                 </td>
                                 <td >
-                                    <h5>{{ shopcart.price * shopcart.quantity }}</h5>
+                                    <h5>{{ shopcart.product.price * shopcart.quantity }}</h5>
                                     
                                 </td>
                                 <td>
@@ -79,15 +79,15 @@
                             
                                 
                             </tr>
-                            {% set total = total + (shopcart.quantity * shopcart.price) %}
+                            {% set total = total + (shopcart.quantity * shopcart.product.price) %}
                             {% else %}
                             <tr>
                                 <td colspan="6"> <b>Votre panier est vide</b></td>
                             </tr>
                             {% endfor %}
-                            <!-- <tr class="bottom_button">
+                            <tr class="bottom_button">
                                 <td>
-                                    <a class="gray_btn" href="#">MAJ mon panier</a>
+                                    <a class="gray_btn" href="{{path('shopcart_index')}}">MAJ mon panier</a>
                                 </td>
                                 <td>
 
@@ -105,7 +105,7 @@
                                         <a class="gray_btn" href="#">Annuler</a>
                                     </div>
                                 </td>
-                            </tr> -->
+                            </tr>
                             <tr>
                                 <td>
                                     <h5>Sous-Total</h5>

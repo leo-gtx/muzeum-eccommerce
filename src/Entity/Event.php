@@ -69,6 +69,11 @@ class Event
      */
     private $active;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $priority;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -232,6 +237,18 @@ class Event
     public function setActive(bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

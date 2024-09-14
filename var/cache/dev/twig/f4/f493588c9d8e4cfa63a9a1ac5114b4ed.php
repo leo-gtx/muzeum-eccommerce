@@ -129,12 +129,12 @@ class __TwigTemplate_37d39f0001c5b833a0846db92544eb27 extends Template
 \t\t\t\t\t\t\t\t<div class=\"price\">
 \t\t\t\t\t\t\t\t\t<h6>";
             // line 52
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 52) - (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 52) * (CoreExtension::getAttribute($this->env, $this->source, (isset($context["event"]) || array_key_exists("event", $context) ? $context["event"] : (function () { throw new RuntimeError('Variable "event" does not exist.', 52, $this->source); })()), "discount", [], "any", false, false, false, 52) / 100))), "html", null, true);
-            yield " FCFA</h6>
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 52), "html", null, true);
+            yield " XAF</h6>
 \t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">";
             // line 53
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 53), "html", null, true);
-            yield " FCFA</h6>
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "originalPrice", [], "any", false, false, false, 53), "html", null, true);
+            yield " XAF</h6>
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t<h4>";
             // line 55
@@ -282,8 +282,8 @@ class __TwigTemplate_37d39f0001c5b833a0846db92544eb27 extends Template
 \t\t\t\t\t\t\t<div class=\"product-details\">
 \t\t\t\t\t\t\t\t<a href=\"{{path('product_show', {'id':product.id})}}\">
 \t\t\t\t\t\t\t\t<div class=\"price\">
-\t\t\t\t\t\t\t\t\t<h6>{{product.price - (product.price * (event.discount/100))}} FCFA</h6>
-\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.price}} FCFA</h6>
+\t\t\t\t\t\t\t\t\t<h6>{{product.price }} XAF</h6>
+\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.originalPrice}} XAF</h6>
 \t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t<h4>{{product.title}}</h4>
 \t\t\t\t\t\t\t\t</a>

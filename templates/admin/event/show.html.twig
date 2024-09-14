@@ -70,6 +70,14 @@
                                     <td>{{ event.discount }}%</td>
                                 </tr>
                                 <tr>
+                                    <th>Active</th>
+                                    <td>{{ event.active ? 'Yes':'No' }}%</td>
+                                </tr>
+                                <tr>
+                                    <th>Priority</th>
+                                    <td>{{ event.priority }}%</td>
+                                </tr>
+                                <tr>
                                     <th>Products</th>
                                     {% for product in event.products %}
                                     <a href="{{path('admin_product_show', {'id': product.id})}}">

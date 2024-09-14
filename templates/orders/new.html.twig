@@ -122,7 +122,7 @@
                             <ul class="list">
                                 <li><a href="#">Produit <span>Total</span></a></li>
                                 {% for item in shopcart %}
-                                <li><a href="#">{{item.title}} <span class="middle">x {{item.quantity}}</span> <span class="last">{{item.price * item.quantity}} XAF</span></a></li>
+                                <li><a href="#">{{item.product.title}} <span class="middle">x {{item.quantity}}</span> <span class="last">{{item.product.price * item.quantity}} XAF</span></a></li>
                                 {% endfor %}
                             </ul>
                             <ul class="list list_2">

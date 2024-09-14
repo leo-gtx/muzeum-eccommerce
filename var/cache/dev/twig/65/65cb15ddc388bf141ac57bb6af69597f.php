@@ -224,11 +224,11 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
         foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
             // line 125
             yield "                                <li><a href=\"#\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "title", [], "any", false, false, false, 125), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 125), "title", [], "any", false, false, false, 125), "html", null, true);
             yield " <span class=\"middle\">x ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 125), "html", null, true);
             yield "</span> <span class=\"last\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 125) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 125)), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 125), "price", [], "any", false, false, false, 125) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 125)), "html", null, true);
             yield " XAF</span></a></li>
                                 ";
         }
@@ -434,7 +434,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             <ul class=\"list\">
                                 <li><a href=\"#\">Produit <span>Total</span></a></li>
                                 {% for item in shopcart %}
-                                <li><a href=\"#\">{{item.title}} <span class=\"middle\">x {{item.quantity}}</span> <span class=\"last\">{{item.price * item.quantity}} XAF</span></a></li>
+                                <li><a href=\"#\">{{item.product.title}} <span class=\"middle\">x {{item.quantity}}</span> <span class=\"last\">{{item.product.price * item.quantity}} XAF</span></a></li>
                                 {% endfor %}
                             </ul>
                             <ul class=\"list list_2\">

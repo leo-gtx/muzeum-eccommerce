@@ -15,7 +15,7 @@
 			{% include('home/slider.html.twig') %}
 		{% endblock %}
     {% endif %}
-	{% if events|length > 1 %}
+	{% if events|length > 0 %}
 		
 		{% for event in events %}
 			{% include('home/blackfriday.html.twig')%}

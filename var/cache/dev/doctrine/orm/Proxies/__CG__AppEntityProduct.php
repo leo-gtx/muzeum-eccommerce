@@ -349,6 +349,17 @@ class Product extends \App\Entity\Product implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getOriginalPrice(): ?string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getOriginalPrice', []);
+
+        return parent::getOriginalPrice();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setPrice(?string $price): \App\Entity\Product
     {
 

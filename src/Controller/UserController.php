@@ -65,7 +65,7 @@ class UserController extends AbstractController
      */
     public function orders(SettingRepository $settingRepository, OrdersRepository $ordersRepository): Response
     {
-        $orders = $ordersRepository->findBy(['user' => $this->getUser()],['createdAt' => 'DESC']);
+        $orders = $ordersRepository->findBy(['user' => $this->getUser()],['createdAt' => 'DESC', 'updatedAt' => 'DESC']);
         $setting = $settingRepository->findAll();
         return $this->render('/user/orders.html.twig', [
             'orders' => $orders,

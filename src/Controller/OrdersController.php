@@ -46,20 +46,12 @@ class OrdersController extends AbstractController
 
         $user = $this->getUser(); // Calling login user data
         $userid = $user->getId();
-        $total = $shopcartRepository->getUserShopCartTotal($userid); // Get total amount of user shopcart
+        $total = 0;// Get total amount of user shopcart
         //Get shopcart items
-        $em = $this->getDoctrine()->getManager();
-
-        $sql = "SELECT p.title, p.price , s.*
-
-                FROM shopcart s , product p
-                
-                WHERE s.user_id = :userid AND p.id = s.product_id ";
-
-        $statement = $em->getConnection()->prepare($sql);
-        $statement->bindValue(':userid', $user->getid());
-        $statement->execute();
-        $shopcart = $statement->fetchAll();
+        $shopcart = $user->getShopcarts();
+        foreach ($shopcart as $s) {
+            $total += $s->getQuantity() * $s->getProduct()->getPrice();
+        }
 
         $submittedToken = $request->get('token'); // get csrf token information
         if($this->isCsrfTokenValid('form-order', $submittedToken)){
@@ -69,25 +61,24 @@ class OrdersController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $orders->setUser($user);
                 $orders->setAmount($total);
-                $orders->setCreatedAt(new \DateTime('now'));
                 $orders->setStatus('New');
+                $orders->setCreatedAt(new \DateTimeImmutable());
                 $entityManager->persist($orders);
                 $entityManager->flush();
 
                 $orderid = $orders->getId(); // Get last insert orders data id
 
-                $shopcart = $shopcartRepository->getUserShopCart($user->getId());
 
                 foreach ($shopcart as $item) {
                     $orderdetail = new OrderDetail();
                     // Filling OrderDetails data from shopcart
                     $orderdetail->setOrderParent($orders);
                     $orderdetail->setUser($user); // login user id
-                    $orderdetail->setProduct($productRepository->find($item["product"]));
-                    $orderdetail->setPrice($item["price"]);
-                    $orderdetail->setQuantity($item["quantity"]);
-                    $orderdetail->setAmount($item["total"]);
-                    $orderdetail->setName($item["title"]);
+                    $orderdetail->setProduct($item->getProduct());
+                    $orderdetail->setPrice($item->getProduct()->getPrice());
+                    $orderdetail->setQuantity($item->getQuantity());
+                    $orderdetail->setAmount($item->getQuantity() * $item->getProduct()->getPrice());
+                    $orderdetail->setName($item->getProduct()->getTitle());
                     $orderdetail->setStatus("Ordered");
 
                     $entityManager->persist($orderdetail);

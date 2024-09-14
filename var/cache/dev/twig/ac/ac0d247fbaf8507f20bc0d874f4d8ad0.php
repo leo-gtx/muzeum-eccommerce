@@ -171,7 +171,7 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
         }
         // line 18
         yield "\t";
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["events"]) || array_key_exists("events", $context) ? $context["events"] : (function () { throw new RuntimeError('Variable "events" does not exist.', 18, $this->source); })())) > 1)) {
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), (isset($context["events"]) || array_key_exists("events", $context) ? $context["events"] : (function () { throw new RuntimeError('Variable "events" does not exist.', 18, $this->source); })())) > 0)) {
             // line 19
             yield "\t\t
 \t\t";
@@ -535,7 +535,7 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
 \t\t\t{% include('home/slider.html.twig') %}
 \t\t{% endblock %}
     {% endif %}
-\t{% if events|length > 1 %}
+\t{% if events|length > 0 %}
 \t\t
 \t\t{% for event in events %}
 \t\t\t{% include('home/blackfriday.html.twig')%}

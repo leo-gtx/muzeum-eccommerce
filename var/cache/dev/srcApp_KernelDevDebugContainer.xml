@@ -6902,11 +6902,12 @@
         <argument key="ordersRepository" type="service_closure" id="App\Repository\OrdersRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.nzui62o" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.3VyERa4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="order" type="service_closure" id=".errored..service_locator.nzui62o.App\Entity\Orders"/>
+        <argument key="order" type="service_closure" id=".errored..service_locator.3VyERa4.App\Entity\Orders"/>
         <argument key="orderDetailRepository" type="service_closure" id="App\Repository\OrderDetailRepository"/>
+        <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
       </argument>
     </service>
     <service id=".service_locator.cl3_IM8" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -6964,7 +6965,7 @@
         <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
       </argument>
     </service>
-    <service id=".service_locator..QdIHwd" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.kWOY5Yn" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminController::getOrderCounts" type="service_closure" id=".service_locator.7oVgZkk"/>
@@ -7025,7 +7026,7 @@
         <argument key="App\Controller\OrdersController::edit" type="service_closure" id=".service_locator.cl3_IM8"/>
         <argument key="App\Controller\OrdersController::index" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\OrdersController::new" type="service_closure" id=".service_locator.iePt7HO"/>
-        <argument key="App\Controller\OrdersController::show" type="service_closure" id=".service_locator.nzui62o"/>
+        <argument key="App\Controller\OrdersController::show" type="service_closure" id=".service_locator.3VyERa4"/>
         <argument key="App\Controller\ProductController::delete" type="service_closure" id=".service_locator.D2s0Hdj"/>
         <argument key="App\Controller\ProductController::downloadFile" type="service_closure" id=".service_locator.D2s0Hdj"/>
         <argument key="App\Controller\ProductController::edit" type="service_closure" id=".service_locator.D2s0Hdj"/>
@@ -7111,7 +7112,7 @@
         <argument key="App\Controller\OrdersController:edit" type="service_closure" id=".service_locator.cl3_IM8"/>
         <argument key="App\Controller\OrdersController:index" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\OrdersController:new" type="service_closure" id=".service_locator.iePt7HO"/>
-        <argument key="App\Controller\OrdersController:show" type="service_closure" id=".service_locator.nzui62o"/>
+        <argument key="App\Controller\OrdersController:show" type="service_closure" id=".service_locator.3VyERa4"/>
         <argument key="App\Controller\ProductController:delete" type="service_closure" id=".service_locator.D2s0Hdj"/>
         <argument key="App\Controller\ProductController:downloadFile" type="service_closure" id=".service_locator.D2s0Hdj"/>
         <argument key="App\Controller\ProductController:edit" type="service_closure" id=".service_locator.D2s0Hdj"/>
@@ -7715,12 +7716,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator..QdIHwd"/>
+      <argument type="service" id=".service_locator.kWOY5Yn"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator..QdIHwd"/>
+      <argument type="service" id=".service_locator.kWOY5Yn"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -7745,7 +7746,7 @@
     <service id=".errored..service_locator.uTeZyXl.App\Entity\Product" class="App\Entity\Product"/>
     <service id=".errored..service_locator.yvZURjZ.App\Entity\OrderDetail" class="App\Entity\OrderDetail"/>
     <service id=".errored..service_locator.ShV_eO7.App\Entity\Orders" class="App\Entity\Orders"/>
-    <service id=".errored..service_locator.nzui62o.App\Entity\Orders" class="App\Entity\Orders"/>
+    <service id=".errored..service_locator.3VyERa4.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.cl3_IM8.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.edsVTVi.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
@@ -8166,7 +8167,7 @@
     <service id="Imagine\Image\ImagineInterface" alias="liip_imagine.gd"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator..QdIHwd"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.kWOY5Yn"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

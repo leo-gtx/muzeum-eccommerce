@@ -217,8 +217,28 @@ class Product
 
     public function getPrice(): ?string
     {
+        $events = $this->events;
+        if(count($events) > 0){
+            
+            $currentEvent = new Event();
+            foreach ($events as $event) {
+                if($event->getPriority() < $currentEvent->getPriority() && $event->active)
+                {
+                    $currentEvent = $event;
+                }
+            }
+            return $this->price - ($this->price * $event->getDiscount() / 100);
+        }
         return $this->price;
+        
     }
+
+    public function getOriginalPrice(): ?string
+    {
+        return $this->price;
+        
+    }
+
 
     public function setPrice(?string $price): self
     {

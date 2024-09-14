@@ -20,6 +20,7 @@ class EventType extends AbstractType
             ->add('startAt')
             ->add('endAt')
             ->add('discount')
+            ->add('priority')
             ->add('image', FileType::class, [
                 'label' => 'Event Background Image',
                 'mapped' => false,

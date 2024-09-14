@@ -59,6 +59,7 @@
                         <th>Discount</th>
                         <th>Image</th>
                         <th>Nbre Product</th>
+                        <th>Priority</th>
                         <th>Active</th>
                         <th colspan="3">actions</th>
                     </tr>
@@ -74,6 +75,7 @@
                             <td>{{ event.discount }}%</td>
                             <td><img src="{{ asset('uploads/images/' ~ event.image) }}" height="40"> </td>
                             <td>{{ event.products | length }}</td>
+                            <td>{{ event.priority }}</td>
                             <td>{{ event.active ? 'Yes' : 'No' }}</td>
                             <td>
                                 <a href="{{ path('admin_event_show', {'id': event.id}) }}" class="btn btn-info">Show</a>

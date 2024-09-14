@@ -24,23 +24,10 @@ class ShopcartController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); // login kontrolü güvenlik için
         $user = $this->getUser();
-        $id = $user->getId();
         // dump($request);
         // echo $user->getId();
         //die();
-
-        $em = $this->getDoctrine()->getManager();
-
-        $sql = "SELECT p.title, p.price , p.amount, p.image, s.*
-
-                FROM shopcart s , product p
-                
-                WHERE s.user_id = :userid AND p.id = s.product_id ";
-
-        $statement = $em->getConnection()->prepare($sql);
-        $statement->bindValue(':userid', $user->getid());
-        $statement->execute();
-        $shopcart = $statement->fetchAll();
+        $shopcart = $user->getShopcarts();
         //dump($shopcart);
         //die();
         return $this->render('shopcart/index.html.twig', [

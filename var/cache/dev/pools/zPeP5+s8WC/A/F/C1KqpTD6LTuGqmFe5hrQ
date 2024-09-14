@@ -1,0 +1,3 @@
+<?php //App%255CEntity%255CSetting%2523setSmtpemail
+
+return [PHP_INT_MAX, []];

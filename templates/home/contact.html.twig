@@ -1,6 +1,6 @@
 {% extends 'homebase.html.twig' %}
 
-{% block title %}Contact Us | {{setting[0].title}}{% endblock %}
+{% block title %}Vendre mon Livre | {{setting[0].title}}{% endblock %}
 {% block keywords %}{{setting[0].keywords}}{% endblock %}
 {% block description %}{{setting[0].description}}{% endblock %}
 
@@ -10,10 +10,10 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Contactez nous</h1>
+					<h1>Vendre mon livre</h1>
 					<nav class="d-flex align-items-center">
 						<a href="{{path('home')}}">Acceuil<span class="lnr lnr-arrow-right"></span></a>
-						<a href="{{path('home_contact')}}">Contact</a>
+						<a href="{{path('home_contact')}}">Vendre mon livre</a>
 					</nav>
 				</div>
 			</div>
@@ -23,26 +23,41 @@
 <!--================Contact Area =================-->
 	<section class="contact_area section_gap_bottom">
 		<div class="container">
-            <iframe id="mapBox" class="mapBox" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6701909936955!2d9.741557214760096!3d4.08739079702789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xa4b3ad27c5eac367!2sMULTI%20LAYERS%20SOLUTIONS%20(MLS)!5e0!3m2!1sfr!2scm!4v1627296118562!5m2!1sfr!2scm" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-
             
+
+            <div class="row py-5" >
+				<h2>Vous êtes auteur et souhaitez vendre votre livre ?</h2>
+				<p>
+					Rejoignez notre plateforme et partagez votre œuvre avec un large public passionné de lecture. Que vous ayez écrit un roman captivant, un guide pratique ou un essai percutant, nous vous offrons une vitrine unique pour présenter vos créations. Vendre vos livres, numériques ou physiques, n’a jamais été aussi simple !<br>
+					
+					<ul>
+						<li><h3>Pourquoi nous choisir ?</h3></li>
+						<li><b>Visibilité accrue :</b> Accédez à une communauté de lecteurs actifs.</li>
+						<li><b>Mise en avant personnalisée :</b> Profitez de pages dédiées à vos œuvres.</li>
+						<li><b>Processus simple :</b> Gérer vos ventes et paiements en toute simplicité.</li>
+
+					</ul>
+				</p>
+			</div>
+			<h2 class="text-center my-5"><b>Inscrivez-vous dès aujourd'hui et donnez à votre livre la visibilité qu'il mérite !</b></h2>
 			<div class="row">
+				
                 {{ include('messages.html.twig') }}
 				<div class="col-lg-3">
 					<div class="contact_info">
 						<div class="info_item">
 							<i class="lnr lnr-home"></i>
-							<h6>Douala, Cameroun</h6>
-							<p>Bonamoussadi, Carrefour Eto'o</p>
+							<h6>Cameroun</h6>
+							<p>{{setting[0].address}}</p>
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-phone-handset"></i>
-							<h6><a href="#">+237 697 93 53 20</a></h6>
+							<h6><a href="#">{{setting[0].phone}}</a></h6>
 							<p>Lundi à Vendredi de 9h à 18h</p>
 						</div>
 						<div class="info_item">
 							<i class="lnr lnr-envelope"></i>
-							<h6><a href="#">support@devmight.com</a></h6>
+							<h6><a href="#">{{setting[0].email}}</a></h6>
 							<p>Envoyez nous vos messages quand vous voulez!</p>
 						</div>
 					</div>
@@ -51,27 +66,28 @@
 					<form class="row contact_form"  method="post" id="contactForm" novalidate="novalidate">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control" id="name" name="messages[name]" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
+								<input type="text" class="form-control" id="name" name="messages[name]" placeholder="Entrer votre name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'">
 							</div>
 							<div class="form-group">
-								<input type="email" class="form-control" id="email" name="messages[email]" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
+								<input type="email" class="form-control" id="email" name="messages[email]" placeholder="Entrer votre email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" id="subject" name="messages[subject]" placeholder="Enter Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
+								<input type="text" class="form-control" id="subject" name="messages[subject]" placeholder="Entrer le Sujet" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<textarea class="form-control" name="messages[message]" id="message" rows="1" placeholder="Enter Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
+								<textarea class="form-control" name="messages[message]" id="message" rows="1" placeholder="Entrer votre Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"></textarea>
 							</div>
 						</div>
 						<div class="col-md-12 text-right">
                             <input type="hidden" name="token" value="{{ csrf_token('form-message') }}">
-							<button type="submit" value="submit" class="primary-btn">Send Message</button>
+							<button type="submit" value="submit" class="primary-btn">Envoyez Mon Message</button>
 						</div>
 					</form>
 				</div>
 			</div>
+			<iframe id="mapBox" class="mapBox" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6416115889388!2d9.747362088854985!3d4.093144700000025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610fcc62cf1d59%3A0x6259be7bc7405f8f!2sCarrefour%20des%20immeubles%20de%20kotto!5e0!3m2!1sfr!2scm!4v1726314646702!5m2!1sfr!2scm" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 		</div>
 	</section>
 	<!--================Contact Area =================-->

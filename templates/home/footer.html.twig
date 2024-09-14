@@ -7,7 +7,7 @@
 						<h6>A propos</h6>
 						<p>
 						
-							Muzeum votre magasin en ligne, qui répond à vos besoins.
+							{{setting[0].description}}
 						</p>
 					</div>
 				</div>
@@ -17,7 +17,7 @@
 						<p></p>
 						<div class="" id="mc_embed_signup">
 
-							<p><i class="fa fa-phone"></i> + 237 697 93 53 20</p>
+							<p><i class="fa fa-phone"></i> {{setting[0].phone}}</p>
 							<p><i class="fa fa-envelope"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
 						</div>
 					</div>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
-						<img src="{{asset('assets/client/img/logo.png')}}" style=" width:auto;" alt="museum-logo">
+						<img src="{{asset('assets/client/img/logo.png')}}" style=" width:auto;" alt="muzeum-logo">
 					</div>
 				</div>
 			</div>

@@ -8123,3 +8123,16 @@ cb752b,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon4.pn
 3cd3b5,127.0.0.1,GET,http://127.0.0.1:8000/shopcart/cart/count,1726321980,,500
 c62a29,127.0.0.1,GET,http://127.0.0.1:8000/user/131/edit,1726322415,c5b3e5,500
 c5b3e5,127.0.0.1,GET,http://127.0.0.1:8000/user/131/edit,1726322415,,500
+2a539d,127.0.0.1,GET,http://127.0.0.1:8000/admin,1726322448,,301
+7d31ed,127.0.0.1,GET,http://127.0.0.1:8000/admin/,1726322450,,200
+8df9bf,127.0.0.1,GET,http://127.0.0.1:8000/,1726322451,,200
+5f408e,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon1.png,1726322452,32c53d,404
+32c53d,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon1.png,1726322452,,404
+3d912d,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon2.png,1726322453,bd61f6,404
+bd61f6,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon2.png,1726322453,,404
+561649,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon3.png,1726322453,212774,404
+212774,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon3.png,1726322453,,404
+03149f,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon4.png,1726322454,02ef39,404
+02ef39,127.0.0.1,GET,http://127.0.0.1:8000/assets/client/img/features/f-icon4.png,1726322454,,404
+c9b469,127.0.0.1,GET,http://127.0.0.1:8000/shopcart/cart/count,1726322455,4f5164,500
+4f5164,127.0.0.1,GET,http://127.0.0.1:8000/shopcart/cart/count,1726322455,,500

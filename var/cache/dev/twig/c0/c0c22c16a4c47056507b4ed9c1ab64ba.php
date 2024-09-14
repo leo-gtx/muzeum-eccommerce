@@ -196,7 +196,7 @@ class __TwigTemplate_45dfcb0e3655d988c71f582959f7b1eb extends Template
 \t\t\t\t\t\t<h2>";
         // line 41
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["product"]) || array_key_exists("product", $context) ? $context["product"] : (function () { throw new RuntimeError('Variable "product" does not exist.', 41, $this->source); })()), "price", [], "any", false, false, false, 41), "html", null, true);
-        yield " FCFA</h2>
+        yield " XAF</h2>
 \t\t\t\t\t\t<ul class=\"list\">
 \t\t\t\t\t\t\t<li><a class=\"active\" href=\"";
         // line 43
@@ -574,7 +574,7 @@ class __TwigTemplate_45dfcb0e3655d988c71f582959f7b1eb extends Template
                 <form name=\"shopcart\" class=\"form-horizontal qtyFrm\" action=\"{{ path('shopcart_new') }}\" method=\"post\">
 \t\t\t\t\t<div class=\"s_product_text\">
 \t\t\t\t\t\t<h3>{{product.title}}</h3>
-\t\t\t\t\t\t<h2>{{product.price}} FCFA</h2>
+\t\t\t\t\t\t<h2>{{product.price}} XAF</h2>
 \t\t\t\t\t\t<ul class=\"list\">
 \t\t\t\t\t\t\t<li><a class=\"active\" href=\"{{ path('home', {'category': product.category.id}) }}\"><span>Categorie</span> : {{product.category.title}}</a></li>
 \t\t\t\t\t\t\t<li><a href=\"#\"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>

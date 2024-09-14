@@ -175,7 +175,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                     <h5>";
             // line 59
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["shopcart"], "price", [], "any", false, false, false, 59), "html", null, true);
-            yield " FCFA</h5>
+            yield " XAF</h5>
                                 </td>
                                 <td>
                                     <div class=\"product_count\">
@@ -262,7 +262,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                     <h5>";
         // line 114
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 114, $this->source); })()), "html", null, true);
-        yield " FCFA</h5>
+        yield " XAF</h5>
                                 </td>
                                 <td>
 
@@ -426,7 +426,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>{{shopcart.price}} FCFA</h5>
+                                    <h5>{{shopcart.price}} XAF</h5>
                                 </td>
                                 <td>
                                     <div class=\"product_count\">
@@ -481,7 +481,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                     <h5>Sous-Total</h5>
                                 </td>
                                 <td>
-                                    <h5>{{total}} FCFA</h5>
+                                    <h5>{{total}} XAF</h5>
                                 </td>
                                 <td>
 

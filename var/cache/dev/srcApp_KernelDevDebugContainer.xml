@@ -6878,6 +6878,13 @@
         <argument key="orderDetail" type="service_closure" id=".errored..service_locator.yvZURjZ.App\Entity\OrderDetail"/>
       </argument>
     </service>
+    <service id=".service_locator.bvAIu.A" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="ordersRepository" type="service_closure" id="App\Repository\OrdersRepository"/>
+        <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.iePt7HO" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6942,14 +6949,22 @@
         <argument key="shopcart" type="service_closure" id=".errored..service_locator.edsVTVi.App\Entity\Shopcart"/>
       </argument>
     </service>
-    <service id=".service_locator.QyebdO7" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.o35J2M_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="commentRepository" type="service_closure" id="App\Repository\Admin\CommentRepository"/>
+        <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.zoCor5F" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="orderDetailRepository" type="service_closure" id="App\Repository\OrderDetailRepository"/>
         <argument key="ordersRepository" type="service_closure" id="App\Repository\OrdersRepository"/>
+        <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.dNh3nT6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator..QdIHwd" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminController::getOrderCounts" type="service_closure" id=".service_locator.7oVgZkk"/>
@@ -7008,7 +7023,7 @@
         <argument key="App\Controller\OrdersController::confirm" type="service_closure" id=".service_locator.ShV_eO7"/>
         <argument key="App\Controller\OrdersController::delete" type="service_closure" id=".service_locator.cl3_IM8"/>
         <argument key="App\Controller\OrdersController::edit" type="service_closure" id=".service_locator.cl3_IM8"/>
-        <argument key="App\Controller\OrdersController::index" type="service_closure" id=".service_locator.7oVgZkk"/>
+        <argument key="App\Controller\OrdersController::index" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\OrdersController::new" type="service_closure" id=".service_locator.iePt7HO"/>
         <argument key="App\Controller\OrdersController::show" type="service_closure" id=".service_locator.nzui62o"/>
         <argument key="App\Controller\ProductController::delete" type="service_closure" id=".service_locator.D2s0Hdj"/>
@@ -7026,16 +7041,17 @@
         <argument key="App\Controller\ShopcartController::index" type="service_closure" id=".service_locator.U9sHqX1"/>
         <argument key="App\Controller\ShopcartController::new" type="service_closure" id=".service_locator.qWt4s.D"/>
         <argument key="App\Controller\ShopcartController::show" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\UserController::comments" type="service_closure" id=".service_locator.XqjCtVz"/>
+        <argument key="App\Controller\UserController::comments" type="service_closure" id=".service_locator.o35J2M_"/>
         <argument key="App\Controller\UserController::delete" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\UserController::deletecomment" type="service_closure" id=".service_locator.XqjCtVz"/>
         <argument key="App\Controller\UserController::edit" type="service_closure" id=".service_locator.Ke1.mCH"/>
-        <argument key="App\Controller\UserController::library" type="service_closure" id=".service_locator.QyebdO7"/>
+        <argument key="App\Controller\UserController::library" type="service_closure" id=".service_locator.zoCor5F"/>
         <argument key="App\Controller\UserController::new" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController::newcomment" type="service_closure" id=".service_locator.XqjCtVz"/>
-        <argument key="App\Controller\UserController::orders" type="service_closure" id=".service_locator.7oVgZkk"/>
+        <argument key="App\Controller\UserController::orders" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\UserController::products" type="service_closure" id=".service_locator.sISyeov"/>
         <argument key="App\Controller\UserController::show" type="service_closure" id=".service_locator.3vYy5bm"/>
+        <argument key="App\Controller\UserController::showFavorites" type="service_closure" id=".service_locator.CKWaOaz"/>
         <argument key="App\Controller\UserController::toggle" type="service_closure" id=".service_locator.sISyeov"/>
         <argument key="App\Controller\Admin\AdminController:getOrderCounts" type="service_closure" id=".service_locator.7oVgZkk"/>
         <argument key="App\Controller\Admin\AdminController:index" type="service_closure" id=".service_locator.ztMKgH_"/>
@@ -7093,7 +7109,7 @@
         <argument key="App\Controller\OrdersController:confirm" type="service_closure" id=".service_locator.ShV_eO7"/>
         <argument key="App\Controller\OrdersController:delete" type="service_closure" id=".service_locator.cl3_IM8"/>
         <argument key="App\Controller\OrdersController:edit" type="service_closure" id=".service_locator.cl3_IM8"/>
-        <argument key="App\Controller\OrdersController:index" type="service_closure" id=".service_locator.7oVgZkk"/>
+        <argument key="App\Controller\OrdersController:index" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\OrdersController:new" type="service_closure" id=".service_locator.iePt7HO"/>
         <argument key="App\Controller\OrdersController:show" type="service_closure" id=".service_locator.nzui62o"/>
         <argument key="App\Controller\ProductController:delete" type="service_closure" id=".service_locator.D2s0Hdj"/>
@@ -7111,16 +7127,17 @@
         <argument key="App\Controller\ShopcartController:index" type="service_closure" id=".service_locator.U9sHqX1"/>
         <argument key="App\Controller\ShopcartController:new" type="service_closure" id=".service_locator.qWt4s.D"/>
         <argument key="App\Controller\ShopcartController:show" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\UserController:comments" type="service_closure" id=".service_locator.XqjCtVz"/>
+        <argument key="App\Controller\UserController:comments" type="service_closure" id=".service_locator.o35J2M_"/>
         <argument key="App\Controller\UserController:delete" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\UserController:deletecomment" type="service_closure" id=".service_locator.XqjCtVz"/>
         <argument key="App\Controller\UserController:edit" type="service_closure" id=".service_locator.Ke1.mCH"/>
-        <argument key="App\Controller\UserController:library" type="service_closure" id=".service_locator.QyebdO7"/>
+        <argument key="App\Controller\UserController:library" type="service_closure" id=".service_locator.zoCor5F"/>
         <argument key="App\Controller\UserController:new" type="service_closure" id=".service_locator.F8Oy7LC"/>
         <argument key="App\Controller\UserController:newcomment" type="service_closure" id=".service_locator.XqjCtVz"/>
-        <argument key="App\Controller\UserController:orders" type="service_closure" id=".service_locator.7oVgZkk"/>
+        <argument key="App\Controller\UserController:orders" type="service_closure" id=".service_locator.bvAIu.A"/>
         <argument key="App\Controller\UserController:products" type="service_closure" id=".service_locator.sISyeov"/>
         <argument key="App\Controller\UserController:show" type="service_closure" id=".service_locator.3vYy5bm"/>
+        <argument key="App\Controller\UserController:showFavorites" type="service_closure" id=".service_locator.CKWaOaz"/>
         <argument key="App\Controller\UserController:toggle" type="service_closure" id=".service_locator.sISyeov"/>
       </argument>
     </service>
@@ -7698,12 +7715,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.dNh3nT6"/>
+      <argument type="service" id=".service_locator..QdIHwd"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.dNh3nT6"/>
+      <argument type="service" id=".service_locator..QdIHwd"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -8149,7 +8166,7 @@
     <service id="Imagine\Image\ImagineInterface" alias="liip_imagine.gd"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.dNh3nT6"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator..QdIHwd"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

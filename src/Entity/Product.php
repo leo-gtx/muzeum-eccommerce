@@ -132,6 +132,10 @@ class Product
     {
         $this->images = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+        if($this->created_at){
+            $this->updated_at = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int

@@ -110,6 +110,10 @@ class User implements UserInterface
         $this->products = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->shopcarts = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+        if($this->created_at){
+            $this->updated_at = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int

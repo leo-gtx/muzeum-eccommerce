@@ -53,12 +53,17 @@ class __TwigTemplate_8542dd6bdff266a00bc1aaf790bad32d extends Template
 \t\t\t\t\t<div class=\"single-footer-widget\">
 \t\t\t\t\t\t<h6>A propos</h6>
 \t\t\t\t\t\t<p>
-\t\t\t\t\t\t
 \t\t\t\t\t\t\t";
-        // line 10
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 10, $this->source); })()), 0, [], "array", false, false, false, 10), "description", [], "any", false, false, false, 10), "html", null, true);
-        yield "
-\t\t\t\t\t\t</p>
+        // line 9
+        if (array_key_exists("setting", $context)) {
+            // line 10
+            yield "\t\t\t\t\t\t\t\t";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 10, $this->source); })()), 0, [], "array", false, false, false, 10), "description", [], "any", false, false, false, 10), "html", null, true);
+            yield "
+\t\t\t\t\t\t\t";
+        }
+        // line 12
+        yield "\t\t\t\t\t\t</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<div class=\"col-lg-4  col-md-6 col-sm-6\">
@@ -67,15 +72,19 @@ class __TwigTemplate_8542dd6bdff266a00bc1aaf790bad32d extends Template
 \t\t\t\t\t\t<p></p>
 \t\t\t\t\t\t<div class=\"\" id=\"mc_embed_signup\">
 
-\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i> ";
-        // line 20
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 20, $this->source); })()), 0, [], "array", false, false, false, 20), "phone", [], "any", false, false, false, 20), "html", null, true);
-        yield "</p>
-\t\t\t\t\t\t\t<p><i class=\"fa fa-envelope\"></i>";
+\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i>";
         // line 21
         if (array_key_exists("setting", $context)) {
             yield " ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 21, $this->source); })()), 0, [], "array", false, false, false, 21), "email", [], "any", false, false, false, 21), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 21, $this->source); })()), 0, [], "array", false, false, false, 21), "phone", [], "any", false, false, false, 21), "html", null, true);
+            yield " ";
+        }
+        yield "</p>
+\t\t\t\t\t\t\t<p><i class=\"fa fa-envelope\"></i>";
+        // line 22
+        if (array_key_exists("setting", $context)) {
+            yield " ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 22, $this->source); })()), 0, [], "array", false, false, false, 22), "email", [], "any", false, false, false, 22), "html", null, true);
             yield " ";
         }
         yield "</p>
@@ -88,30 +97,30 @@ class __TwigTemplate_8542dd6bdff266a00bc1aaf790bad32d extends Template
 \t\t\t\t\t\t<h6>Suivez nous</h6>
 \t\t\t\t\t\t<div class=\"footer-social d-flex align-items-center\">
 \t\t\t\t\t\t";
-        // line 30
+        // line 31
         if (array_key_exists("setting", $context)) {
-            // line 31
+            // line 32
             yield "\t\t\t\t\t\t\t<a href=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 31, $this->source); })()), 0, [], "array", false, false, false, 31), "facebook", [], "any", false, false, false, 31), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 32, $this->source); })()), 0, [], "array", false, false, false, 32), "facebook", [], "any", false, false, false, 32), "html", null, true);
             yield "\"><i class=\"fa fa-facebook\"></i></a>
 \t\t\t\t\t\t\t<a href=\"";
-            // line 32
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 32, $this->source); })()), 0, [], "array", false, false, false, 32), "twitter", [], "any", false, false, false, 32), "html", null, true);
+            // line 33
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 33, $this->source); })()), 0, [], "array", false, false, false, 33), "twitter", [], "any", false, false, false, 33), "html", null, true);
             yield "\"><i class=\"fa fa-twitter\"></i></a>
 \t\t\t\t\t\t\t<a href=\"";
-            // line 33
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 33, $this->source); })()), 0, [], "array", false, false, false, 33), "instagram", [], "any", false, false, false, 33), "html", null, true);
+            // line 34
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 34, $this->source); })()), 0, [], "array", false, false, false, 34), "instagram", [], "any", false, false, false, 34), "html", null, true);
             yield "\"><i class=\"fa fa-instagram\"></i></a>
 \t\t\t\t\t\t";
         }
-        // line 35
+        // line 36
         yield "\t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<div class=\"col-lg-2 col-md-6 col-sm-6\">
 \t\t\t\t\t<div class=\"single-footer-widget\">
 \t\t\t\t\t\t<img src=\"";
-        // line 40
+        // line 41
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/logo.png"), "html", null, true);
         yield "\" style=\" width:auto;\" alt=\"muzeum-logo\">
 \t\t\t\t\t</div>
@@ -129,7 +138,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t<!-- WhatsApp Floating Button -->
     <a href=\"#\" class=\"whatsapp-btn\" id=\"whatsappButton\">
         <img src=\"";
-        // line 55
+        // line 56
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/whatsapp.svg"), "html", null, true);
         yield "\" alt=\"WhatsApp Icon\">
     </a>
@@ -142,13 +151,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
         </div>
     </div>
 \t";
-        // line 65
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 65, $this->source); })()), "user", [], "any", false, false, false, 65)) {
-            // line 66
+        // line 66
+        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 66, $this->source); })()), "user", [], "any", false, false, false, 66)) {
+            // line 67
             yield "\t<!-- Cart Button -->
 \t<div id=\"cart-button\" class=\"floating-cart\">
 \t\t<a href=\"";
-            // line 68
+            // line 69
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
             yield "\" class=\"link\" id=\"cart-link\">
 \t\t\t<span class=\"ti-bag\"></span>
@@ -187,7 +196,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      */
     public function getDebugInfo(): array
     {
-        return array (  152 => 68,  148 => 66,  146 => 65,  133 => 55,  115 => 40,  108 => 35,  103 => 33,  99 => 32,  94 => 31,  92 => 30,  76 => 21,  72 => 20,  59 => 10,  48 => 1,);
+        return array (  161 => 69,  157 => 67,  155 => 66,  142 => 56,  124 => 41,  117 => 36,  112 => 34,  108 => 33,  103 => 32,  101 => 31,  85 => 22,  77 => 21,  66 => 12,  60 => 10,  58 => 9,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -200,8 +209,9 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t\t\t\t\t<div class=\"single-footer-widget\">
 \t\t\t\t\t\t<h6>A propos</h6>
 \t\t\t\t\t\t<p>
-\t\t\t\t\t\t
-\t\t\t\t\t\t\t{{setting[0].description}}
+\t\t\t\t\t\t\t{% if setting is defined %}
+\t\t\t\t\t\t\t\t{{setting[0].description}}
+\t\t\t\t\t\t\t{% endif %}
 \t\t\t\t\t\t</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
@@ -211,7 +221,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t\t\t\t\t\t<p></p>
 \t\t\t\t\t\t<div class=\"\" id=\"mc_embed_signup\">
 
-\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i> {{setting[0].phone}}</p>
+\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i>{% if setting is defined %} {{setting[0].phone}} {% endif %}</p>
 \t\t\t\t\t\t\t<p><i class=\"fa fa-envelope\"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>

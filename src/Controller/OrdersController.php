@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Repository\SettingRepository;
 
 /**
  * @Route("/orders")
@@ -24,11 +25,13 @@ class OrdersController extends AbstractController
     /**
      * @Route("/", name="orders_index", methods={"GET"})
      */
-    public function index(OrdersRepository $ordersRepository): Response
+    public function index(SettingRepository $settingRepository, OrdersRepository $ordersRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
+        $setting = $settingRepository->findAll();
         return $this->render('orders/index.html.twig', [
             'orders' => $ordersRepository->findBy(['user' => $user], ['created_at'=> 'DESC']),
+            'setting' => $setting
         ]);
     }
 
@@ -197,9 +200,10 @@ class OrdersController extends AbstractController
     /**
      * @Route("/{id}", name="orders_show", methods={"GET"})
      */
-    public function show(Orders $order, OrderDetailRepository $orderDetailRepository): Response
+    public function show(SettingRepository $settingRepository, Orders $order, OrderDetailRepository $orderDetailRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
+        $setting = $settingRepository->findAll();
         
         $orderdetail = $orderDetailRepository->findBy(
             ['orderParent' => $order]
@@ -207,6 +211,7 @@ class OrdersController extends AbstractController
         return $this->render('orders/show.html.twig', [
             'order' => $order,
             'orderdetail' => $orderdetail,
+            'setting' => $setting
         ]);
     }
 

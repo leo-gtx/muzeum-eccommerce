@@ -43,7 +43,7 @@
                                         <td>{{ comment.subject }}</td>
                                         <td>{{ comment.comment }}</td>
                                         <td nowrap><a href="{{ path('product_show', {'id': comment.productid}) }}">{{ comment.title }}</a></td>
-                                        <td>{{ comment.created_at }}</td>
+                                        <td>{{ comment.created_at|date('d M Y H:i:s') }}</td>
                                         <td>{{ comment.rate }}</td>
                                         <td>
                                             <form method="post" action="{{path('user_delete_comment',{'id':comment.id})}}" onsubmit="return confirm('Voulez vous supprimez ce commentaire?');">

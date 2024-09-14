@@ -68,6 +68,13 @@ class Comment
      */
     private $author;
 
+    public function __construct(){
+        $this->created_at = new \DateTimeImmutable();
+        if($this->created_at){
+            $this->updated_at = new \DateTimeImmutable();
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

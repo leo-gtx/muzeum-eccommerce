@@ -73,6 +73,9 @@ class Event
     {
         $this->products = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
+        if($this->createdAt){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getId(): ?int

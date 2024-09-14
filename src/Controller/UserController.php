@@ -10,6 +10,7 @@ use App\Form\UserType;
 use App\Repository\Admin\CommentRepository;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
+use App\Repository\SettingRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\OrderDetailRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,14 +36,16 @@ class UserController extends AbstractController
     /**
      * @Route("/comments", name="user_comments", methods={"GET"})
      */
-    public function comments(CommentRepository $commentRepository): Response
+    public function comments(SettingRepository $settingRepository, CommentRepository $commentRepository): Response
     {
         $user = $this->getUser();
         $comments = $commentRepository->getAllCommentsUser($user->getId());
+        $setting = $settingRepository->findAll();
         //dump($comments);
         //die();
         return $this->render('/user/comments.html.twig', [
             'comments' => $comments,
+            'setting' => $setting
         ]);
     }
 
@@ -60,11 +63,13 @@ class UserController extends AbstractController
     /**
      * @Route("/orders", name="user_orders", methods={"GET"})
      */
-    public function orders(OrdersRepository $ordersRepository): Response
+    public function orders(SettingRepository $settingRepository, OrdersRepository $ordersRepository): Response
     {
         $orders = $ordersRepository->findBy(['user' => $this->getUser()],['createdAt' => 'DESC']);
+        $setting = $settingRepository->findAll();
         return $this->render('/user/orders.html.twig', [
-            'orders' => $orders
+            'orders' => $orders,
+            'setting' => $setting
         ]);
     }
 
@@ -224,7 +229,7 @@ class UserController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $comment->setAuthor($this->getUser());
                 $comment->setStatus('New');
-                $comment->setCreatedAt(new \DateTimeImmutable());
+                // $comment->setCreatedAt(new \DateTimeImmutable());
                 $comment->setIp($_SERVER['REMOTE_ADDR']);
                 $comment->setProductid($id);
                 $user = $this->getUser();
@@ -291,11 +296,13 @@ class UserController extends AbstractController
      /**
      * @Route("/favorites", name="user_show_favorites")
      */
-    public function showFavorites(): Response
+    public function showFavorites(SettingRepository $settingRepository): Response
     {
+        $setting = $settingRepository->findAll();
        $user = $this->getUser();
        return $this->render('user/favorites.html.twig', [
         'favorites' => $user->getFavorites(),
+        'setting' => $setting
     ]);
 
     }
@@ -303,8 +310,9 @@ class UserController extends AbstractController
     /**
      * @Route("/library", name="user_library")
      */
-    public function library(OrderDetailRepository $orderDetailRepository, OrdersRepository $ordersRepository): Response
+    public function library(SettingRepository $settingRepository, OrderDetailRepository $orderDetailRepository, OrdersRepository $ordersRepository): Response
     {
+        $setting = $settingRepository->findAll();
         $user = $this->getUser();
         $orders = $ordersRepository->findBy(['user'=>$user->getId(), 'isPaid'=>true]);
         $products = [];
@@ -319,7 +327,8 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/library.html.twig', [
-            'products' => $products
+            'products' => $products,
+            'setting' => $setting
         ]);
     }
 

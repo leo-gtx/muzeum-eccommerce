@@ -6,8 +6,9 @@
 					<div class="single-footer-widget">
 						<h6>A propos</h6>
 						<p>
-						
-							{{setting[0].description}}
+							{% if setting is defined %}
+								{{setting[0].description}}
+							{% endif %}
 						</p>
 					</div>
 				</div>
@@ -17,7 +18,7 @@
 						<p></p>
 						<div class="" id="mc_embed_signup">
 
-							<p><i class="fa fa-phone"></i> {{setting[0].phone}}</p>
+							<p><i class="fa fa-phone"></i> {% if setting is defined %}{{setting[0].phone}}{% endif %}</p>
 							<p><i class="fa fa-envelope"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
 						</div>
 					</div>

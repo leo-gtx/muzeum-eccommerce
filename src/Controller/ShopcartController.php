@@ -35,7 +35,7 @@ class ShopcartController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.user = :userid AND p.id = s.productid ";
+                WHERE s.user_id = :userid AND p.id = s.product_id ";
 
         $statement = $em->getConnection()->prepare($sql);
         $statement->bindValue(':userid', $user->getid());
@@ -68,7 +68,7 @@ class ShopcartController extends AbstractController
                 $entityManager->persist($oldShopcart);
             }else{
                 $product = $productRepository->find($params['ID']);
-                $shopcart->setProduct($params['ID']);
+                $shopcart->setProduct($product);
                 $shopcart->setQuantity($params['Q']);
                 $user = $this->getUser();
                 $shopcart->setUser($user);

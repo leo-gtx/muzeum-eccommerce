@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use App\Repository\ShopcartRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 
@@ -66,7 +67,7 @@ class AdminController extends AbstractController
     public function show($id,Orders $orders, OrderDetailRepository $orderDetailRepository): Response
     {
         $orderdetail = $orderDetailRepository->findBy(
-            ['orderid' => $id]
+            ['orderParent' => $id]
         );
 
         return $this->render('admin/orders/show.html.twig', [
@@ -88,11 +89,32 @@ class AdminController extends AbstractController
         $statement->bindValue('status', $request->request->get('status'));
         $statement->bindValue('id', $id);
         $statement->execute();
-        $this->addFlash('success','Sipariş Bilgileri Güncellenmiştir');
+        $this->addFlash('success','Mise à jour effectuée!');
 
         return $this->redirectToRoute('admin_orders_show',array('id' => $id));
 
 
+    }
+
+    /**
+     * @Route("/order-counts", name="admin_order_counts", methods={"GET"})
+     */
+    public function getOrderCounts(OrdersRepository $ordersRepository): JsonResponse
+    {
+        // Get counts of orders by status
+        $newOrders = $ordersRepository->count(['status' => 'New']);
+        $acceptedOrders = $ordersRepository->count(['status' => 'Accepted']);
+        $inShippingOrders = $ordersRepository->count(['status' => 'Inshipping']);
+        $canceledOrders = $ordersRepository->count(['status' => 'Canceled']);
+        $completedOrders = $ordersRepository->count(['status' => 'Completed']);
+
+        return new JsonResponse([
+            'new' => $newOrders,
+            'accepted' => $acceptedOrders,
+            'inshipping' => $inShippingOrders,
+            'canceled' => $canceledOrders,
+            'completed' => $completedOrders,
+        ]);
     }
 
 }

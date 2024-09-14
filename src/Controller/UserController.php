@@ -303,10 +303,20 @@ class UserController extends AbstractController
     /**
      * @Route("/library", name="user_library")
      */
-    public function library(OrderDetailRepository $orderDetailRepository): Response
+    public function library(OrderDetailRepository $orderDetailRepository, OrdersRepository $ordersRepository): Response
     {
         $user = $this->getUser();
-        $products = $orderDetailRepository->findProductsByUser($user->getId());
+        $orders = $ordersRepository->findBy(['user'=>$user->getId(), 'isPaid'=>true]);
+        $products = [];
+        foreach ($orders as $order) {
+            foreach ($order->getOrderDetails() as $orderDetail) {
+                if($orderDetail->getProduct()->getType() == 'DIGITAL'){
+                    $products[] = $orderDetail->getProduct();
+                }
+                
+            }
+            
+        }
 
         return $this->render('user/library.html.twig', [
             'products' => $products

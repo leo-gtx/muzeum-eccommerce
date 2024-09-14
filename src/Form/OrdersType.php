@@ -6,13 +6,19 @@ use App\Entity\Orders;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\User;
 
 class OrdersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user')
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username', // Adjust to the property you want to display
+                'placeholder' => 'Choose a user', // Optional placeholder
+            ])
             ->add('amount')
             ->add('name')
             ->add('address')

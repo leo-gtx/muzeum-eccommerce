@@ -38,7 +38,7 @@
                 <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
 					<div class="s_product_text">
 						<h3>{{product.title}}</h3>
-						<h2>{{product.price}} FCFA</h2>
+						<h2>{{product.price}} XAF</h2>
 						<ul class="list">
 							<li><a class="active" href="{{ path('home', {'category': product.category.id}) }}"><span>Categorie</span> : {{product.category.title}}</a></li>
 							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>

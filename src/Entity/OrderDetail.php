@@ -42,19 +42,23 @@ class OrderDetail
     private $status;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
-     */
-    private $user;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Product::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
 
     /**
-     * @ORM\OneToOne(targetEntity=Orders::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Orders::class, inversedBy="orderDetails")
      */
     private $orderParent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+
 
 
     public function getId(): ?int
@@ -158,4 +162,6 @@ class OrderDetail
 
         return $this;
     }
+
+    
 }

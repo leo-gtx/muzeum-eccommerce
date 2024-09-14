@@ -104,13 +104,13 @@
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">
                                     <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Create an account?</label>
+                                    <label for="f-option2">Créer un compte?</label>
                                 </div>
                             </div>
                             {% endif %}
                              <div class="col-md-12 form-group">
                                 <div class="creat_account">
-                                    <h3>Shipping Details</h3>
+                                    <h3>Détails de la livraison</h3>
                                 </div>
                                 <textarea class="form-control" maxlength="255" name="orders[note]" id="message" rows="1" placeholder="Order Notes"></textarea>
                             </div>
@@ -122,21 +122,21 @@
                             <ul class="list">
                                 <li><a href="#">Produit <span>Total</span></a></li>
                                 {% for item in shopcart %}
-                                <li><a href="#">{{item.title}} <span class="middle">x {{item.quantity}}</span> <span class="last">{{item.price * item.quantity}} FCFA</span></a></li>
+                                <li><a href="#">{{item.title}} <span class="middle">x {{item.quantity}}</span> <span class="last">{{item.price * item.quantity}} XAF</span></a></li>
                                 {% endfor %}
                             </ul>
                             <ul class="list list_2">
-                                <li><a href="#">Sous-total <span>{{total}} FCFA</span></a></li>
-                                <li><a href="#">Livraison <span>Gratuite</span></a></li>
-                                <li><a href="#">Total <span>{{total}} FCFA</span></a></li>
+                                <li><a href="#">Sous-total <span>{{total}} XAF</span></a></li>
+                                <li><a href="#">Livraison <span>Aux Frais Du Client</span></a></li>
+                                <li><a href="#">Total <span>{{total}} XAF</span></a></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
                                     <input type="radio" id="f-option5" name="selector" checked>
-                                    <label for="f-option5">Paiement à la livraison</label>
+                                    <label for="f-option5">Livraison instantanées</label>
                                     <div class="check"></div>
                                 </div>
-                                <p>Vous choississez de payer à la livraison par conséquent rassurez vous de payer au livreur, et prévoyez de la monnaie.</p>
+                                <p>A la fin de vos achats, vous pourrez télécharger les produits numériques. Les produits physiques vous seront livrés.</p>
                             </div>
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector" required>

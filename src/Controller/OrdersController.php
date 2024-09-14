@@ -7,6 +7,7 @@ use App\Entity\Orders;
 use App\Form\OrdersType;
 use App\Repository\OrderDetailRepository;
 use App\Repository\OrdersRepository;
+use App\Repository\ProductRepository;
 use App\Repository\ShopcartRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,7 @@ class OrdersController extends AbstractController
     /**
      * @Route("/new", name="orders_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, \Swift_Mailer $mailer): Response
+    public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, ProductRepository $productRepository, \Swift_Mailer $mailer): Response
     {
         $orders = new Orders();
         $form = $this->createForm(OrdersType::class, $orders);
@@ -50,7 +51,7 @@ class OrdersController extends AbstractController
 
                 FROM shopcart s , product p
                 
-                WHERE s.user = :userid AND p.id = s.productid ";
+                WHERE s.user_id = :userid AND p.id = s.product_id ";
 
         $statement = $em->getConnection()->prepare($sql);
         $statement->bindValue(':userid', $user->getid());
@@ -72,14 +73,14 @@ class OrdersController extends AbstractController
 
                 $orderid = $orders->getId(); // Get last insert orders data id
 
-                $shopcart = $shopcartRepository->getUserShopCart($user);
+                $shopcart = $shopcartRepository->getUserShopCart($user->getId());
 
                 foreach ($shopcart as $item) {
                     $orderdetail = new OrderDetail();
                     // Filling OrderDetails data from shopcart
                     $orderdetail->setOrderParent($orders);
                     $orderdetail->setUser($user); // login user id
-                    $orderdetail->setProduct($item["product"]);
+                    $orderdetail->setProduct($productRepository->find($item["product"]));
                     $orderdetail->setPrice($item["price"]);
                     $orderdetail->setQuantity($item["quantity"]);
                     $orderdetail->setAmount($item["total"]);
@@ -103,7 +104,7 @@ class OrdersController extends AbstractController
                     ['orderParent' => $orders]
                 );
                 try {
-                    $message = (new \Swift_Message('Museum Commande'))
+                    $message = (new \Swift_Message('Muzeum Commande'))
                     // On attribue l'expéditeur
                     ->setFrom($this->getParameter('app.address'))
                     // On attribue le destinataire
@@ -185,7 +186,7 @@ class OrdersController extends AbstractController
         $order->setIsPaid(true);
         $data = json_decode($request->query('soleaspay_data'));
         $order->setPaymentId($data->payId);
-        $order->setStatus('completed');
+        $order->setStatus('Completed');
         $entityManager->persist($order);
         $entityManager->flush();
         
@@ -242,4 +243,6 @@ class OrdersController extends AbstractController
 
         return $this->redirectToRoute('orders_index');
     }
+
+    
 }

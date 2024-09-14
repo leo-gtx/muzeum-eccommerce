@@ -24,14 +24,18 @@ class Shopcart
     private $quantity;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shopcarts")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Product::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Product::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $product;
+
+
 
     public function getId(): ?int
     {
@@ -74,4 +78,6 @@ class Shopcart
 
         return $this;
     }
+
+
 }

@@ -10,9 +10,12 @@
 {% endblock %}
 
 {% block body %}
-    {% block slider %} {% include('home/slider.html.twig') %}{% endblock %}
-    
-	{% if events|length > 0 %}
+	{% if slider|length > 1 %}
+		{% block slider %} 
+			{% include('home/slider.html.twig') %}
+		{% endblock %}
+    {% endif %}
+	{% if events|length > 1 %}
 		
 		{% for event in events %}
 			{% include('home/blackfriday.html.twig')%}

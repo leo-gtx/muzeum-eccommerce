@@ -198,12 +198,9 @@ class ProductController extends AbstractController
      */
     public function downloadFile(Request $request, Product $product): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // Check if the user is allowed to download the file
         $user = $this->getUser();
-        // Example: Check user roles or any other business logic
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
         
         
         // Check if the user has paid for this product

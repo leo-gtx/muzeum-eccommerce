@@ -26,7 +26,7 @@
 						<!-- single product -->
 						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
 
-								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+								<a href="{{ path('product_download', {'id': product.id})}}" class="social-info">
 								<div class="scene" style="height: 300px;width: 200px;">
 										<div class="dvd-box">
 											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image)  }}');">{{product.title}}</div>

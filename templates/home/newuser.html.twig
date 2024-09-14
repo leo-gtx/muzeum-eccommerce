@@ -7,7 +7,7 @@
                 <div class="left-sidebar">
                     <div class="brands_products"><!--brands_products-->
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        Zaten üyesiniz <br>
+                        Profile<br>
                         User Name : {{ app.user.name }} <br>
                         User Email : {{ app.user.email }}  <br>
                         User Roles : {% for item in app.user.roles %}
@@ -21,13 +21,13 @@
                         <form method="post" class="form-horizontal" name="user" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Adı</label>
+                                    <label class="col-sm-3 control-label">Nom</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="user[name]" class="form-control" value="{{ user.name }}"placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Soyadı</label>
+                                    <label class="col-sm-3 control-label">Surnom</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="user[surname]" class="form-control" value="{{ user.surname }}"placeholder="Surname">
                                     </div>
@@ -50,7 +50,7 @@
                                         <input type="text" name="user[address]" class="form-control" value="{{ user.address }}"placeholder="Address">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                {#<div class="form-group">
                                     <label class="col-sm-3 control-label">Şehir</label>
                                     <div class="col-sm-9">
                                         <select name="user[city]" >
@@ -138,9 +138,9 @@
                                             <option value="Zonguldak">Zonguldak</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>#}
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label">Telefon</label>
+                                    <label class="col-sm-3 control-label">Telephone</label>
                                     <div class="col-sm-9">
                                         <input type="text" name="user[phone]" class="form-control" value="{{ user.phone }}"placeholder="Phone">
                                     </div>

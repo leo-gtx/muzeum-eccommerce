@@ -40,9 +40,9 @@
 						<ul class="list">
 							<li><a href="#"><span>Numéro de la commande</span> : #{{order.id}}</a></li>
 							<li><a href="#"><span>Date</span> : {{order.createdAt|date('d M Y H:i:s')}}</a></li>
-							<li><a href="#"><span>Total</span> : {{order.amount}} FCFA</a></li>
+							<li><a href="#"><span>Total</span> : {{order.amount}} XAF</a></li>
                             <li><a href="#"><span>Statut</span> : {{order.status}}</a></li>
-							<li><a href="#"><span>Payé</span> : {{order.isPaid ? '':'En attente du paiement'}}</a></li>
+							<li><a href="#"><span>Payé</span> : {{order.isPaid ? 'Oui':'En attente du paiement'}}</a></li>
 						</ul>
 					</div>
 				</div>
@@ -93,9 +93,9 @@
 									<h5>x {{detail.quantity}}</h5>
 								</td>
 								<td>
-									<p>{{ detail.price * detail.quantity }} FCFA</p>
+									<p>{{ detail.price * detail.quantity }} XAF</p>
 								</td>
-								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.productid })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></></a></td>{% endif %}
+								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.product.id })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></></a></td>{% endif %}
 							</tr>
                         {% endfor %}
 							<tr>
@@ -117,7 +117,7 @@
 									
 								</td>
 								<td colspan="2">
-									<p>Gratuit</p>
+									<p>Aux Frais Du Client</p>
 								</td>
 							</tr>
 							
@@ -129,7 +129,7 @@
 									
 								</td>
 								<td colspan="2">
-									<p>{{order.amount}} FCFA</p>
+									<p>{{order.amount}} XAF</p>
 								</td>
 							</tr>
 							<tr>

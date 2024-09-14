@@ -77,7 +77,7 @@ class ProductController extends AbstractController
             unset($file);
             // **************** file upload ****************
             $user = $this->getUser();
-            $product->setUserid($user->getId());
+            $product->setUser($user);
             $entityManager->persist($product);
             $entityManager->flush();
 

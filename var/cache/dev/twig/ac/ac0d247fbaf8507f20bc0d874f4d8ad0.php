@@ -331,11 +331,11 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
 \t\t\t\t\t\t\t\t\t\t<h6>";
                 // line 100
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 100), "html", null, true);
-                yield "</h6><h6> FCFA</h6>
+                yield "</h6><h6> XAF</h6>
 \t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">";
                 // line 101
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "isPromoted", [], "any", false, false, false, 101)) ? ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) * 0.40000000000000002220446049250313080847263336181640625))) : ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) * 0.1499999999999999944488848768742172978818416595458984375)))), "html", null, true);
-                yield " FCFA</h6>
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 101) * 0.8000000000000000444089209850062616169452667236328125)), "html", null, true);
+                yield " XAF</h6>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t<div class=\"prd-bottom\">
 
@@ -617,8 +617,8 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
 \t\t\t\t\t\t\t\t<div class=\"product-details\">
 \t\t\t\t\t\t\t\t\t<h6>{{product.title}}</h6>
 \t\t\t\t\t\t\t\t\t<div class=\"price\">
-\t\t\t\t\t\t\t\t\t\t<h6>{{product.price}}</h6><h6> FCFA</h6>
-\t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.isPromoted ? product.price + (product.price * 0.4) : product.price + (product.price * 0.15) }} FCFA</h6>
+\t\t\t\t\t\t\t\t\t\t<h6>{{product.price}}</h6><h6> XAF</h6>
+\t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.price + (product.price * 0.8) }} XAF</h6>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t<div class=\"prd-bottom\">
 

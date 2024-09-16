@@ -100,7 +100,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
         // line 9
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_FULLY")) {
             // line 10
-            yield "                        Zaten üyesiniz <br>
+            yield "                        Profile<br>
                         User Name : ";
             // line 11
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 11, $this->source); })()), "user", [], "any", false, false, false, 11), "name", [], "any", false, false, false, 11), "html", null, true);
@@ -136,7 +136,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                         <form method=\"post\" class=\"form-horizontal\" name=\"user\" enctype=\"multipart/form-data\">
                             <div class=\"form-group\">
                                 <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Adı</label>
+                                    <label class=\"col-sm-3 control-label\">Nom</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[name]\" class=\"form-control\" value=\"";
             // line 26
@@ -145,7 +145,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                                     </div>
                                 </div>
                                 <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Soyadı</label>
+                                    <label class=\"col-sm-3 control-label\">Surnom</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[surname]\" class=\"form-control\" value=\"";
             // line 32
@@ -180,100 +180,10 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
             yield "\"placeholder=\"Address\">
                                     </div>
                                 </div>
-                                <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Şehir</label>
-                                    <div class=\"col-sm-9\">
-                                        <select name=\"user[city]\" >
-                                            <option value=\"";
-            // line 57
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 57, $this->source); })()), "city", [], "any", false, false, false, 57), "html", null, true);
-            yield "\"></option>
-                                            <option value=\"İstanbul\">İstanbul</option>
-                                            <option value=\"Ankara\">Ankara</option>
-                                            <option value=\"İzmir\">İzmir</option>
-                                            <option value=\"Adana\">Adana</option>
-                                            <option value=\"Adıyaman\">Adıyaman</option>
-                                            <option value=\"Afyonkarahisar\">Afyonkarahisar</option>
-                                            <option value=\"Ağrı\">Ağrı</option>
-                                            <option value=\"Aksaray\">Aksaray</option>
-                                            <option value=\"Amasya\">Amasya</option>
-                                            <option value=\"Antalya\">Antalya</option>
-                                            <option value=\"Ardahan\">Ardahan</option>
-                                            <option value=\"Artvin\">Artvin</option>
-                                            <option value=\"Aydın\">Aydın</option>
-                                            <option value=\"Balıkesir\">Balıkesir</option>
-                                            <option value=\"Bartın\">Bartın</option>
-                                            <option value=\"Batman\">Batman</option>
-                                            <option value=\"Bayburt\">Bayburt</option>
-                                            <option value=\"Bilecik\">Bilecik</option>
-                                            <option value=\"Bingöl\">Bingöl</option>
-                                            <option value=\"Bitlis\">Bitlis</option>
-                                            <option value=\"Bolu\">Bolu</option>
-                                            <option value=\"Burdur\">Burdur</option>
-                                            <option value=\"Bursa\">Bursa</option>
-                                            <option value=\"Çanakkale\">Çanakkale</option>
-                                            <option value=\"Çankırı\">Çankırı</option>
-                                            <option value=\"Çorum\">Çorum</option>
-                                            <option value=\"Denizli\">Denizli</option>
-                                            <option value=\"Diyarbakır\">Diyarbakır</option>
-                                            <option value=\"Düzce\">Düzce</option>
-                                            <option value=\"Edirne\">Edirne</option>
-                                            <option value=\"Elazığ\">Elazığ</option>
-                                            <option value=\"Erzincan\">Erzincan</option>
-                                            <option value=\"Erzurum\">Erzurum</option>
-                                            <option value=\"Eskişehir\">Eskişehir</option>
-                                            <option value=\"Gaziantep\">Gaziantep</option>
-                                            <option value=\"Giresun\">Giresun</option>
-                                            <option value=\"Gümüşhane\">Gümüşhane</option>
-                                            <option value=\"Hakkâri\">Hakkâri</option>
-                                            <option value=\"Hatay\">Hatay</option>
-                                            <option value=\"Iğdır\">Iğdır</option>
-                                            <option value=\"Isparta\">Isparta</option>
-                                            <option value=\"Kahramanmaraş\">Kahramanmaraş</option>
-                                            <option value=\"Karabük\">Karabük</option>
-                                            <option value=\"Karaman\">Karaman</option>
-                                            <option value=\"Kars\">Kars</option>
-                                            <option value=\"Kastamonu\">Kastamonu</option>
-                                            <option value=\"Kayseri\">Kayseri</option>
-                                            <option value=\"Kırıkkale\">Kırıkkale</option>
-                                            <option value=\"Kırklareli\">Kırklareli</option>
-                                            <option value=\"Kırşehir\">Kırşehir</option>
-                                            <option value=\"Kilis\">Kilis</option>
-                                            <option value=\"Kocaeli\">Kocaeli</option>
-                                            <option value=\"Konya\">Konya</option>
-                                            <option value=\"Kütahya\">Kütahya</option>
-                                            <option value=\"Malatya\">Malatya</option>
-                                            <option value=\"Manisa\">Manisa</option>
-                                            <option value=\"Mardin\">Mardin</option>
-                                            <option value=\"Mersin\">Mersin</option>
-                                            <option value=\"Muğla\">Muğla</option>
-                                            <option value=\"Muş\">Muş</option>
-                                            <option value=\"Nevşehir\">Nevşehir</option>
-                                            <option value=\"Niğde\">Niğde</option>
-                                            <option value=\"Ordu\">Ordu</option>
-                                            <option value=\"Osmaniye\">Osmaniye</option>
-                                            <option value=\"Rize\">Rize</option>
-                                            <option value=\"Sakarya\">Sakarya</option>
-                                            <option value=\"Samsun\">Samsun</option>
-                                            <option value=\"Siirt\">Siirt</option>
-                                            <option value=\"Sinop\">Sinop</option>
-                                            <option value=\"Sivas\">Sivas</option>
-                                            <option value=\"Şırnak\">Şırnak</option>
-                                            <option value=\"Tekirdağ\">Tekirdağ</option>
-                                            <option value=\"Tokat\">Tokat</option>
-                                            <option value=\"Trabzon\">Trabzon</option>
-                                            <option value=\"Tunceli\">Tunceli</option>
-                                            <option value=\"Şanlıurfa\">Şanlıurfa</option>
-                                            <option value=\"Uşak\">Uşak</option>
-                                            <option value=\"Van\">Van</option>
-                                            <option value=\"Yalova\">Yalova</option>
-                                            <option value=\"Yozgat\">Yozgat</option>
-                                            <option value=\"Zonguldak\">Zonguldak</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Telefon</label>
+                                ";
+            // line 142
+            yield "                                <div class=\"form-group\">
+                                    <label class=\"col-sm-3 control-label\">Telephone</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[phone]\" class=\"form-control\" value=\"";
             // line 145
@@ -341,7 +251,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  307 => 174,  297 => 166,  293 => 155,  280 => 145,  189 => 57,  179 => 50,  170 => 44,  161 => 38,  152 => 32,  143 => 26,  131 => 18,  127 => 16,  118 => 14,  114 => 13,  110 => 12,  106 => 11,  103 => 10,  101 => 9,  94 => 4,  84 => 3,  64 => 2,  41 => 1,);
+        return array (  217 => 174,  207 => 166,  203 => 155,  190 => 145,  185 => 142,  179 => 50,  170 => 44,  161 => 38,  152 => 32,  143 => 26,  131 => 18,  127 => 16,  118 => 14,  114 => 13,  110 => 12,  106 => 11,  103 => 10,  101 => 9,  94 => 4,  84 => 3,  64 => 2,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -355,7 +265,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                 <div class=\"left-sidebar\">
                     <div class=\"brands_products\"><!--brands_products-->
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        Zaten üyesiniz <br>
+                        Profile<br>
                         User Name : {{ app.user.name }} <br>
                         User Email : {{ app.user.email }}  <br>
                         User Roles : {% for item in app.user.roles %}
@@ -369,13 +279,13 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                         <form method=\"post\" class=\"form-horizontal\" name=\"user\" enctype=\"multipart/form-data\">
                             <div class=\"form-group\">
                                 <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Adı</label>
+                                    <label class=\"col-sm-3 control-label\">Nom</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[name]\" class=\"form-control\" value=\"{{ user.name }}\"placeholder=\"Name\">
                                     </div>
                                 </div>
                                 <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Soyadı</label>
+                                    <label class=\"col-sm-3 control-label\">Surnom</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[surname]\" class=\"form-control\" value=\"{{ user.surname }}\"placeholder=\"Surname\">
                                     </div>
@@ -398,7 +308,7 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                                         <input type=\"text\" name=\"user[address]\" class=\"form-control\" value=\"{{ user.address }}\"placeholder=\"Address\">
                                     </div>
                                 </div>
-                                <div class=\"form-group\">
+                                {#<div class=\"form-group\">
                                     <label class=\"col-sm-3 control-label\">Şehir</label>
                                     <div class=\"col-sm-9\">
                                         <select name=\"user[city]\" >
@@ -486,9 +396,9 @@ class __TwigTemplate_19222e85b9d6c8f3dbe2b4da80afdfe3 extends Template
                                             <option value=\"Zonguldak\">Zonguldak</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div>#}
                                 <div class=\"form-group\">
-                                    <label class=\"col-sm-3 control-label\">Telefon</label>
+                                    <label class=\"col-sm-3 control-label\">Telephone</label>
                                     <div class=\"col-sm-9\">
                                         <input type=\"text\" name=\"user[phone]\" class=\"form-control\" value=\"{{ user.phone }}\"placeholder=\"Phone\">
                                     </div>

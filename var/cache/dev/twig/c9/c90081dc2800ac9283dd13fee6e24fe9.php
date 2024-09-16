@@ -106,14 +106,14 @@ class __TwigTemplate_fddde1cbffff92d753de43630d850c41 extends Template
                 <th>Userid</th>
                 <td>";
         // line 16
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 16, $this->source); })()), "userid", [], "any", false, false, false, 16), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 16, $this->source); })()), "user", [], "any", false, false, false, 16), "id", [], "any", false, false, false, 16), "html", null, true);
         yield "</td>
             </tr>
             <tr>
                 <th>Productid</th>
                 <td>";
         // line 20
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 20, $this->source); })()), "productid", [], "any", false, false, false, 20), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 20, $this->source); })()), "product", [], "any", false, false, false, 20), "id", [], "any", false, false, false, 20), "html", null, true);
         yield "</td>
             </tr>
             <tr>
@@ -191,11 +191,11 @@ class __TwigTemplate_fddde1cbffff92d753de43630d850c41 extends Template
             </tr>
             <tr>
                 <th>Userid</th>
-                <td>{{ shopcart.userid }}</td>
+                <td>{{ shopcart.user.id }}</td>
             </tr>
             <tr>
                 <th>Productid</th>
-                <td>{{ shopcart.productid }}</td>
+                <td>{{ shopcart.product.id }}</td>
             </tr>
             <tr>
                 <th>Quantity</th>

@@ -36,7 +36,7 @@ class HomeController extends AbstractController
     public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository, EventRepository $eventRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
-        $slider = $productRepository->findBy(['status'=> 'True'],['title'=>'ASC'],3);
+        $slider = $productRepository->findBy(['status'=> 'True', 'isPromoted' => true],['title'=>'ASC']);
         $categories = $categoryRepository->findBy(['isActive'=>true],['title'=>'ASC']);
         $parameter = $request->get('category');
         $limit = $request->get('limit');

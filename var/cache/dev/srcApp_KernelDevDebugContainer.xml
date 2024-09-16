@@ -4356,7 +4356,7 @@
       <call method="add">
         <argument type="service" id=".security.request_matcher.J5VC6H6"/>
         <argument type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -6931,12 +6931,6 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.U9sHqX1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
-      </argument>
-    </service>
     <service id=".service_locator.qWt4s.D" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6944,10 +6938,25 @@
         <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.edsVTVi" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.pHnADoM" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="shopcart" type="service_closure" id=".errored..service_locator.edsVTVi.App\Entity\Shopcart"/>
+        <argument key="productRepository" type="service_closure" id="App\Repository\ProductRepository"/>
+        <argument key="shopcart" type="service_closure" id=".errored..service_locator.pHnADoM.App\Entity\Shopcart"/>
+        <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.j2jQTD9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="shopcart" type="service_closure" id=".errored..service_locator.j2jQTD9.App\Entity\Shopcart"/>
+        <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.U9sHqX1" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
       </argument>
     </service>
     <service id=".service_locator.o35J2M_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -6965,7 +6974,7 @@
         <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.kWOY5Yn" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.5j4dGoi" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminController::getOrderCounts" type="service_closure" id=".service_locator.7oVgZkk"/>
@@ -7035,13 +7044,12 @@
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.YJfGh3X"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::loginuser" type="service_closure" id=".service_locator.f94kp8W"/>
-        <argument key="App\Controller\ShopcartController::del" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\ShopcartController::delete" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\ShopcartController::edit" type="service_closure" id=".service_locator.edsVTVi"/>
+        <argument key="App\Controller\ShopcartController::delete" type="service_closure" id=".service_locator.j2jQTD9"/>
+        <argument key="App\Controller\ShopcartController::edit" type="service_closure" id=".service_locator.pHnADoM"/>
         <argument key="App\Controller\ShopcartController::getCartCount" type="service_closure" id=".service_locator.U9sHqX1"/>
-        <argument key="App\Controller\ShopcartController::index" type="service_closure" id=".service_locator.U9sHqX1"/>
+        <argument key="App\Controller\ShopcartController::index" type="service_closure" id=".service_locator.qWt4s.D"/>
         <argument key="App\Controller\ShopcartController::new" type="service_closure" id=".service_locator.qWt4s.D"/>
-        <argument key="App\Controller\ShopcartController::show" type="service_closure" id=".service_locator.edsVTVi"/>
+        <argument key="App\Controller\ShopcartController::show" type="service_closure" id=".service_locator.sISyeov"/>
         <argument key="App\Controller\UserController::comments" type="service_closure" id=".service_locator.o35J2M_"/>
         <argument key="App\Controller\UserController::delete" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\UserController::deletecomment" type="service_closure" id=".service_locator.XqjCtVz"/>
@@ -7121,13 +7129,12 @@
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.YJfGh3X"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:loginuser" type="service_closure" id=".service_locator.f94kp8W"/>
-        <argument key="App\Controller\ShopcartController:del" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\ShopcartController:delete" type="service_closure" id=".service_locator.edsVTVi"/>
-        <argument key="App\Controller\ShopcartController:edit" type="service_closure" id=".service_locator.edsVTVi"/>
+        <argument key="App\Controller\ShopcartController:delete" type="service_closure" id=".service_locator.j2jQTD9"/>
+        <argument key="App\Controller\ShopcartController:edit" type="service_closure" id=".service_locator.pHnADoM"/>
         <argument key="App\Controller\ShopcartController:getCartCount" type="service_closure" id=".service_locator.U9sHqX1"/>
-        <argument key="App\Controller\ShopcartController:index" type="service_closure" id=".service_locator.U9sHqX1"/>
+        <argument key="App\Controller\ShopcartController:index" type="service_closure" id=".service_locator.qWt4s.D"/>
         <argument key="App\Controller\ShopcartController:new" type="service_closure" id=".service_locator.qWt4s.D"/>
-        <argument key="App\Controller\ShopcartController:show" type="service_closure" id=".service_locator.edsVTVi"/>
+        <argument key="App\Controller\ShopcartController:show" type="service_closure" id=".service_locator.sISyeov"/>
         <argument key="App\Controller\UserController:comments" type="service_closure" id=".service_locator.o35J2M_"/>
         <argument key="App\Controller\UserController:delete" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\UserController:deletecomment" type="service_closure" id=".service_locator.XqjCtVz"/>
@@ -7716,12 +7723,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.kWOY5Yn"/>
+      <argument type="service" id=".service_locator.5j4dGoi"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.kWOY5Yn"/>
+      <argument type="service" id=".service_locator.5j4dGoi"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -7748,7 +7755,8 @@
     <service id=".errored..service_locator.ShV_eO7.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.3VyERa4.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.cl3_IM8.App\Entity\Orders" class="App\Entity\Orders"/>
-    <service id=".errored..service_locator.edsVTVi.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
+    <service id=".errored..service_locator.pHnADoM.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
+    <service id=".errored..service_locator.j2jQTD9.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.kxUjq7K"/>
       <argument type="collection">
@@ -8167,7 +8175,7 @@
     <service id="Imagine\Image\ImagineInterface" alias="liip_imagine.gd"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.kWOY5Yn"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.5j4dGoi"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

@@ -74,7 +74,7 @@
                                     
                                 </td>
                                 <td>
-                                        <a href="{{ path('shopcart_del', {'id': shopcart.id}) }}" onclick="return confirm('Voulez vous retirez ce produit de votre panier?');" class="genric-btn danger radius" >Retirer</a>
+                                        <a href="{{ path('shopcart_del', {'id': shopcart.id is defined ? shopcart.id:shopcart.product.id}) }}" onclick="return confirm('Voulez vous retirez ce produit de votre panier?');" class="genric-btn danger radius" >Retirer</a>
                                 </td>
                             
                                 

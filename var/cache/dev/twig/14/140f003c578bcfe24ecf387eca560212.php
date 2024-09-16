@@ -182,10 +182,10 @@ class __TwigTemplate_3e16549704989d9d101cd43bb721d8d5 extends Template
         yield "</td>
                                 </tr>
                                 <tr>
-                                    <th>Status</th>
+                                    <th>Active</th>
                                     <td>";
         // line 80
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["category"]) || array_key_exists("category", $context) ? $context["category"] : (function () { throw new RuntimeError('Variable "category" does not exist.', 80, $this->source); })()), "status", [], "any", false, false, false, 80), "html", null, true);
+        yield ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["category"]) || array_key_exists("category", $context) ? $context["category"] : (function () { throw new RuntimeError('Variable "category" does not exist.', 80, $this->source); })()), "isActive", [], "any", false, false, false, 80)) ? ("Oui") : ("Non"));
         yield "</td>
                                 </tr>
                                 <tr>
@@ -340,8 +340,8 @@ class __TwigTemplate_3e16549704989d9d101cd43bb721d8d5 extends Template
                                     <td>{{ category.image }}</td>
                                 </tr>
                                 <tr>
-                                    <th>Status</th>
-                                    <td>{{ category.status }}</td>
+                                    <th>Active</th>
+                                    <td>{{ category.isActive ? 'Oui':'Non' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Created_at</th>

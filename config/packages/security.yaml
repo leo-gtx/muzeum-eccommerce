@@ -36,7 +36,7 @@ security:
     access_control:
         - { path: ^/user, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_ADMIN } #admin klasörü
-        - { path: ^/shopcart, roles: ROLE_USER }
+        - { path: ^/shopcart, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/userpanel, roles: ROLE_USER }
         - { path: ^/orders, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

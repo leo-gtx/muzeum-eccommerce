@@ -264,7 +264,7 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t\t\t\t\t<div class=\"dvd-box\">
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"cover front\" style=\"background-image: url('";
                 // line 84
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Liip\ImagineBundle\Templating\FilterExtension']->filter($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl(("uploads/images/" . CoreExtension::getAttribute($this->env, $this->source, $context["product"], "image", [], "any", false, false, false, 84))), "list_thumb"), "html", null, true);
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl(("uploads/images/" . CoreExtension::getAttribute($this->env, $this->source, $context["product"], "image", [], "any", false, false, false, 84))), "html", null, true);
                 yield "');\">";
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "title", [], "any", false, false, false, 84), "html", null, true);
                 yield "</div>
@@ -285,11 +285,11 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t\t\t\t\t<h6>";
                 // line 93
                 yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 93), "html", null, true);
-                yield "</h6><h6> FCFA</h6>
+                yield "</h6><h6> XAF</h6>
 \t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">";
                 // line 94
-                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "isPromoted", [], "any", false, false, false, 94)) ? ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) * 0.40000000000000002220446049250313080847263336181640625))) : ((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) * 0.1499999999999999944488848768742172978818416595458984375)))), "html", null, true);
-                yield " FCFA</h6>
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) + (CoreExtension::getAttribute($this->env, $this->source, $context["product"], "price", [], "any", false, false, false, 94) * 0.8000000000000000444089209850062616169452667236328125)), "html", null, true);
+                yield " XAF</h6>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t<div class=\"prd-bottom\">
 
@@ -530,7 +530,7 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t\t\t<a href=\"{{ path('product_show', {'id': product.id}) }}\" class=\"social-info\">
 \t\t\t\t\t\t\t\t\t<div class=\"scene\" style=\"height: 300px;width: 200px;\">
 \t\t\t\t\t\t\t\t\t\t<div class=\"dvd-box\">
-\t\t\t\t\t\t\t\t\t\t\t<div class=\"cover front\" style=\"background-image: url('{{ asset('uploads/images/' ~ product.image) | imagine_filter('list_thumb') }}');\">{{product.title}}</div>
+\t\t\t\t\t\t\t\t\t\t\t<div class=\"cover front\" style=\"background-image: url('{{ asset('uploads/images/' ~ product.image) }}');\">{{product.title}}</div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"cover back\"></div>
 \t\t\t\t\t\t\t\t\t\t\t<div class=\"spine\"><span class=\"vertical-text\">{{product.title}}</span></div>
 \t\t\t\t\t\t\t\t\t\t</div>
@@ -539,8 +539,8 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t\t\t<div class=\"product-details\">
 \t\t\t\t\t\t\t\t\t<h6>{{product.title}}</h6>
 \t\t\t\t\t\t\t\t\t<div class=\"price\">
-\t\t\t\t\t\t\t\t\t\t<h6>{{product.price}}</h6><h6> FCFA</h6>
-\t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.isPromoted ? product.price + (product.price * 0.4) : product.price + (product.price * 0.15) }} FCFA</h6>
+\t\t\t\t\t\t\t\t\t\t<h6>{{product.price}}</h6><h6> XAF</h6>
+\t\t\t\t\t\t\t\t\t\t<h6 class=\"l-through\">{{product.price + (product.price * 0.8) }} XAF</h6>
 \t\t\t\t\t\t\t\t\t</div>
 \t\t\t\t\t\t\t\t\t<div class=\"prd-bottom\">
 

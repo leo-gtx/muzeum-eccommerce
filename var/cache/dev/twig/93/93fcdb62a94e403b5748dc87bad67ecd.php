@@ -209,7 +209,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                 <td>
                                         <a href=\"";
             // line 77
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_del", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["shopcart"], "id", [], "any", false, false, false, 77)]), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_del", ["id" => ((CoreExtension::getAttribute($this->env, $this->source, $context["shopcart"], "id", [], "any", true, true, false, 77)) ? (CoreExtension::getAttribute($this->env, $this->source, $context["shopcart"], "id", [], "any", false, false, false, 77)) : (CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["shopcart"], "product", [], "any", false, false, false, 77), "id", [], "any", false, false, false, 77)))]), "html", null, true);
             yield "\" onclick=\"return confirm('Voulez vous retirez ce produit de votre panier?');\" class=\"genric-btn danger radius\" >Retirer</a>
                                 </td>
                             
@@ -447,7 +447,7 @@ class __TwigTemplate_00b46e3b6a412d61d99b99d0a8fb69ea extends Template
                                     
                                 </td>
                                 <td>
-                                        <a href=\"{{ path('shopcart_del', {'id': shopcart.id}) }}\" onclick=\"return confirm('Voulez vous retirez ce produit de votre panier?');\" class=\"genric-btn danger radius\" >Retirer</a>
+                                        <a href=\"{{ path('shopcart_del', {'id': shopcart.id is defined ? shopcart.id:shopcart.product.id}) }}\" onclick=\"return confirm('Voulez vous retirez ce produit de votre panier?');\" class=\"genric-btn danger radius\" >Retirer</a>
                                 </td>
                             
                                 

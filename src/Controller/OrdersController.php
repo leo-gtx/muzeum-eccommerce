@@ -16,6 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Repository\SettingRepository;
+use App\Entity\User;
+use Symfony\Component\HttpFoundation\Cookie;
 
 /**
  * @Route("/orders")
@@ -38,136 +40,167 @@ class OrdersController extends AbstractController
     /**
      * @Route("/new", name="orders_new", methods={"GET","POST"})
      */
-    public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, ProductRepository $productRepository, \Swift_Mailer $mailer): Response
-    {
-        $orders = new Orders();
-        $form = $this->createForm(OrdersType::class, $orders);
-        $form->handleRequest($request);
+    /**
+ * @Route("/new", name="orders_new", methods={"GET","POST"})
+ */
+public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, ProductRepository $productRepository, \Swift_Mailer $mailer): Response
+{
+    $orders = new Orders();
+    $form = $this->createForm(OrdersType::class, $orders);
+    $form->handleRequest($request);
 
-        $user = $this->getUser(); // Calling login user data
-        $userid = $user->getId();
-        $total = 0;// Get total amount of user shopcart
-        //Get shopcart items
+    $user = $this->getUser();
+    $total = 0;
+    $cartItems = [];
+
+    if ($user) {
+        // Handle for authenticated users
         $shopcart = $user->getShopcarts();
         foreach ($shopcart as $s) {
             $total += $s->getQuantity() * $s->getProduct()->getPrice();
+            $cartItems[] = $s;
         }
+    } else {
+        // Handle for guest users
+        $cookieName = 'guest_cart';
+        $cart = json_decode($request->cookies->get($cookieName, '[]'), true);
+        foreach ($cart as $item) {
+            $product = $productRepository->find($item['productId']);
+            if ($product) {
+                $total += $item['quantity'] * $product->getPrice();
+                $cartItems[] = [
+                    'product' => $product,
+                    'quantity' => $item['quantity']
+                ];
+            }
+        }
+    }
 
-        $submittedToken = $request->get('token'); // get csrf token information
-        if($this->isCsrfTokenValid('form-order', $submittedToken)){
-            if ($form->isSubmitted()) {
-                // Kredi kartı bilgilerini ilgili banka servisine gönder
-                // Onay gelirse kaydetmeye devam et yoksa order sayfasına hata gönder
-                $entityManager = $this->getDoctrine()->getManager();
+    $submittedToken = $request->get('token');
+    if ($this->isCsrfTokenValid('form-order', $submittedToken)) {
+        if ($form->isSubmitted()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $orders->setAmount($total);
+            $orders->setStatus('New');
+            $orders->setCreatedAt(new \DateTimeImmutable());
+
+            if ($user) {
                 $orders->setUser($user);
-                $orders->setAmount($total);
-                $orders->setStatus('New');
-                $orders->setCreatedAt(new \DateTimeImmutable());
                 $entityManager->persist($orders);
                 $entityManager->flush();
+                
+                foreach ($cartItems as $item) {
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->setOrderParent($orders);
+                    $orderDetail->setUser($user);
+                    $orderDetail->setProduct($item->getProduct());
+                    $orderDetail->setPrice($item->getProduct()->getPrice());
+                    $orderDetail->setQuantity($item->getQuantity());
+                    $orderDetail->setAmount($item->getQuantity() * $item->getProduct()->getPrice());
+                    $orderDetail->setName($item->getProduct()->getTitle());
+                    $orderDetail->setStatus("Ordered");
 
-                $orderid = $orders->getId(); // Get last insert orders data id
-
-
-                foreach ($shopcart as $item) {
-                    $orderdetail = new OrderDetail();
-                    // Filling OrderDetails data from shopcart
-                    $orderdetail->setOrderParent($orders);
-                    $orderdetail->setUser($user); // login user id
-                    $orderdetail->setProduct($item->getProduct());
-                    $orderdetail->setPrice($item->getProduct()->getPrice());
-                    $orderdetail->setQuantity($item->getQuantity());
-                    $orderdetail->setAmount($item->getQuantity() * $item->getProduct()->getPrice());
-                    $orderdetail->setName($item->getProduct()->getTitle());
-                    $orderdetail->setStatus("Ordered");
-
-                    $entityManager->persist($orderdetail);
+                    $entityManager->persist($orderDetail);
                     $entityManager->flush();
                 }
-                // Delete User Shopcart Products
-                $entityManager = $this->getDoctrine()->getManager();
-                $query = $entityManager->createQuery('
-                DELETE FROM App\Entity\Shopcart s WHERE s.user=:user
-                ')
-                    ->setParameter('user', $userid);
-                $query->execute();
-                $this->addFlash('success', 'Votre commande à été effectué!');
 
-                //Send an email notification
-                $orderdetail = $orderDetailRepository->findBy(
-                    ['orderParent' => $orders]
-                );
-                try {
-                    $message = (new \Swift_Message('Muzeum Commande'))
-                    // On attribue l'expéditeur
+                $query = $entityManager->createQuery('DELETE FROM App\Entity\Shopcart s WHERE s.user = :user')
+                    ->setParameter('user', $user->getId());
+                $query->execute();
+            } else {
+                $user = new User();
+                $data = $request->request->get('orders');
+                // dd($request->request->get('orders'));
+                $user->setEmail($data['address']);
+                $user->setName($data['name']);
+                $user->setPhone($data['phone']);
+                // Handle for guest users (Persist orders differently if needed)
+                $entityManager->persist($orders);
+                $entityManager->flush();
+                $orderId = $orders->getId();
+
+                foreach ($cartItems as $item) {
+                    $orderDetail = new OrderDetail();
+                    $orderDetail->setOrderParent($orders);
+                    $orderDetail->setProduct($item['product']);
+                    $orderDetail->setPrice($item['product']->getPrice());
+                    $orderDetail->setQuantity($item['quantity']);
+                    $orderDetail->setAmount($item['quantity'] * $item['product']->getPrice());
+                    $orderDetail->setName($item['product']->getTitle());
+                    $orderDetail->setStatus("Ordered");
+
+                    $entityManager->persist($orderDetail);
+                    $entityManager->flush();
+                }
+
+                // Clear guest cart
+                $response = new Response();
+                $response->headers->setCookie(new Cookie('guest_cart', json_encode([])));
+                $response->send();
+            }
+
+            $this->addFlash('success', 'Votre commande a été effectuée!');
+
+            // Send email
+            $orderDetail = $orderDetailRepository->findBy(['orderParent' => $orders]);
+            try {
+                $message = (new \Swift_Message('Nouvelle Commande Muzeum'))
                     ->setFrom($this->getParameter('app.address'))
-                    // On attribue le destinataire
                     ->setTo($user->getEmail())
-                    // On crée le texte avec la vue
                     ->setBody(
                         $this->renderView(
-                            'email/confirmation.html.twig', [
-                                'orderDetail' => $orderdetail,
+                            'email/new.html.twig', [
+                                'orderDetail' => $orderDetail,
                                 'order' => $orders,
-
                             ]
                         ),
                         'text/html'
                     );
-                    $mailer->send($message);
-                    //$message->setTo('leonel@ndlpixel.com');
-                    //$mailer->send($message);
-                } catch (Swift_TransportException $e) {
-                    echo $e->getMessage();
-                }
-                // Redirect To Payment
-                $orderId = $orders->getId();
-                //$successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
-                //$failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
-                $successUrl = "https://my-muzeum.com/product/26";
-                $failedUrl = "https://my-muzeum.com/product/26";
-                $data = [
-                    'shopName'      => "MUZEUM",
-                    'area'          => "XAF",
-                    'amount'        => $orders->getAmount(),
-                    'email'         => $user->getEmail(),
-                    'orderId'     => $orderId,
-                    'description' => 'Paiement de la commande #'.$orderId.' sur Muzeum📦',
-                    'apiKey'      => 'RyR49yPWLC57ccf1f4FmBtq2m_zB6V_oiFH_pCnzFz0',
-                    'currency'      => "XAF",
-                    'successUrl'  =>  $successUrl,
-                    'failureUrl'   => $failedUrl,
-                    'customer'      => [
-                        'email'        => $user->getEmail(),
-                        "phone_number" => $user->getPhone(),
-                        "name"         => $user->getName()
-                    ],
-                ];
-                $client = HttpClient::create();
-                $response = $client->request(
-                    'POST',
-                    'https://checkout.soleaspay.com?mode=api',
-                    [
-                        'body' => $data
-                    ]
-                    
-                );
-                $orders->setPaymentLink($response->toArray()['link']);
-                $orders->setIsPaid(false);
-                $entityManager->persist($orders);
-                $entityManager->flush();
-                return $this->redirect($response->toArray()['link']);
+                $mailer->send($message);
+            } catch (\Swift_TransportException $e) {
+                echo $e->getMessage();
             }
 
+            // Redirect To Payment
+            $successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
+            $failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
+            //$successUrl = "https://my-muzeum.com/product/26";
+            //$failedUrl = "https://my-muzeum.com/product/26";
+            $data = [
+                'shopName' => "MUZEUM",
+                'area' => "XAF",
+                'amount' => $orders->getAmount(),
+                'email' => $user->getEmail(),
+                'orderId' => $orders->getId(),
+                'description' => 'Paiement de la commande #' . $orders->getId() . ' sur Muzeum📦',
+                'apiKey' => 'RyR49yPWLC57ccf1f4FmBtq2m_zB6V_oiFH_pCnzFz0',
+                'currency' => "XAF",
+                'successUrl' => $successUrl,
+                'failureUrl' => $failedUrl,
+                'customer' => [
+                    'email' => $user->getEmail(),
+                    "phone_number" => $user->getPhone(),
+                    "name" => $user->getName()
+                ],
+            ];
+            $client = HttpClient::create();
+            $response = $client->request('POST', 'https://checkout.soleaspay.com?mode=api', ['body' => $data]);
+            $orders->setPaymentLink($response->toArray()['link']);
+            $orders->setIsPaid(false);
+            $entityManager->persist($orders);
+            $entityManager->flush();
 
+            return $this->redirect($response->toArray()['link']);
         }
-        return $this->render('orders/new.html.twig', [
-            'order' => $orders,
-            'total' => $total,
-            'form' => $form->createView(),
-            'shopcart'=>$shopcart
-        ]);
     }
+
+    return $this->render('orders/new.html.twig', [
+        'order' => $orders,
+        'total' => $total,
+        'form' => $form->createView(),
+        'shopcart' => $cartItems
+    ]);
+}
 
      /**
      * @Route("/confirm/{id}", name="orders_confirm", methods={"GET"})
@@ -183,6 +216,92 @@ class OrdersController extends AbstractController
         $order->setStatus('Completed');
         $entityManager->persist($order);
         $entityManager->flush();
+        $details = $order->getOrderDetails();
+        // Send email
+        try {
+            $message = (new \Swift_Message('Commande Muzeum Payée!'))
+                ->setFrom($this->getParameter('app.address'))
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'email/confirmation.html.twig', [
+                            'orderDetail' => $details,
+                            'order' => $order,
+                        ]
+                    ),
+                    'text/html'
+                );
+            // Attach the digital product files, if any
+            foreach ($details as $detail) {
+                $product = $detail->getProduct();
+                if ($product->getType() == 'DIGITAL') {
+                    $fileName = $product->getFile();
+                    $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+
+                    // Check if the file exists
+                    if (file_exists($filePath) && $fileName) {
+                        // Determine the MIME type of the file
+                        $mimeType = mime_content_type($filePath);
+
+                        // Attach the file to the email
+                        $message->attach(
+                            \Swift_Attachment::fromPath($filePath)
+                                ->setFilename($product->getSlug() . '.' . pathinfo($fileName, PATHINFO_EXTENSION)) // Custom filename
+                                ->setContentType($mimeType) // Set the file's MIME type
+                        );
+                    } else {
+                        throw new \Exception('Fichier introuvable.');
+                    }
+                }
+            }
+        
+        // Send the email with the attachment(s)
+        $mailer->send($message);
+            $mailer->send($message);
+        } catch (\Swift_TransportException $e) {
+            echo $e->getMessage();
+        }
+
+        foreach ($details as $detail) {
+            $product = $detail->getProduct();
+            if($product->getType() == 'DIGITAL') {
+                try {
+                    // User has paid for the product, allow download
+                    $fileName = $product->getFile();
+                    // Define the path to the file (stored outside public directory)
+                    $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+        
+                    if (!file_exists($filePath) && !$fileName) {
+                        throw new NotFoundHttpException('Fichier introuvable.');
+                    }
+        
+                    
+        
+                    // Stream the file to avoid loading large files into memory
+                    $response = new StreamedResponse(function() use ($filePath) {
+                        readfile($filePath);
+                    });
+                    $mimeType = mime_content_type($filePath);
+                    
+                    // Set headers to download the file with a custom name
+                    $disposition = $response->headers->makeDisposition(
+                        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                        $product->getSlug().'.'. pathinfo($fileName, PATHINFO_EXTENSION)  // Custom filename
+                    );
+                    // Set headers for file download (you can modify content-type for other file types)
+                    $response->headers->set('Content-Type', $mimeType);
+                    // $response->headers->set('Content-Type', 'application/octet-stream');
+                    $response->headers->set('Content-Disposition', $disposition);
+                    $response->headers->set('Content-Length', filesize($filePath));
+        
+                    return $response;
+                } catch (\Exception $e) {
+                    return new Response("An error occurred: " . $e->getMessage(), 500);
+                }
+            }
+            # code...
+        }
+        
         
         return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
     }

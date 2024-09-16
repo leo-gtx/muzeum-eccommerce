@@ -63,7 +63,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             <button onclick="sendWhatsAppMessage()">Envoyer</button>
         </div>
     </div>
-	{% if app.user %}
+
 	<!-- Cart Button -->
 	<div id="cart-button" class="floating-cart">
 		<a href="{{path('shopcart_index')}}" class="link" id="cart-link">
@@ -71,4 +71,4 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<span class="h6" id="cart-count">0</span> <!-- Number of items in cart -->
 		</a>
 	</div>
-	{% endif %}
+

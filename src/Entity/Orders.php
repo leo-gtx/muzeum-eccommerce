@@ -115,6 +115,11 @@ class Orders
         return $this->id;
     }
 
+    public function setId(int $id): ?int
+    {
+        return $this->id = $id;
+    }
+
     public function getUserid(): ?int
     {
         return $this->userid;

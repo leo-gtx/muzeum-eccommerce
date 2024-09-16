@@ -47,13 +47,13 @@
                 </form>
             </div>
             {% endif %}
-            <div class="cupon_area">
+            {#<div class="cupon_area">
                 <div class="check_title">
                     <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
                 </div>
                 <input type="text" placeholder="Enter coupon code">
                 <a class="tp_btn" href="#">Apply Coupon</a>
-            </div>
+            </div>#}
             <div class="billing_details">
                 <div class="row">
                     {{form_start(form, {'attr': {'class':'row contact_form'}})}}
@@ -61,19 +61,19 @@
                         <h3>Details de facturation</h3>
                         
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="first" value="{{app.user.name ~ ' ' ~ app.user.surname}}" placeholder="Nom complet" name="orders[name]" required>
+                                <input type="text" class="form-control" id="first" value="{{app.user ? app.user.name ~ ' ' ~ app.user.surname:''}}" placeholder="Nom complet" name="orders[name]" required>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="last" placeholder="Email" value="{{app.user.email}}" name="orders[address]" required>
+                                <input type="text" class="form-control" id="last" placeholder="Email" value="{{app.user? app.user.email:''}}" name="orders[address]" required>
                             </div>
                             <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="company" value="{{app.user.city}}" name="orders[city]" placeholder="Ville" required>
+                                <input type="text" class="form-control" id="company" value="{{app.user ? app.user.city: ''}}" name="orders[city]" placeholder="Ville" required>
                             </div>
                              <div class="col-md-12 form-group p_star">
                                 <input type="text" class="form-control" id="email"  placeholder="Addresse" name="orders[shipinfo]" required>
                             </div>
                             <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" placeholder="Telephone" id="number" value="{{app.user.phone}}" name="orders[phone]" required>
+                                <input type="text" class="form-control" placeholder="Telephone" id="number" value="{{app.user ? app.user.phone:''}}" name="orders[phone]" required>
                                 
                             </div>
                            
@@ -127,13 +127,13 @@
                             </ul>
                             <ul class="list list_2">
                                 <li><a href="#">Sous-total <span>{{total}} XAF</span></a></li>
-                                <li><a href="#">Livraison <span>Aux Frais Du Client</span></a></li>
+                                <li><a href="#">Livraison <span>Téléchargement Instantanés</span></a></li>
                                 <li><a href="#">Total <span>{{total}} XAF</span></a></li>
                             </ul>
                             <div class="payment_item">
                                 <div class="radion_btn">
                                     <input type="radio" id="f-option5" name="selector" checked>
-                                    <label for="f-option5">Livraison instantanées</label>
+                                    <label for="f-option5">Téléchargement instantanés</label>
                                     <div class="check"></div>
                                 </div>
                                 <p>A la fin de vos achats, vous pourrez télécharger les produits numériques. Les produits physiques vous seront livrés.</p>

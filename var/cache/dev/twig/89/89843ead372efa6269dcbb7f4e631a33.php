@@ -95,12 +95,16 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
             yield "\">Mon profile</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
             // line 26
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
+            yield "\">Mon Pannier</a></li>
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
+            // line 27
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_library");
             yield "\">Ma Bibliothèque</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/user/comments\">Mes Commentaires</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 29
+            // line 30
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_show_favorites");
             yield "\">Mes favories</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/logout\">Deconnexion</a></li>
@@ -108,24 +112,29 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t\t\t\t\t\t</li>
                             ";
         } else {
-            // line 34
+            // line 35
             yield "                            <li class=\"nav-item submenu dropdown\">
 \t\t\t\t\t\t\t\t<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"
 \t\t\t\t\t\t\t\t aria-expanded=\"false\">Connexion</a>
 \t\t\t\t\t\t\t\t<ul class=\"dropdown-menu\">
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 38
+            // line 39
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
+            yield "\">Mon Pannier</a></li>
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
+            // line 41
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\">Se Connecter</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 39
+            // line 42
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\">S'inscrire</a></li>
 \t\t\t\t\t\t\t\t</ul>
 \t\t\t\t\t\t\t</li>
                             ";
         }
-        // line 43
+        // line 46
         yield "\t\t\t\t\t\t\t
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t\t<ul class=\"nav navbar-nav navbar-right\">
@@ -140,7 +149,7 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t<div class=\"search_input\" id=\"search_input_box\">
 \t\t\t<div class=\"container\">
 \t\t\t\t<form method=\"get\" action=\"";
-        // line 56
+        // line 59
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
         yield "\" class=\"d-flex justify-content-between\">
 \t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"search_input\" name=\"query\" placeholder=\"Rechercher un produit...\">
@@ -181,7 +190,7 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  144 => 56,  129 => 43,  122 => 39,  118 => 38,  112 => 34,  104 => 29,  98 => 26,  94 => 25,  89 => 23,  85 => 21,  83 => 20,  79 => 19,  75 => 18,  71 => 17,  56 => 7,  48 => 1,);
+        return array (  153 => 59,  138 => 46,  131 => 42,  127 => 41,  122 => 39,  116 => 35,  108 => 30,  102 => 27,  98 => 26,  94 => 25,  89 => 23,  85 => 21,  83 => 20,  79 => 19,  75 => 18,  71 => 17,  56 => 7,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -211,6 +220,7 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t\t\t\t\t\t\t aria-expanded=\"false\">{{app.user.name}}</a>
 \t\t\t\t\t\t\t\t<ul class=\"dropdown-menu\">
                                     <li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('user_edit', {'id': app.user.id})}}\">Mon profile</a></li>
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('shopcart_index')}}\">Mon Pannier</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path(\"user_library\")}}\">Ma Bibliothèque</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/user/comments\">Mes Commentaires</a></li>
@@ -223,6 +233,8 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t\t\t\t\t\t\t<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"
 \t\t\t\t\t\t\t\t aria-expanded=\"false\">Connexion</a>
 \t\t\t\t\t\t\t\t<ul class=\"dropdown-menu\">
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('shopcart_index')}}\">Mon Pannier</a></li>
+\t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('app_login')}}\">Se Connecter</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('app_register')}}\">S'inscrire</a></li>
 \t\t\t\t\t\t\t\t</ul>

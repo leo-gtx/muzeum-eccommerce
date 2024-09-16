@@ -144,14 +144,9 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
             ";
         }
         // line 50
-        yield "            <div class=\"cupon_area\">
-                <div class=\"check_title\">
-                    <h2>Have a coupon? <a href=\"#\">Click here to enter your code</a></h2>
-                </div>
-                <input type=\"text\" placeholder=\"Enter coupon code\">
-                <a class=\"tp_btn\" href=\"#\">Apply Coupon</a>
-            </div>
-            <div class=\"billing_details\">
+        yield "            ";
+        // line 57
+        yield "            <div class=\"billing_details\">
                 <div class=\"row\">
                     ";
         // line 59
@@ -163,19 +158,19 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" id=\"first\" value=\"";
         // line 64
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "name", [], "any", false, false, false, 64) . " ") . CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "surname", [], "any", false, false, false, 64)), "html", null, true);
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "name", [], "any", false, false, false, 64) . " ") . CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "surname", [], "any", false, false, false, 64)), "html", null, true)) : (yield ""));
         yield "\" placeholder=\"Nom complet\" name=\"orders[name]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"";
         // line 67
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 67, $this->source); })()), "user", [], "any", false, false, false, 67), "email", [], "any", false, false, false, 67), "html", null, true);
-        yield "\" name=\"orders[address]\" required>
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 67, $this->source); })()), "user", [], "any", false, false, false, 67)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 67, $this->source); })()), "user", [], "any", false, false, false, 67), "email", [], "any", false, false, false, 67), "html", null, true)) : (yield ""));
+        yield "\" name=\"orders[email]\" required>
                             </div>
                             <div class=\"col-md-12 form-group\">
                                 <input type=\"text\" class=\"form-control\" id=\"company\" value=\"";
         // line 70
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 70, $this->source); })()), "user", [], "any", false, false, false, 70), "city", [], "any", false, false, false, 70), "html", null, true);
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 70, $this->source); })()), "user", [], "any", false, false, false, 70)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 70, $this->source); })()), "user", [], "any", false, false, false, 70), "city", [], "any", false, false, false, 70), "html", null, true)) : (yield ""));
         yield "\" name=\"orders[city]\" placeholder=\"Ville\" required>
                             </div>
                              <div class=\"col-md-12 form-group p_star\">
@@ -184,7 +179,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" placeholder=\"Telephone\" id=\"number\" value=\"";
         // line 76
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 76, $this->source); })()), "user", [], "any", false, false, false, 76), "phone", [], "any", false, false, false, 76), "html", null, true);
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 76, $this->source); })()), "user", [], "any", false, false, false, 76)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 76, $this->source); })()), "user", [], "any", false, false, false, 76), "phone", [], "any", false, false, false, 76), "html", null, true)) : (yield ""));
         yield "\" name=\"orders[phone]\" required>
                                 
                             </div>
@@ -305,7 +300,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  266 => 146,  248 => 131,  243 => 129,  239 => 127,  226 => 125,  222 => 124,  207 => 111,  198 => 104,  195 => 103,  187 => 76,  178 => 70,  172 => 67,  166 => 64,  158 => 59,  147 => 50,  119 => 24,  117 => 23,  103 => 12,  94 => 5,  84 => 4,  64 => 3,  41 => 1,);
+        return array (  261 => 146,  243 => 131,  238 => 129,  234 => 127,  221 => 125,  217 => 124,  202 => 111,  193 => 104,  190 => 103,  182 => 76,  173 => 70,  167 => 67,  161 => 64,  153 => 59,  149 => 57,  147 => 50,  119 => 24,  117 => 23,  103 => 12,  94 => 5,  84 => 4,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -359,13 +354,13 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                 </form>
             </div>
             {% endif %}
-            <div class=\"cupon_area\">
+            {#<div class=\"cupon_area\">
                 <div class=\"check_title\">
                     <h2>Have a coupon? <a href=\"#\">Click here to enter your code</a></h2>
                 </div>
                 <input type=\"text\" placeholder=\"Enter coupon code\">
                 <a class=\"tp_btn\" href=\"#\">Apply Coupon</a>
-            </div>
+            </div>#}
             <div class=\"billing_details\">
                 <div class=\"row\">
                     {{form_start(form, {'attr': {'class':'row contact_form'}})}}
@@ -373,19 +368,19 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                         <h3>Details de facturation</h3>
                         
                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" id=\"first\" value=\"{{app.user.name ~ ' ' ~ app.user.surname}}\" placeholder=\"Nom complet\" name=\"orders[name]\" required>
+                                <input type=\"text\" class=\"form-control\" id=\"first\" value=\"{{app.user ? app.user.name ~ ' ' ~ app.user.surname:''}}\" placeholder=\"Nom complet\" name=\"orders[name]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"{{app.user.email}}\" name=\"orders[address]\" required>
+                                <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"{{app.user? app.user.email:''}}\" name=\"orders[email]\" required>
                             </div>
                             <div class=\"col-md-12 form-group\">
-                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"{{app.user.city}}\" name=\"orders[city]\" placeholder=\"Ville\" required>
+                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"{{app.user ? app.user.city: ''}}\" name=\"orders[city]\" placeholder=\"Ville\" required>
                             </div>
                              <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" id=\"email\"  placeholder=\"Addresse\" name=\"orders[shipinfo]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" placeholder=\"Telephone\" id=\"number\" value=\"{{app.user.phone}}\" name=\"orders[phone]\" required>
+                                <input type=\"text\" class=\"form-control\" placeholder=\"Telephone\" id=\"number\" value=\"{{app.user ? app.user.phone:''}}\" name=\"orders[phone]\" required>
                                 
                             </div>
                            

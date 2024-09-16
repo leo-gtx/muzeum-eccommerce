@@ -150,22 +150,19 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             <button onclick=\"sendWhatsAppMessage()\">Envoyer</button>
         </div>
     </div>
-\t";
-        // line 66
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 66, $this->source); })()), "user", [], "any", false, false, false, 66)) {
-            // line 67
-            yield "\t<!-- Cart Button -->
+
+\t<!-- Cart Button -->
 \t<div id=\"cart-button\" class=\"floating-cart\">
 \t\t<a href=\"";
-            // line 69
-            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
-            yield "\" class=\"link\" id=\"cart-link\">
+        // line 69
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
+        yield "\" class=\"link\" id=\"cart-link\">
 \t\t\t<span class=\"ti-bag\"></span>
 \t\t\t<span class=\"h6\" id=\"cart-count\">0</span> <!-- Number of items in cart -->
 \t\t</a>
 \t</div>
-\t";
-        }
+
+";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
 
@@ -196,7 +193,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
      */
     public function getDebugInfo(): array
     {
-        return array (  161 => 69,  157 => 67,  155 => 66,  142 => 56,  124 => 41,  117 => 36,  112 => 34,  108 => 33,  103 => 32,  101 => 31,  85 => 22,  77 => 21,  66 => 12,  60 => 10,  58 => 9,  48 => 1,);
+        return array (  158 => 69,  142 => 56,  124 => 41,  117 => 36,  112 => 34,  108 => 33,  103 => 32,  101 => 31,  85 => 22,  77 => 21,  66 => 12,  60 => 10,  58 => 9,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -266,7 +263,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             <button onclick=\"sendWhatsAppMessage()\">Envoyer</button>
         </div>
     </div>
-\t{% if app.user %}
+
 \t<!-- Cart Button -->
 \t<div id=\"cart-button\" class=\"floating-cart\">
 \t\t<a href=\"{{path('shopcart_index')}}\" class=\"link\" id=\"cart-link\">
@@ -274,7 +271,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t\t\t<span class=\"h6\" id=\"cart-count\">0</span> <!-- Number of items in cart -->
 \t\t</a>
 \t</div>
-\t{% endif %}
+
 ", "home/footer.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/home/footer.html.twig");
     }
 }

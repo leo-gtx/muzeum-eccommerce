@@ -18,21 +18,58 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Repository\SettingRepository;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use \Swift_Mailer;
 
 /**
  * @Route("/orders")
  */
 class OrdersController extends AbstractController
 {
+    private $mailer;
+
+    public function __construct(Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     /**
      * @Route("/", name="orders_index", methods={"GET"})
      */
-    public function index(SettingRepository $settingRepository, OrdersRepository $ordersRepository): Response
+    public function index(Request $request, SettingRepository $settingRepository, OrdersRepository $ordersRepository): Response
     {
         $user = $this->getUser(); // Calling login user data
+        $orders = [];
+        if($user){
+            // Merge orders
+            // Fetch orders with the session ID
+            $guestOrders = json_decode($request->cookies->get('guest_orders'), true);
+            $entityManager = $this->getDoctrine()->getManager();
+            foreach ($guestOrders as $order) {
+                if(key_exists('id',(array) $order)){
+                    $ord = $ordersRepository->find($order['id']);
+                    $ord->setUser($user); // Associate the order with the logged-in user
+                    $entityManager->persist($ord);
+                }
+                
+            }
+            $entityManager->flush();
+
+            $orders = $ordersRepository->findBy(['user' => $user], ['created_at'=> 'DESC']);
+        }else{
+            
+            $guestOrders = json_decode($request->cookies->get('guest_orders'),true);
+            //dd($cookiesOrders);
+            foreach ($guestOrders as $co) {
+                if(key_exists('id', (array) $co))
+                $orders[] = $ordersRepository->find($co['id']); 
+            }
+        }
+        
         $setting = $settingRepository->findAll();
         return $this->render('orders/index.html.twig', [
-            'orders' => $ordersRepository->findBy(['user' => $user], ['created_at'=> 'DESC']),
+            'orders' => $orders,
             'setting' => $setting
         ]);
     }
@@ -40,9 +77,7 @@ class OrdersController extends AbstractController
     /**
      * @Route("/new", name="orders_new", methods={"GET","POST"})
      */
-    /**
- * @Route("/new", name="orders_new", methods={"GET","POST"})
- */
+
 public function new(Request $request, UrlGeneratorInterface $urlGenerator, OrderDetailRepository $orderDetailRepository, ShopcartRepository $shopcartRepository, ProductRepository $productRepository, \Swift_Mailer $mailer): Response
 {
     $orders = new Orders();
@@ -136,6 +171,16 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                 // Clear guest cart
                 $response = new Response();
                 $response->headers->setCookie(new Cookie('guest_cart', json_encode([])));
+                $guestOrders = json_decode($request->cookies->get('guest_orders', '[]'), true);
+                // Add the new order to the guest orders list
+                $guestOrders[] = [
+                    'id' => $orders->getId(),
+                    'amount' => $orders->getAmount(),
+                    'createdAt' => $orders->getCreatedAt()->format('Y-m-d H:i:s'),
+                ];
+                // Store the updated guest orders in the cookie
+                $cookie = new Cookie('guest_orders', json_encode($guestOrders), time() + (60 * 60 * 24 * 30)); // 30 days expiration
+                $response->headers->setCookie($cookie);
                 $response->send();
             }
 
@@ -205,15 +250,16 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
      /**
      * @Route("/confirm/{id}", name="orders_confirm", methods={"GET"})
      */
-    public function confirm(Request $request, Orders $order, OrdersRepository $ordersRepository): Response
+    public function confirm(Request $request, Orders $order, OrdersRepository $ordersRepository, \Swift_Mailer $mailer): Response
     {
         $user = $this->getUser(); // Calling login user data
         $orderid = $order->getId();
         $order = $ordersRepository->find($order);
         $order->setIsPaid(true);
-        $data = json_decode($request->query('soleaspay_data'));
+        $data = json_decode($request->query->get('soleaspay_data'));
         $order->setPaymentId($data->payId);
         $order->setStatus('Completed');
+        $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($order);
         $entityManager->flush();
         $details = $order->getOrderDetails();
@@ -221,7 +267,7 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
         try {
             $message = (new \Swift_Message('Commande Muzeum Payée!'))
                 ->setFrom($this->getParameter('app.address'))
-                ->setTo($user->getEmail())
+                ->setTo($user?$user->getEmail():$order->getAddress())
                 ->setBody(
                     $this->renderView(
                         'email/confirmation.html.twig', [
@@ -249,59 +295,17 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                                 ->setFilename($product->getSlug() . '.' . pathinfo($fileName, PATHINFO_EXTENSION)) // Custom filename
                                 ->setContentType($mimeType) // Set the file's MIME type
                         );
-                    } else {
-                        throw new \Exception('Fichier introuvable.');
-                    }
+                    } 
                 }
             }
         
         // Send the email with the attachment(s)
-        $mailer->send($message);
-            $mailer->send($message);
+        $this->addFlash('success', 'Votre commande vous a été envoyé dans votre boîte mail!');
+        $this->mailer->send($message);  
+        //$mailer->send($message);
         } catch (\Swift_TransportException $e) {
             echo $e->getMessage();
         }
-
-        foreach ($details as $detail) {
-            $product = $detail->getProduct();
-            if($product->getType() == 'DIGITAL') {
-                try {
-                    // User has paid for the product, allow download
-                    $fileName = $product->getFile();
-                    // Define the path to the file (stored outside public directory)
-                    $filePath = $this->getParameter('files_directory') . '/' . $fileName;
-        
-                    if (!file_exists($filePath) && !$fileName) {
-                        throw new NotFoundHttpException('Fichier introuvable.');
-                    }
-        
-                    
-        
-                    // Stream the file to avoid loading large files into memory
-                    $response = new StreamedResponse(function() use ($filePath) {
-                        readfile($filePath);
-                    });
-                    $mimeType = mime_content_type($filePath);
-                    
-                    // Set headers to download the file with a custom name
-                    $disposition = $response->headers->makeDisposition(
-                        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                        $product->getSlug().'.'. pathinfo($fileName, PATHINFO_EXTENSION)  // Custom filename
-                    );
-                    // Set headers for file download (you can modify content-type for other file types)
-                    $response->headers->set('Content-Type', $mimeType);
-                    // $response->headers->set('Content-Type', 'application/octet-stream');
-                    $response->headers->set('Content-Disposition', $disposition);
-                    $response->headers->set('Content-Length', filesize($filePath));
-        
-                    return $response;
-                } catch (\Exception $e) {
-                    return new Response("An error occurred: " . $e->getMessage(), 500);
-                }
-            }
-            # code...
-        }
-        
         
         return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
     }

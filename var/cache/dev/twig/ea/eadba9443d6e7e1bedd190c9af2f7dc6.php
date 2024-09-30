@@ -96,7 +96,8 @@ class __TwigTemplate_72747ebd9f6438feb95c63fa24b64d16 extends Template
 \t<script src=\"";
         // line 17
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/js/shopcart-count.js"), "html", null, true);
-        yield "\"></script>";
+        yield "\"></script>
+";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
 
@@ -148,6 +149,7 @@ class __TwigTemplate_72747ebd9f6438feb95c63fa24b64d16 extends Template
 \t<script src=\"{{asset('assets/client/js/gmaps.min.js')}}\"></script>
 \t<script src=\"{{asset('assets/client/js/main.js')}}\"></script>
 \t<script src=\"{{asset('assets/client/js/whatsapp.js')}}\"></script>
-\t<script src=\"{{asset('assets/client/js/shopcart-count.js')}}\"></script>", "home/javascript.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/home/javascript.html.twig");
+\t<script src=\"{{asset('assets/client/js/shopcart-count.js')}}\"></script>
+", "home/javascript.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/home/javascript.html.twig");
     }
 }

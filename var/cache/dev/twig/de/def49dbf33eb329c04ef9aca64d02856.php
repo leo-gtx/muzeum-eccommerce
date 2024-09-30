@@ -172,11 +172,11 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t<div class=\"f-icon\">
 \t\t\t\t\t\t\t<img src=\"";
         // line 23
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/f-icon1.png"), "html", null, true);
-        yield "\" alt=\"\">
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/1.png"), "html", null, true);
+        yield "\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Free Delivery</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Ajoutez Au Panier</h6>
+\t\t\t\t\t\t<p>Autant que vous le pouvez</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
@@ -185,11 +185,11 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t<div class=\"f-icon\">
 \t\t\t\t\t\t\t<img src=\"";
         // line 33
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/f-icon2.png"), "html", null, true);
-        yield "\" alt=\"\">
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/2.png"), "html", null, true);
+        yield "\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Return Policy</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Commandez</h6>
+\t\t\t\t\t\t<p>En un click</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
@@ -198,11 +198,11 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t<div class=\"f-icon\">
 \t\t\t\t\t\t\t<img src=\"";
         // line 43
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/f-icon3.png"), "html", null, true);
-        yield "\" alt=\"\">
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/3.png"), "html", null, true);
+        yield "\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>24/7 Support</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Payez</h6>
+\t\t\t\t\t\t<p>Par OM ou MoMo</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
@@ -211,11 +211,11 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t\t\t<div class=\"f-icon\">
 \t\t\t\t\t\t\t<img src=\"";
         // line 53
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/f-icon4.png"), "html", null, true);
-        yield "\" alt=\"\">
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/features/4.png"), "html", null, true);
+        yield "\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Secure Payment</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Téléchargez</h6>
+\t\t\t\t\t\t<p>Ou reçevez par email</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div>
@@ -469,40 +469,40 @@ class __TwigTemplate_3ef8382b7fbcf2ec5cb206a4b1127332 extends Template
 \t\t\t\t<div class=\"col-lg-3 col-md-6 col-sm-6\">
 \t\t\t\t\t<div class=\"single-features\">
 \t\t\t\t\t\t<div class=\"f-icon\">
-\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/f-icon1.png')}}\" alt=\"\">
+\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/1.png')}}\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Free Delivery</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Ajoutez Au Panier</h6>
+\t\t\t\t\t\t<p>Autant que vous le pouvez</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
 \t\t\t\t<div class=\"col-lg-3 col-md-6 col-sm-6\">
 \t\t\t\t\t<div class=\"single-features\">
 \t\t\t\t\t\t<div class=\"f-icon\">
-\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/f-icon2.png')}}\" alt=\"\">
+\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/2.png')}}\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Return Policy</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Commandez</h6>
+\t\t\t\t\t\t<p>En un click</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
 \t\t\t\t<div class=\"col-lg-3 col-md-6 col-sm-6\">
 \t\t\t\t\t<div class=\"single-features\">
 \t\t\t\t\t\t<div class=\"f-icon\">
-\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/f-icon3.png')}}\" alt=\"\">
+\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/3.png')}}\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>24/7 Support</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Payez</h6>
+\t\t\t\t\t\t<p>Par OM ou MoMo</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
 \t\t\t\t<div class=\"col-lg-3 col-md-6 col-sm-6\">
 \t\t\t\t\t<div class=\"single-features\">
 \t\t\t\t\t\t<div class=\"f-icon\">
-\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/f-icon4.png')}}\" alt=\"\">
+\t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/4.png')}}\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<h6>Secure Payment</h6>
-\t\t\t\t\t\t<p>Free Shipping on all order</p>
+\t\t\t\t\t\t<h6>Téléchargez</h6>
+\t\t\t\t\t\t<p>Ou reçevez par email</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t</div>

@@ -202,7 +202,7 @@ class ProductController extends AbstractController
         // Check if the user is allowed to download the file
         $user = $this->getUser();
         
-        
+        if($user) {
         // Check if the user has paid for this product
         $orderDetails = $this->getDoctrine()
             ->getRepository(OrderDetail::class)
@@ -254,10 +254,10 @@ class ProductController extends AbstractController
                 }
             }
         }
-        
+        }
 
         // If the user hasn't paid or order doesn't exist, deny access
-        return new Response("Vous n'êtes pas autorisé à télécharger ce fichier!", 403);
+        return $this->redirectToRoute('app_login');
     }
 
 }

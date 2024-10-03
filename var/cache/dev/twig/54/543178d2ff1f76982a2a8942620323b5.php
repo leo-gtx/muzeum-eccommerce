@@ -120,7 +120,7 @@ class __TwigTemplate_7d7a14d5fcc28b12f3d08f8d96c795e1 extends Template
                                     <th>Userid</th>
                                     <td>";
         // line 29
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["order"]) || array_key_exists("order", $context) ? $context["order"] : (function () { throw new RuntimeError('Variable "order" does not exist.', 29, $this->source); })()), "user", [], "any", false, false, false, 29), "id", [], "any", false, false, false, 29), "html", null, true);
+        ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["order"]) || array_key_exists("order", $context) ? $context["order"] : (function () { throw new RuntimeError('Variable "order" does not exist.', 29, $this->source); })()), "user", [], "any", false, false, false, 29), "id", [], "any", false, false, false, 29)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["order"]) || array_key_exists("order", $context) ? $context["order"] : (function () { throw new RuntimeError('Variable "order" does not exist.', 29, $this->source); })()), "user", [], "any", false, false, false, 29), "id", [], "any", false, false, false, 29), "html", null, true)) : (yield "Guest"));
         yield "</td>
                                 </tr>
                                 <tr>
@@ -361,7 +361,7 @@ class __TwigTemplate_7d7a14d5fcc28b12f3d08f8d96c795e1 extends Template
                                 </tr>
                                 <tr>
                                     <th>Userid</th>
-                                    <td>{{ order.user.id }}</td>
+                                    <td>{{ order.user.id ? order.user.id:'Guest' }}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount</th>

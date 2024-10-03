@@ -66,19 +66,24 @@ class EventRepository extends ServiceEntityRepository
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findOneByProducts($products)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        // $products = [/* Array of product objects */];
+
+        $qb = $this->createQueryBuilder('e')
+            ->innerJoin('e.products', 'p') // Assuming the join table is 'products'
+            ->where('p IN (:products)')
+            ->andWhere('e.active = :active')
+            ->setParameter('products', $products)
+            ->setParameter('active', true)
+            ->orderBy('e.priority', 'DESC')
+            ->setMaxResults(1); // Limit to one event with the highest priority
+        
+        return $qb->getQuery()->getOneOrNullResult();
+        
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Event

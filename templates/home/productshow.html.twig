@@ -20,7 +20,44 @@
 		</div>
 	</section>
 	<!-- End Banner Area -->
-
+	
+	<!--================Event Product Area =================-->
+	{% if event %}
+	<div>
+	<div class="row ">
+		<div class="col-lg-12 no-padding exclusive-left" style="background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
+			<div class="row clock_sec clockdiv" style="background-color: rgba(213, 40, 40, 0.8);" id="clockdiv{{event.id}}">
+				<div class="col-lg-12">
+					<h1 class="text-center">{{event.title}}</h1>
+					<h3 class="text-center">Offre à -{{event.discount}}% pendant encore: </h3>
+				</div>
+				<div class="col-lg-12">
+					<center>
+						<div class="row clock-wrap" >
+							<div class="col clockinner1 clockinner">
+								<h1 class="days">1</h1>
+								<span class="smalltext text-body">Jours</span>
+							</div>
+							<div class="col clockinner clockinner1">
+								<h1 class="hours">00</h1>
+								<span class="smalltext text-body">Heure</span>
+							</div>
+							<div class="col clockinner clockinner1">
+								<h1 class="minutes">00</h1>
+								<span class="smalltext text-body">Minutes</span>
+							</div>
+							<div class="col clockinner clockinner1">
+								<h1 class="seconds">00</h1>
+								<span class="smalltext text-body">Secondes</span>
+							</div>
+						</div>
+					</center>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	{% endif %}
     	<!--================Single Product Area =================-->
 	<div class="product_image_area">
 		<div class="container">
@@ -38,12 +75,19 @@
                 <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
 					<div class="s_product_text">
 						<h3>{{product.title}}</h3>
-						<h2>{{product.price}} XAF</h2>
+						<div class="row">
+							<h2>{{product.price}} XAF</h2>
+							&nbsp;
+							<h4><del class="text-muted">{{product.originalPrice}} XAF</del></h4>
+						</div>
+						
+						
+						
 						<ul class="list">
 							<li><a class="active" href="{{ path('home', {'category': product.category.id}) }}"><span>Categorie</span> : {{product.category.title}}</a></li>
 							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>
 						</ul>
-						<p>{{product.description}}</p>
+						<p class="lead">{{product.description}}</p>
 						<div class="product_count">
 							<label for="qty">Quantité:</label>
                             <input type="number" name="shopcart[Q]" id="sst" class="input-text qty" value="1" placeholder="Qté" min="1" max="{{ product.amount }}">
@@ -71,19 +115,19 @@
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
-					<a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-					 aria-selected="false">Questions</a>
+					 aria-selected="false">Foire Aux Questions</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
 					 aria-selected="false">Avis</a>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<p>{{ product.detail |raw }}</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -92,73 +136,63 @@
 							<tbody>
 								<tr>
 									<td>
-										<h5>Width</h5>
-									</td>
-									<td>
-										<h5>128mm</h5>
+										<h2>Quelle garantie offrez-vous sur vos produits ?</h2>
+										<p>Nous offrons une garantie de 60 jours sur tous nos produits. Cela couvre tout défaut de fabrication ou problème rencontré dans des conditions normales d'utilisation. Si vous rencontrez un souci avec votre achat, contactez-nous pour bénéficier de notre service après-vente.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Height</h5>
-									</td>
-									<td>
-										<h5>508mm</h5>
+										<h2>Comment puis-je faire valoir la garantie ?</h2>
+										<p>Pour faire valoir votre garantie, il suffit de nous contacter avec votre preuve d'achat et une description du problème. Nous nous engageons à résoudre le problème dans les meilleurs délais, que ce soit par un échange ou une réparation.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Depth</h5>
-									</td>
-									<td>
-										<h5>85mm</h5>
+										<h2>Quels sont les modes de livraison disponibles ?</h2>
+										<p>Nous proposons plusieurs options de livraison, incluant la livraison standard, express, et livraison gratuite à partir d'un certain montant d'achat. Les délais et coûts varient en fonction de votre localisation et du mode de livraison choisi.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Weight</h5>
-									</td>
-									<td>
-										<h5>52gm</h5>
+										<h2>Puis-je suivre mon colis après l'expédition ?</h2>
+										<p>Oui, une fois votre commande expédiée, vous recevrez un e-mail de confirmation avec un numéro de suivi vous permettant de suivre votre colis en temps réel.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Quality checking</h5>
-									</td>
-									<td>
-										<h5>yes</h5>
+										<h2>Livrez-vous à l'international ?</h2>
+										<p>Oui, nous offrons la livraison internationale dans de nombreux pays. Les frais et délais de livraison varient en fonction de la destination.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Freshness Duration</h5>
-									</td>
-									<td>
-										<h5>03days</h5>
+										<h2>Qu'est-ce que l'accès à vie ?</h2>
+										<p>L'accès à vie signifie que, après l'achat de certains produits (notamment numériques tels que les e-books, cours en ligne, ou logiciels), vous aurez un accès illimité à ces contenus sans durée d'expiration. Vous pourrez les consulter et les télécharger à tout moment.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>When packeting</h5>
-									</td>
-									<td>
-										<h5>Without touch of hand</h5>
+										<h2> Comment fonctionne l'accès à vie pour mes achats numériques ?</h2>
+										<p>Après votre achat, un mail avec le contenu téléchargeble vous sera envoyé. Vous pourrez y accéder quand vous le souhaitez, et ce, pour toujours. Aucun abonnement ou frais supplémentaire ne sera requis pour garder l'accès.</p>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<h5>Each Box contains</h5>
+										<h2>Quels sont les modes de paiement acceptés ?</h2>
+										<p>Nous acceptons plusieurs modes de paiement, incluant Orange Money, MoMo, Moov, Wave, les cartes de crédit (Visa, Mastercard, American Express), et certains systèmes de paiement locaux. Tous nos paiements sont sécurisés et cryptés pour protéger vos informations.</p>
 									</td>
+								</tr>
+								<tr>
 									<td>
-										<h5>60pcs</h5>
+										<h2>Mes informations de paiement sont-elles sécurisées ?</h2>
+										<p>Absolument ! Nous utilisons des systèmes de paiement sécurisés qui garantissent la protection de vos données personnelles et bancaires. Toutes les transactions sont cryptées avec des protocoles de sécurité de pointe.</p>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="row total_rate">
@@ -176,10 +210,14 @@
 								<div class="review_item">
 									<div class="media">
                                         
-											{% if rs.author is not null %}
+											{% if rs.author.image is not null %}
                                                   <div class="d-flex">
                                                         <img src="{{asset('uploads/images/' ~ rs.author.image)}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar-{{rs.author.name}}">
-                                                  </div>  
+                                                  </div>
+											{% else %}
+												<div class="d-flex">
+													<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+												</div>
                                             {% endif %}
                                         
 										
@@ -213,7 +251,7 @@
 							</div>
 						</div>
                         {% else %}
-                            <a href="{{path('app_login')}}"><i class="fa fa-lock"></i>If you want to add comment please login</a>
+                            <a href="{{path('app_login')}}"><i class="fa fa-lock"></i>Si vous voulez laisser un avis connectez-vous svp</a>
                         {% endif %}
 					</div>
 				</div>
@@ -224,4 +262,24 @@
 
    
     </section>
+	<script src="{{asset('assets/client/js/countdown.js')}}"></script>
+		<script>
+			// Parse the event start and end times
+			var startAt = new Date("{{ event.startAt | date('Y-m-d H:i:s') }}");
+			var endAt = new Date("{{ event.endAt | date('Y-m-d H:i:s') }}");
+
+			// Calculate the total event duration (in milliseconds)
+			var totalDuration = endAt - startAt;
+
+			// Calculate the time elapsed since the event started
+			var now = new Date();
+			var timeElapsed = now - startAt;
+
+			// Calculate the remaining time by subtracting the elapsed time from the total duration
+			var remainingTime = totalDuration - timeElapsed;
+
+			// Set the deadline to the current time plus the remaining time
+			var deadline = new Date(now.getTime() + remainingTime);
+			initializeClock('clockdiv{{event.id}}', deadline);
+		</script>
 {% endblock %}

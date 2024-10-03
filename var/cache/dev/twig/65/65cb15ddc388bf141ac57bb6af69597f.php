@@ -112,84 +112,53 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
       <!--================Checkout Area =================-->
     <section class=\"checkout_area section_gap\">
         <div class=\"container\">
-        ";
-        // line 23
-        if ( !CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 23, $this->source); })()), "user", [], "any", false, false, false, 23)) {
-            // line 24
-            yield "            <div class=\"returning_customer\">
-                <div class=\"check_title\">
-                    <h2>Returning Customer? <a href=\"#\">Click here to login</a></h2>
-                </div>
-                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
-                    customer, please proceed to the Billing & Shipping section.</p>
-                <form class=\"row contact_form\" action=\"#\" method=\"post\" novalidate=\"novalidate\">
-                    <div class=\"col-md-6 form-group p_star\">
-                        <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">
-                        <span class=\"placeholder\" data-placeholder=\"Username or Email\"></span>
-                    </div>
-                    <div class=\"col-md-6 form-group p_star\">
-                        <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\">
-                        <span class=\"placeholder\" data-placeholder=\"Password\"></span>
-                    </div>
-                    <div class=\"col-md-12 form-group\">
-                        <button type=\"submit\" value=\"submit\" class=\"primary-btn\">login</button>
-                        <div class=\"creat_account\">
-                            <input type=\"checkbox\" id=\"f-option\" name=\"selector\">
-                            <label for=\"f-option\">Remember me</label>
-                        </div>
-                        <a class=\"lost_pass\" href=\"#\">Lost your password?</a>
-                    </div>
-                </form>
-            </div>
+        
             ";
-        }
-        // line 50
-        yield "            ";
-        // line 57
+        // line 31
         yield "            <div class=\"billing_details\">
                 <div class=\"row\">
                     ";
-        // line 59
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 59, $this->source); })()), 'form_start', ["attr" => ["class" => "row contact_form"]]);
+        // line 33
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 33, $this->source); })()), 'form_start', ["attr" => ["class" => "row contact_form"]]);
         yield "
                     <div class=\"col-lg-8\">
                         <h3>Details de facturation</h3>
                         
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" id=\"first\" value=\"";
-        // line 64
-        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "name", [], "any", false, false, false, 64) . " ") . CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 64, $this->source); })()), "user", [], "any", false, false, false, 64), "surname", [], "any", false, false, false, 64)), "html", null, true)) : (yield ""));
+        // line 38
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 38, $this->source); })()), "user", [], "any", false, false, false, 38)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 38, $this->source); })()), "user", [], "any", false, false, false, 38), "name", [], "any", false, false, false, 38) . " ") . CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 38, $this->source); })()), "user", [], "any", false, false, false, 38), "surname", [], "any", false, false, false, 38)), "html", null, true)) : (yield ""));
         yield "\" placeholder=\"Nom complet\" name=\"orders[name]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"";
-        // line 67
-        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 67, $this->source); })()), "user", [], "any", false, false, false, 67)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 67, $this->source); })()), "user", [], "any", false, false, false, 67), "email", [], "any", false, false, false, 67), "html", null, true)) : (yield ""));
-        yield "\" name=\"orders[email]\" required>
-                            </div>
-                            <div class=\"col-md-12 form-group\">
-                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"";
-        // line 70
-        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 70, $this->source); })()), "user", [], "any", false, false, false, 70)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 70, $this->source); })()), "user", [], "any", false, false, false, 70), "city", [], "any", false, false, false, 70), "html", null, true)) : (yield ""));
-        yield "\" name=\"orders[city]\" placeholder=\"Ville\" required>
-                            </div>
-                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" id=\"email\"  placeholder=\"Addresse\" name=\"orders[shipinfo]\" required>
+        // line 41
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "user", [], "any", false, false, false, 41)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 41, $this->source); })()), "user", [], "any", false, false, false, 41), "email", [], "any", false, false, false, 41), "html", null, true)) : (yield ""));
+        yield "\" name=\"orders[address]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" placeholder=\"Telephone\" id=\"number\" value=\"";
-        // line 76
-        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 76, $this->source); })()), "user", [], "any", false, false, false, 76)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 76, $this->source); })()), "user", [], "any", false, false, false, 76), "phone", [], "any", false, false, false, 76), "html", null, true)) : (yield ""));
+        // line 44
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 44, $this->source); })()), "user", [], "any", false, false, false, 44)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 44, $this->source); })()), "user", [], "any", false, false, false, 44), "phone", [], "any", false, false, false, 44), "html", null, true)) : (yield ""));
         yield "\" name=\"orders[phone]\" required>
-                                
                             </div>
+                            <div class=\"col-md-12 form-group\">
+                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"";
+        // line 47
+        ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 47, $this->source); })()), "user", [], "any", false, false, false, 47)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 47, $this->source); })()), "user", [], "any", false, false, false, 47), "city", [], "any", false, false, false, 47), "html", null, true)) : (yield ""));
+        yield "\" name=\"orders[city]\" placeholder=\"Ville\">
+                            </div>
+                             <div class=\"col-md-12 form-group p_star\">
+                                <input type=\"text\" class=\"form-control\" id=\"email\"  placeholder=\"Addresse\" name=\"orders[shipinfo]\">
+                            </div>
+                            
                            
                            
                             ";
-        // line 103
+        // line 77
         yield "                            ";
-        if ( !CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 103, $this->source); })()), "user", [], "any", false, false, false, 103)) {
-            // line 104
+        if ( !CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 77, $this->source); })()), "user", [], "any", false, false, false, 77)) {
+            // line 78
             yield "                            <div class=\"col-md-12 form-group\">
                                 <div class=\"creat_account\">
                                     <input type=\"checkbox\" id=\"f-option2\" name=\"selector\">
@@ -198,7 +167,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             </div>
                             ";
         }
-        // line 111
+        // line 85
         yield "                             <div class=\"col-md-12 form-group\">
                                 <div class=\"creat_account\">
                                     <h3>Détails de la livraison</h3>
@@ -213,59 +182,94 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             <ul class=\"list\">
                                 <li><a href=\"#\">Produit <span>Total</span></a></li>
                                 ";
-        // line 124
+        // line 98
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 124, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["shopcart"]) || array_key_exists("shopcart", $context) ? $context["shopcart"] : (function () { throw new RuntimeError('Variable "shopcart" does not exist.', 98, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
-            // line 125
+            // line 99
             yield "                                <li><a href=\"#\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 125), "title", [], "any", false, false, false, 125), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 99), "title", [], "any", false, false, false, 99), "html", null, true);
             yield " <span class=\"middle\">x ";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 125), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 99), "html", null, true);
             yield "</span> <span class=\"last\">";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 125), "price", [], "any", false, false, false, 125) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 125)), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["item"], "product", [], "any", false, false, false, 99), "price", [], "any", false, false, false, 99) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 99)), "html", null, true);
             yield " XAF</span></a></li>
                                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['item'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 127
+        // line 101
         yield "                            </ul>
                             <ul class=\"list list_2\">
                                 <li><a href=\"#\">Sous-total <span>";
-        // line 129
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 129, $this->source); })()), "html", null, true);
+        // line 103
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 103, $this->source); })()), "html", null, true);
         yield " XAF</span></a></li>
-                                <li><a href=\"#\">Livraison <span>Aux Frais Du Client</span></a></li>
+                                <li><a href=\"#\">Livraison <span>Téléchargement Instantanés</span></a></li>
                                 <li><a href=\"#\">Total <span>";
-        // line 131
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 131, $this->source); })()), "html", null, true);
+        // line 105
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 105, $this->source); })()), "html", null, true);
         yield " XAF</span></a></li>
                             </ul>
                             <div class=\"payment_item\">
                                 <div class=\"radion_btn\">
                                     <input type=\"radio\" id=\"f-option5\" name=\"selector\" checked>
-                                    <label for=\"f-option5\">Livraison instantanées</label>
+                                    <label for=\"f-option5\">Téléchargement instantanés</label>
                                     <div class=\"check\"></div>
                                 </div>
                                 <p>A la fin de vos achats, vous pourrez télécharger les produits numériques. Les produits physiques vous seront livrés.</p>
                             </div>
                             <div class=\"creat_account\">
-                                <input type=\"checkbox\" id=\"f-option4\" name=\"selector\" required>
-                                <label for=\"f-option4\">J'ai lu et j'accepte les </label>
+                                <input type=\"checkbox\" id=\"f-option4\" name=\"selector\" required checked>
+                                <label for=\"f-option4\">En commandant j'accepte les </label>
                                 <a href=\"#\">termes & conditions*</a>
                             </div>
                             <input type=\"text\" hidden=\"yes\" name=\"token\" value=";
-        // line 146
+        // line 120
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("form-order"), "html", null, true);
         yield " />
                             <button type=\"submit\" class=\"primary-btn\">Commandez</button>
                         </div>
                     </div>
                     </form>
-                </div>
-            </div>
+                    
+                </div><br>
+                ";
+        // line 127
+        if ( !CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 127, $this->source); })()), "user", [], "any", false, false, false, 127)) {
+            // line 128
+            yield "                    <div class=\"row\">
+                        <div class=\"returning_customer\">
+                            <div class=\"check_title\">
+                                <h2>Returning Customer? <a href=\"#\">Click here to login</a></h2>
+                            </div>
+                            <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
+                                customer, please proceed to the Billing & Shipping section.</p>
+                            <form class=\"row contact_form\" action=\"#\" method=\"post\" novalidate=\"novalidate\">
+                                <div class=\"col-md-6 form-group p_star\">
+                                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">
+                                    <span class=\"placeholder\" data-placeholder=\"Username or Email\"></span>
+                                </div>
+                                <div class=\"col-md-6 form-group p_star\">
+                                    <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\">
+                                    <span class=\"placeholder\" data-placeholder=\"Password\"></span>
+                                </div>
+                                <div class=\"col-md-12 form-group\">
+                                    <button type=\"submit\" value=\"submit\" class=\"primary-btn\">login</button>
+                                    <div class=\"creat_account\">
+                                        <input type=\"checkbox\" id=\"f-option\" name=\"selector\">
+                                        <label for=\"f-option\">Remember me</label>
+                                    </div>
+                                    <a class=\"lost_pass\" href=\"#\">Lost your password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    ";
+        }
+        // line 156
+        yield "            </div>
         </div>
     </section>
     <!--================End Checkout Area =================-->
@@ -300,7 +304,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  261 => 146,  243 => 131,  238 => 129,  234 => 127,  221 => 125,  217 => 124,  202 => 111,  193 => 104,  190 => 103,  182 => 76,  173 => 70,  167 => 67,  161 => 64,  153 => 59,  149 => 57,  147 => 50,  119 => 24,  117 => 23,  103 => 12,  94 => 5,  84 => 4,  64 => 3,  41 => 1,);
+        return array (  272 => 156,  242 => 128,  240 => 127,  230 => 120,  212 => 105,  207 => 103,  203 => 101,  190 => 99,  186 => 98,  171 => 85,  162 => 78,  159 => 77,  148 => 47,  142 => 44,  136 => 41,  130 => 38,  122 => 33,  118 => 31,  103 => 12,  94 => 5,  84 => 4,  64 => 3,  41 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -327,33 +331,7 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
       <!--================Checkout Area =================-->
     <section class=\"checkout_area section_gap\">
         <div class=\"container\">
-        {% if not app.user  %}
-            <div class=\"returning_customer\">
-                <div class=\"check_title\">
-                    <h2>Returning Customer? <a href=\"#\">Click here to login</a></h2>
-                </div>
-                <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
-                    customer, please proceed to the Billing & Shipping section.</p>
-                <form class=\"row contact_form\" action=\"#\" method=\"post\" novalidate=\"novalidate\">
-                    <div class=\"col-md-6 form-group p_star\">
-                        <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">
-                        <span class=\"placeholder\" data-placeholder=\"Username or Email\"></span>
-                    </div>
-                    <div class=\"col-md-6 form-group p_star\">
-                        <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\">
-                        <span class=\"placeholder\" data-placeholder=\"Password\"></span>
-                    </div>
-                    <div class=\"col-md-12 form-group\">
-                        <button type=\"submit\" value=\"submit\" class=\"primary-btn\">login</button>
-                        <div class=\"creat_account\">
-                            <input type=\"checkbox\" id=\"f-option\" name=\"selector\">
-                            <label for=\"f-option\">Remember me</label>
-                        </div>
-                        <a class=\"lost_pass\" href=\"#\">Lost your password?</a>
-                    </div>
-                </form>
-            </div>
-            {% endif %}
+        
             {#<div class=\"cupon_area\">
                 <div class=\"check_title\">
                     <h2>Have a coupon? <a href=\"#\">Click here to enter your code</a></h2>
@@ -371,18 +349,18 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                                 <input type=\"text\" class=\"form-control\" id=\"first\" value=\"{{app.user ? app.user.name ~ ' ' ~ app.user.surname:''}}\" placeholder=\"Nom complet\" name=\"orders[name]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"{{app.user? app.user.email:''}}\" name=\"orders[email]\" required>
-                            </div>
-                            <div class=\"col-md-12 form-group\">
-                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"{{app.user ? app.user.city: ''}}\" name=\"orders[city]\" placeholder=\"Ville\" required>
-                            </div>
-                             <div class=\"col-md-12 form-group p_star\">
-                                <input type=\"text\" class=\"form-control\" id=\"email\"  placeholder=\"Addresse\" name=\"orders[shipinfo]\" required>
+                                <input type=\"text\" class=\"form-control\" id=\"last\" placeholder=\"Email\" value=\"{{app.user? app.user.email:''}}\" name=\"orders[address]\" required>
                             </div>
                             <div class=\"col-md-12 form-group p_star\">
                                 <input type=\"text\" class=\"form-control\" placeholder=\"Telephone\" id=\"number\" value=\"{{app.user ? app.user.phone:''}}\" name=\"orders[phone]\" required>
-                                
                             </div>
+                            <div class=\"col-md-12 form-group\">
+                                <input type=\"text\" class=\"form-control\" id=\"company\" value=\"{{app.user ? app.user.city: ''}}\" name=\"orders[city]\" placeholder=\"Ville\">
+                            </div>
+                             <div class=\"col-md-12 form-group p_star\">
+                                <input type=\"text\" class=\"form-control\" id=\"email\"  placeholder=\"Addresse\" name=\"orders[shipinfo]\">
+                            </div>
+                            
                            
                            
                             {# <div class=\"col-md-12 form-group p_star\">
@@ -434,20 +412,20 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                             </ul>
                             <ul class=\"list list_2\">
                                 <li><a href=\"#\">Sous-total <span>{{total}} XAF</span></a></li>
-                                <li><a href=\"#\">Livraison <span>Aux Frais Du Client</span></a></li>
+                                <li><a href=\"#\">Livraison <span>Téléchargement Instantanés</span></a></li>
                                 <li><a href=\"#\">Total <span>{{total}} XAF</span></a></li>
                             </ul>
                             <div class=\"payment_item\">
                                 <div class=\"radion_btn\">
                                     <input type=\"radio\" id=\"f-option5\" name=\"selector\" checked>
-                                    <label for=\"f-option5\">Livraison instantanées</label>
+                                    <label for=\"f-option5\">Téléchargement instantanés</label>
                                     <div class=\"check\"></div>
                                 </div>
                                 <p>A la fin de vos achats, vous pourrez télécharger les produits numériques. Les produits physiques vous seront livrés.</p>
                             </div>
                             <div class=\"creat_account\">
-                                <input type=\"checkbox\" id=\"f-option4\" name=\"selector\" required>
-                                <label for=\"f-option4\">J'ai lu et j'accepte les </label>
+                                <input type=\"checkbox\" id=\"f-option4\" name=\"selector\" required checked>
+                                <label for=\"f-option4\">En commandant j'accepte les </label>
                                 <a href=\"#\">termes & conditions*</a>
                             </div>
                             <input type=\"text\" hidden=\"yes\" name=\"token\" value={{ csrf_token('form-order') }} />
@@ -455,7 +433,37 @@ class __TwigTemplate_62866da10996d15f79b664a303b99c96 extends Template
                         </div>
                     </div>
                     </form>
-                </div>
+                    
+                </div><br>
+                {% if not app.user  %}
+                    <div class=\"row\">
+                        <div class=\"returning_customer\">
+                            <div class=\"check_title\">
+                                <h2>Returning Customer? <a href=\"#\">Click here to login</a></h2>
+                            </div>
+                            <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new
+                                customer, please proceed to the Billing & Shipping section.</p>
+                            <form class=\"row contact_form\" action=\"#\" method=\"post\" novalidate=\"novalidate\">
+                                <div class=\"col-md-6 form-group p_star\">
+                                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\">
+                                    <span class=\"placeholder\" data-placeholder=\"Username or Email\"></span>
+                                </div>
+                                <div class=\"col-md-6 form-group p_star\">
+                                    <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\">
+                                    <span class=\"placeholder\" data-placeholder=\"Password\"></span>
+                                </div>
+                                <div class=\"col-md-12 form-group\">
+                                    <button type=\"submit\" value=\"submit\" class=\"primary-btn\">login</button>
+                                    <div class=\"creat_account\">
+                                        <input type=\"checkbox\" id=\"f-option\" name=\"selector\">
+                                        <label for=\"f-option\">Remember me</label>
+                                    </div>
+                                    <a class=\"lost_pass\" href=\"#\">Lost your password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
             </div>
         </div>
     </section>

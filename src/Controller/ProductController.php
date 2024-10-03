@@ -7,6 +7,7 @@ use App\Form\Product1Type;
 use App\Entity\OrderDetail;
 use App\Entity\Orders;
 use App\Repository\ProductRepository;
+use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,8 +100,9 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+        
         return $this->render('product/show.html.twig', [
-            'product' => $product,
+            'product' => $product
         ]);
     }
 

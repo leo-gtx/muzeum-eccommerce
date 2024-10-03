@@ -170,7 +170,7 @@ class __TwigTemplate_a58eb33438d2e5f1103aec74150e9acf extends Template
             yield "</td>
                             <td>";
             // line 74
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["order"], "user", [], "any", false, false, false, 74), "id", [], "any", false, false, false, 74), "html", null, true);
+            ((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["order"], "user", [], "any", false, false, false, 74), "id", [], "any", false, false, false, 74)) ? (yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, $context["order"], "user", [], "any", false, false, false, 74), "id", [], "any", false, false, false, 74), "html", null, true)) : (yield "Guest"));
             yield "</td>
                             <td>";
             // line 75
@@ -342,7 +342,7 @@ class __TwigTemplate_a58eb33438d2e5f1103aec74150e9acf extends Template
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.id }}</td>
-                            <td>{{ order.user.id }}</td>
+                            <td>{{ order.user.id ? order.user.id : 'Guest' }}</td>
                             <td>{{ order.name }}</td>
                             <td>{{ order.amount }}</td>
                             <td>{{ order.address }}</td>

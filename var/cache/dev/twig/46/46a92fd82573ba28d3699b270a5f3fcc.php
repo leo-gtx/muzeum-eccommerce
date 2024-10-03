@@ -72,14 +72,14 @@ class __TwigTemplate_8542dd6bdff266a00bc1aaf790bad32d extends Template
 \t\t\t\t\t\t<p></p>
 \t\t\t\t\t\t<div class=\"\" id=\"mc_embed_signup\">
 
-\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i>";
+\t\t\t\t\t\t\t<!-- <p><i class=\"fa fa-phone\"></i>";
         // line 21
         if (array_key_exists("setting", $context)) {
             yield " ";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 21, $this->source); })()), 0, [], "array", false, false, false, 21), "phone", [], "any", false, false, false, 21), "html", null, true);
             yield " ";
         }
-        yield "</p>
+        yield "</p> -->
 \t\t\t\t\t\t\t<p><i class=\"fa fa-envelope\"></i>";
         // line 22
         if (array_key_exists("setting", $context)) {
@@ -136,20 +136,20 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t</footer>
 \t<!-- End footer Area -->
 \t<!-- WhatsApp Floating Button -->
-    <a href=\"#\" class=\"whatsapp-btn\" id=\"whatsappButton\">
+    <!-- <a href=\"#\" class=\"whatsapp-btn\" id=\"whatsappButton\">
         <img src=\"";
         // line 56
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/client/img/whatsapp.svg"), "html", null, true);
         yield "\" alt=\"WhatsApp Icon\">
-    </a>
+    </a> -->
 
     <!-- Message Input Box -->
-    <div class=\"message-box\" id=\"messageBox\">
+    <!-- <div class=\"message-box\" id=\"messageBox\">
         <div class=\"input-container\">
             <input type=\"text\" id=\"whatsapp-message\" placeholder=\"Saisissez votre message...\">
             <button onclick=\"sendWhatsAppMessage()\">Envoyer</button>
         </div>
-    </div>
+    </div> -->
 
 \t<!-- Cart Button -->
 \t<div id=\"cart-button\" class=\"floating-cart\">
@@ -218,7 +218,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t\t\t\t\t\t<p></p>
 \t\t\t\t\t\t<div class=\"\" id=\"mc_embed_signup\">
 
-\t\t\t\t\t\t\t<p><i class=\"fa fa-phone\"></i>{% if setting is defined %} {{setting[0].phone}} {% endif %}</p>
+\t\t\t\t\t\t\t<!-- <p><i class=\"fa fa-phone\"></i>{% if setting is defined %} {{setting[0].phone}} {% endif %}</p> -->
 \t\t\t\t\t\t\t<p><i class=\"fa fa-envelope\"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
 \t\t\t\t\t\t</div>
 \t\t\t\t\t</div>
@@ -252,17 +252,17 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 \t</footer>
 \t<!-- End footer Area -->
 \t<!-- WhatsApp Floating Button -->
-    <a href=\"#\" class=\"whatsapp-btn\" id=\"whatsappButton\">
+    <!-- <a href=\"#\" class=\"whatsapp-btn\" id=\"whatsappButton\">
         <img src=\"{{asset('assets/client/img/whatsapp.svg')}}\" alt=\"WhatsApp Icon\">
-    </a>
+    </a> -->
 
     <!-- Message Input Box -->
-    <div class=\"message-box\" id=\"messageBox\">
+    <!-- <div class=\"message-box\" id=\"messageBox\">
         <div class=\"input-container\">
             <input type=\"text\" id=\"whatsapp-message\" placeholder=\"Saisissez votre message...\">
             <button onclick=\"sendWhatsAppMessage()\">Envoyer</button>
         </div>
-    </div>
+    </div> -->
 
 \t<!-- Cart Button -->
 \t<div id=\"cart-button\" class=\"floating-cart\">

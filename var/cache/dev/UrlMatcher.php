@@ -31,6 +31,7 @@ return [
         '/admin/user' => [[['_route' => 'admin_user_index', '_controller' => 'App\\Controller\\Admin\\UserController::index'], null, ['GET' => 0], null, true, false, null]],
         '/admin/user/new' => [[['_route' => 'admin_user_new', '_controller' => 'App\\Controller\\Admin\\UserController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/' => [[['_route' => 'home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
+        '/events' => [[['_route' => 'events', '_controller' => 'App\\Controller\\HomeController::events'], null, null, null, false, false, null]],
         '/about' => [[['_route' => 'home_about', '_controller' => 'App\\Controller\\HomeController::abouts'], null, null, null, false, false, null]],
         '/contact' => [[['_route' => 'home_contact', '_controller' => 'App\\Controller\\HomeController::contact'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/sitemap.xml' => [[['_route' => 'sitemap', '_format' => 'xml', '_controller' => 'App\\Controller\\HomeController::sitemap'], null, null, null, false, false, null]],

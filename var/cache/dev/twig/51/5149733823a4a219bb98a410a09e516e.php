@@ -190,20 +190,17 @@ class __TwigTemplate_7ddc3a713ec60a1c4180956950a19823 extends Template
 \t\t\t\t\t<div class=\"contact_info\">
 \t\t\t\t\t\t<div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-home\"></i>
-\t\t\t\t\t\t\t<h6>Cameroun</h6>
-\t\t\t\t\t\t\t<p>";
-        // line 53
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 53, $this->source); })()), 0, [], "array", false, false, false, 53), "address", [], "any", false, false, false, 53), "html", null, true);
-        yield "</p>
+\t\t\t\t\t\t\t<h6>A travers le monde</h6>
+\t\t\t\t\t\t\t<p>Disponible du Lundi au Vendredi</p>
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<div class=\"info_item\">
+\t\t\t\t\t\t<!-- <div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-phone-handset\"></i>
 \t\t\t\t\t\t\t<h6><a href=\"#\">";
         // line 57
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["setting"]) || array_key_exists("setting", $context) ? $context["setting"] : (function () { throw new RuntimeError('Variable "setting" does not exist.', 57, $this->source); })()), 0, [], "array", false, false, false, 57), "phone", [], "any", false, false, false, 57), "html", null, true);
         yield "</a></h6>
 \t\t\t\t\t\t\t<p>Lundi à Vendredi de 9h à 18h</p>
-\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div> -->
 \t\t\t\t\t\t<div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-envelope\"></i>
 \t\t\t\t\t\t\t<h6><a href=\"#\">";
@@ -242,7 +239,7 @@ class __TwigTemplate_7ddc3a713ec60a1c4180956950a19823 extends Template
 \t\t\t\t\t</form>
 \t\t\t\t</div>
 \t\t\t</div>
-\t\t\t<iframe id=\"mapBox\" class=\"mapBox\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6416115889388!2d9.747362088854985!3d4.093144700000025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610fcc62cf1d59%3A0x6259be7bc7405f8f!2sCarrefour%20des%20immeubles%20de%20kotto!5e0!3m2!1sfr!2scm!4v1726314646702!5m2!1sfr!2scm\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>
+\t\t\t<!-- <iframe id=\"mapBox\" class=\"mapBox\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6416115889388!2d9.747362088854985!3d4.093144700000025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610fcc62cf1d59%3A0x6259be7bc7405f8f!2sCarrefour%20des%20immeubles%20de%20kotto!5e0!3m2!1sfr!2scm!4v1726314646702!5m2!1sfr!2scm\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe> -->
 \t\t</div>
 \t</section>
 \t<!--================Contact Area =================-->
@@ -277,7 +274,7 @@ class __TwigTemplate_7ddc3a713ec60a1c4180956950a19823 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  238 => 86,  211 => 62,  203 => 57,  196 => 53,  187 => 47,  164 => 27,  150 => 16,  146 => 15,  137 => 8,  127 => 7,  107 => 5,  87 => 4,  66 => 3,  43 => 1,);
+        return array (  235 => 86,  208 => 62,  200 => 57,  187 => 47,  164 => 27,  150 => 16,  146 => 15,  137 => 8,  127 => 7,  107 => 5,  87 => 4,  66 => 3,  43 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -333,14 +330,14 @@ class __TwigTemplate_7ddc3a713ec60a1c4180956950a19823 extends Template
 \t\t\t\t\t<div class=\"contact_info\">
 \t\t\t\t\t\t<div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-home\"></i>
-\t\t\t\t\t\t\t<h6>Cameroun</h6>
-\t\t\t\t\t\t\t<p>{{setting[0].address}}</p>
+\t\t\t\t\t\t\t<h6>A travers le monde</h6>
+\t\t\t\t\t\t\t<p>Disponible du Lundi au Vendredi</p>
 \t\t\t\t\t\t</div>
-\t\t\t\t\t\t<div class=\"info_item\">
+\t\t\t\t\t\t<!-- <div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-phone-handset\"></i>
 \t\t\t\t\t\t\t<h6><a href=\"#\">{{setting[0].phone}}</a></h6>
 \t\t\t\t\t\t\t<p>Lundi à Vendredi de 9h à 18h</p>
-\t\t\t\t\t\t</div>
+\t\t\t\t\t\t</div> -->
 \t\t\t\t\t\t<div class=\"info_item\">
 \t\t\t\t\t\t\t<i class=\"lnr lnr-envelope\"></i>
 \t\t\t\t\t\t\t<h6><a href=\"#\">{{setting[0].email}}</a></h6>
@@ -373,7 +370,7 @@ class __TwigTemplate_7ddc3a713ec60a1c4180956950a19823 extends Template
 \t\t\t\t\t</form>
 \t\t\t\t</div>
 \t\t\t</div>
-\t\t\t<iframe id=\"mapBox\" class=\"mapBox\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6416115889388!2d9.747362088854985!3d4.093144700000025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610fcc62cf1d59%3A0x6259be7bc7405f8f!2sCarrefour%20des%20immeubles%20de%20kotto!5e0!3m2!1sfr!2scm!4v1726314646702!5m2!1sfr!2scm\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>
+\t\t\t<!-- <iframe id=\"mapBox\" class=\"mapBox\" src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3979.6416115889388!2d9.747362088854985!3d4.093144700000025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10610fcc62cf1d59%3A0x6259be7bc7405f8f!2sCarrefour%20des%20immeubles%20de%20kotto!5e0!3m2!1sfr!2scm!4v1726314646702!5m2!1sfr!2scm\" width=\"100%\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe> -->
 \t\t</div>
 \t</section>
 \t<!--================Contact Area =================-->

@@ -71,7 +71,7 @@
                     {% for order in orders %}
                         <tr>
                             <td>{{ order.id }}</td>
-                            <td>{{ order.user.id }}</td>
+                            <td>{{ order.user.id ? order.user.id : 'Guest' }}</td>
                             <td>{{ order.name }}</td>
                             <td>{{ order.amount }}</td>
                             <td>{{ order.address }}</td>

@@ -150,7 +150,7 @@ class __TwigTemplate_d5fb1b6a71f9ec3c769d6a4ab8359bae extends Template
                                         <td>";
             // line 47
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["order"], "amount", [], "any", false, false, false, 47), "html", null, true);
-            yield " FCFA</td>
+            yield " XAF</td>
                                         <td>";
             // line 48
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["order"], "city", [], "any", false, false, false, 48), "html", null, true);
@@ -281,7 +281,7 @@ class __TwigTemplate_d5fb1b6a71f9ec3c769d6a4ab8359bae extends Template
                                 {% for order in orders %}
                                     <tr>
                                         <td>{{ order.id }}</td>
-                                        <td>{{ order.amount }} FCFA</td>
+                                        <td>{{ order.amount }} XAF</td>
                                         <td>{{ order.city }}</td>
                                         <td>{{ order.shipinfo }}</td>
                                         <td>{{ order.phone }}</td>

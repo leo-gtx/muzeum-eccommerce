@@ -5688,7 +5688,7 @@
       <tag name="console.command" command="server:run"/>
       <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/public</argument>
       <argument>dev</argument>
-      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/var/cache</argument>
+      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum</argument>
       <call method="setName">
         <argument>server:run</argument>
       </call>
@@ -5697,21 +5697,21 @@
       <tag name="console.command" command="server:start"/>
       <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/public</argument>
       <argument>dev</argument>
-      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/var/cache</argument>
+      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum</argument>
       <call method="setName">
         <argument>server:start</argument>
       </call>
     </service>
     <service id="web_server.command.server_stop" class="Symfony\Bundle\WebServerBundle\Command\ServerStopCommand" public="false">
       <tag name="console.command" command="server:stop"/>
-      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/var/cache</argument>
+      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum</argument>
       <call method="setName">
         <argument>server:stop</argument>
       </call>
     </service>
     <service id="web_server.command.server_status" class="Symfony\Bundle\WebServerBundle\Command\ServerStatusCommand" public="false">
       <tag name="console.command" command="server:status"/>
-      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/var/cache</argument>
+      <argument>/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum</argument>
       <call method="setName">
         <argument>server:status</argument>
       </call>
@@ -6849,12 +6849,21 @@
         <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.uTeZyXl" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.NNdaM3G" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="eventRepository" type="service_closure" id="App\Repository\EventRepository"/>
+        <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
+        <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.j8rNq.u" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="commentRepository" type="service_closure" id="App\Repository\Admin\CommentRepository"/>
+        <argument key="eventRepository" type="service_closure" id="App\Repository\EventRepository"/>
         <argument key="imageRepository" type="service_closure" id="App\Repository\ImageRepository"/>
-        <argument key="product" type="service_closure" id=".errored..service_locator.uTeZyXl.App\Entity\Product"/>
+        <argument key="product" type="service_closure" id=".errored..service_locator.j8rNq.u.App\Entity\Product"/>
         <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
         <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
@@ -6948,6 +6957,12 @@
         <argument key="shopcartRepository" type="service_closure" id="App\Repository\ShopcartRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.edsVTVi" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="shopcart" type="service_closure" id=".errored..service_locator.edsVTVi.App\Entity\Shopcart"/>
+      </argument>
+    </service>
     <service id=".service_locator.j2jQTD9" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6976,7 +6991,7 @@
         <argument key="settingRepository" type="service_closure" id="App\Repository\SettingRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.6uxLkor" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.RPXMV89" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\AdminController::getOrderCounts" type="service_closure" id=".service_locator.7oVgZkk"/>
@@ -7021,8 +7036,9 @@
         <argument key="App\Controller\Admin\UserController::show" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\HomeController::abouts" type="service_closure" id=".service_locator.CKWaOaz"/>
         <argument key="App\Controller\HomeController::contact" type="service_closure" id=".service_locator.tNxnSjx"/>
+        <argument key="App\Controller\HomeController::events" type="service_closure" id=".service_locator.NNdaM3G"/>
         <argument key="App\Controller\HomeController::index" type="service_closure" id=".service_locator.Or8mo87"/>
-        <argument key="App\Controller\HomeController::show" type="service_closure" id=".service_locator.uTeZyXl"/>
+        <argument key="App\Controller\HomeController::show" type="service_closure" id=".service_locator.j8rNq.u"/>
         <argument key="App\Controller\ImageController::delete" type="service_closure" id=".service_locator.pwFeTD."/>
         <argument key="App\Controller\ImageController::edit" type="service_closure" id=".service_locator.pwFeTD."/>
         <argument key="App\Controller\ImageController::index" type="service_closure" id=".service_locator.MO2lGDc"/>
@@ -7046,6 +7062,7 @@
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.YJfGh3X"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController::loginuser" type="service_closure" id=".service_locator.f94kp8W"/>
+        <argument key="App\Controller\ShopcartController::del" type="service_closure" id=".service_locator.edsVTVi"/>
         <argument key="App\Controller\ShopcartController::delete" type="service_closure" id=".service_locator.j2jQTD9"/>
         <argument key="App\Controller\ShopcartController::edit" type="service_closure" id=".service_locator.pHnADoM"/>
         <argument key="App\Controller\ShopcartController::getCartCount" type="service_closure" id=".service_locator.U9sHqX1"/>
@@ -7106,8 +7123,9 @@
         <argument key="App\Controller\Admin\UserController:show" type="service_closure" id=".service_locator.3vYy5bm"/>
         <argument key="App\Controller\HomeController:abouts" type="service_closure" id=".service_locator.CKWaOaz"/>
         <argument key="App\Controller\HomeController:contact" type="service_closure" id=".service_locator.tNxnSjx"/>
+        <argument key="App\Controller\HomeController:events" type="service_closure" id=".service_locator.NNdaM3G"/>
         <argument key="App\Controller\HomeController:index" type="service_closure" id=".service_locator.Or8mo87"/>
-        <argument key="App\Controller\HomeController:show" type="service_closure" id=".service_locator.uTeZyXl"/>
+        <argument key="App\Controller\HomeController:show" type="service_closure" id=".service_locator.j8rNq.u"/>
         <argument key="App\Controller\ImageController:delete" type="service_closure" id=".service_locator.pwFeTD."/>
         <argument key="App\Controller\ImageController:edit" type="service_closure" id=".service_locator.pwFeTD."/>
         <argument key="App\Controller\ImageController:index" type="service_closure" id=".service_locator.MO2lGDc"/>
@@ -7131,6 +7149,7 @@
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.YJfGh3X"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.f94kp8W"/>
         <argument key="App\Controller\SecurityController:loginuser" type="service_closure" id=".service_locator.f94kp8W"/>
+        <argument key="App\Controller\ShopcartController:del" type="service_closure" id=".service_locator.edsVTVi"/>
         <argument key="App\Controller\ShopcartController:delete" type="service_closure" id=".service_locator.j2jQTD9"/>
         <argument key="App\Controller\ShopcartController:edit" type="service_closure" id=".service_locator.pHnADoM"/>
         <argument key="App\Controller\ShopcartController:getCartCount" type="service_closure" id=".service_locator.U9sHqX1"/>
@@ -7725,12 +7744,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.6uxLkor"/>
+      <argument type="service" id=".service_locator.RPXMV89"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.6uxLkor"/>
+      <argument type="service" id=".service_locator.RPXMV89"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -7752,12 +7771,13 @@
     <service id=".errored..service_locator.ubjGVG7.App\Entity\Setting" class="App\Entity\Setting"/>
     <service id=".errored..service_locator.3vYy5bm.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.Ke1.mCH.App\Entity\User" class="App\Entity\User"/>
-    <service id=".errored..service_locator.uTeZyXl.App\Entity\Product" class="App\Entity\Product"/>
+    <service id=".errored..service_locator.j8rNq.u.App\Entity\Product" class="App\Entity\Product"/>
     <service id=".errored..service_locator.yvZURjZ.App\Entity\OrderDetail" class="App\Entity\OrderDetail"/>
     <service id=".errored..service_locator.qbUmInH.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.3VyERa4.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.cl3_IM8.App\Entity\Orders" class="App\Entity\Orders"/>
     <service id=".errored..service_locator.pHnADoM.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
+    <service id=".errored..service_locator.edsVTVi.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
     <service id=".errored..service_locator.j2jQTD9.App\Entity\Shopcart" class="App\Entity\Shopcart"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.kxUjq7K"/>
@@ -8177,7 +8197,7 @@
     <service id="Imagine\Image\ImagineInterface" alias="liip_imagine.gd"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.6uxLkor"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.RPXMV89"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

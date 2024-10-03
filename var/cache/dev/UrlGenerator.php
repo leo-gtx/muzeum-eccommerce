@@ -61,6 +61,7 @@ return [
     'admin_user_edit' => [['id'], ['_controller' => 'App\\Controller\\Admin\\UserController::edit'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id'], ['text', '/admin/user']], [], []],
     'admin_user_delete' => [['id'], ['_controller' => 'App\\Controller\\Admin\\UserController::delete'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/admin/user']], [], []],
     'home' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], []],
+    'events' => [[], ['_controller' => 'App\\Controller\\HomeController::events'], [], [['text', '/events']], [], []],
     'product_show' => [['id'], ['_controller' => 'App\\Controller\\HomeController::show'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/product']], [], []],
     'home_about' => [[], ['_controller' => 'App\\Controller\\HomeController::abouts'], [], [['text', '/about']], [], []],
     'home_contact' => [[], ['_controller' => 'App\\Controller\\HomeController::contact'], [], [['text', '/contact']], [], []],

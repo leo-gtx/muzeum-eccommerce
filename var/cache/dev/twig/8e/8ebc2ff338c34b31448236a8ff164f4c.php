@@ -14,7 +14,7 @@ use Twig\Source;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
-/* /user/comments.html.twig */
+/* user/comments.html.twig */
 class __TwigTemplate_28b1d1ca1b8a5dc7b292694fda9e50c2 extends Template
 {
     private Source $source;
@@ -45,12 +45,12 @@ class __TwigTemplate_28b1d1ca1b8a5dc7b292694fda9e50c2 extends Template
     {
         $macros = $this->macros;
         $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "/user/comments.html.twig"));
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "user/comments.html.twig"));
 
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "/user/comments.html.twig"));
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "user/comments.html.twig"));
 
-        $this->parent = $this->loadTemplate("homebase.html.twig", "/user/comments.html.twig", 1);
+        $this->parent = $this->loadTemplate("homebase.html.twig", "user/comments.html.twig", 1);
         yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
@@ -211,7 +211,7 @@ class __TwigTemplate_28b1d1ca1b8a5dc7b292694fda9e50c2 extends Template
      */
     public function getTemplateName(): string
     {
-        return "/user/comments.html.twig";
+        return "user/comments.html.twig";
     }
 
     /**
@@ -301,6 +301,6 @@ class __TwigTemplate_28b1d1ca1b8a5dc7b292694fda9e50c2 extends Template
         </div>
     </section>
 {% endblock %}
-", "/user/comments.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/user/comments.html.twig");
+", "user/comments.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/user/comments.html.twig");
     }
 }

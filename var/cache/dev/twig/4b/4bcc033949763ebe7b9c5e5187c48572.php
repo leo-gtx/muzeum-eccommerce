@@ -66,16 +66,16 @@ class __TwigTemplate_472d21ec71004a08939005133d66a4cb extends Template
         // line 7
         yield from $this->unwrap()->yieldBlock('keywords', $context, $blocks);
         yield "\">
-        <meta name=\"author\" content=\"Leonel Nguefack\">
-        <title>Muzeum Shop</title>
-                <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XQ4CE402X0\"></script>
+        <meta name=\"author\" content=\"\">
+        <title>Muzeum | Livres et Formations</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-V00NGVVS96\"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-XQ4CE402X0');
+        gtag('config', 'G-V00NGVVS96');
         </script>
         ";
         // line 19
@@ -125,7 +125,7 @@ class __TwigTemplate_472d21ec71004a08939005133d66a4cb extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "description"));
 
-        yield "E-commerce";
+        yield "Livres et Formations";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -145,7 +145,7 @@ class __TwigTemplate_472d21ec71004a08939005133d66a4cb extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "keywords"));
 
-        yield "muzeum,store,shop,ecommerce,gaming shop";
+        yield "muzeum,store,shop,ecommerce,book";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -300,18 +300,18 @@ class __TwigTemplate_472d21ec71004a08939005133d66a4cb extends Template
     <head>
         <meta charset=\"utf-8\">
         <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-        <meta name=\"description\" content=\"{% block description %}E-commerce{% endblock %}\">
-        <meta name=\"keywords\" content=\"{% block keywords %}muzeum,store,shop,ecommerce,gaming shop{% endblock %}\">
-        <meta name=\"author\" content=\"Leonel Nguefack\">
-        <title>Muzeum Shop</title>
-                <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-XQ4CE402X0\"></script>
+        <meta name=\"description\" content=\"{% block description %}Livres et Formations{% endblock %}\">
+        <meta name=\"keywords\" content=\"{% block keywords %}muzeum,store,shop,ecommerce,book{% endblock %}\">
+        <meta name=\"author\" content=\"\">
+        <title>Muzeum | Livres et Formations</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-V00NGVVS96\"></script>
         <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'G-XQ4CE402X0');
+        gtag('config', 'G-V00NGVVS96');
         </script>
         {% block head %} {% include('home/head.html.twig') %}{% endblock %}
         {% block stylesheets %}{% endblock %}

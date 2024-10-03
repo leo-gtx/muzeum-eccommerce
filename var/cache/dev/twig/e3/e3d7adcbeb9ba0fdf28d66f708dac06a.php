@@ -53,27 +53,65 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
 <html>
     <head>
         <meta charset=\"UTF-8\">
+        <link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"/meta/apple-icon-57x57.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"/meta/apple-icon-60x60.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"/meta/apple-icon-72x72.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"/meta/apple-icon-76x76.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"/meta/apple-icon-114x114.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"/meta/apple-icon-120x120.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"/meta/apple-icon-144x144.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"/meta/apple-icon-152x152.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/meta/apple-icon-180x180.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"192x192\"  href=\"/meta/android-icon-192x192.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/meta/favicon-32x32.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"96x96\" href=\"/meta/favicon-96x96.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/meta/favicon-16x16.png\">
+        <link rel=\"manifest\" href=\"/manifest.json\">
+        <meta name=\"msapplication-TileColor\" content=\"#ffffff\">
+        <meta name=\"msapplication-TileImage\" content=\"/meta/ms-icon-144x144.png\">
+        <meta name=\"theme-color\" content=\"#ffffff\">
+        <meta name=\"mobile-web-app-capable\" content=\"yes\">
+        <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
+        <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />
+        <meta name=\"mobile-web-app-capable\" content=\"yes\" />
+        <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"white\">
+        <meta name=\"apple-mobile-web-app-title\" content=\"Muzeum\">
+
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/app/style/addtohomescreen.css\">
         <title>";
-        // line 5
+        // line 30
         yield from $this->unwrap()->yieldBlock('title', $context, $blocks);
         yield "</title>
         ";
-        // line 6
+        // line 31
         yield from $this->unwrap()->yieldBlock('stylesheets', $context, $blocks);
-        // line 7
+        // line 32
         yield "    </head>
     <body>
     Computer Engineering, Symfony Framework<br>
         ";
-        // line 10
+        // line 35
         yield from $this->unwrap()->yieldBlock('body', $context, $blocks);
-        // line 11
+        // line 36
         yield "        <br> ********* Test ********* <br>
+        
         ";
-        // line 12
+        // line 38
         yield from $this->unwrap()->yieldBlock('javascripts', $context, $blocks);
-        // line 13
-        yield "    </body>
+        // line 39
+        yield "        <script src=\"/assets/app/js/addtohomescreen.js\"></script>
+        <script>
+            // if the website is not opened in app mode show (i.e. in a browser) the add to homescreen prompt
+            if (
+                ((\"standalone\" in window.navigator) && !window.navigator.standalone) // iOS
+                || 
+                (!window.matchMedia('(display-mode: standalone)').matches) // Android
+            ) {
+                addToHomescreen();
+            }
+        </script>
+            
+    </body>
 </html>
 ";
         
@@ -85,7 +123,7 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
         return; yield '';
     }
 
-    // line 5
+    // line 30
     public function block_title($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -105,7 +143,7 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
         return; yield '';
     }
 
-    // line 6
+    // line 31
     public function block_stylesheets($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -124,7 +162,7 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
         return; yield '';
     }
 
-    // line 10
+    // line 35
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -143,7 +181,7 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
         return; yield '';
     }
 
-    // line 12
+    // line 38
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -175,7 +213,7 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  147 => 12,  128 => 10,  109 => 6,  89 => 5,  76 => 13,  74 => 12,  71 => 11,  69 => 10,  64 => 7,  62 => 6,  58 => 5,  52 => 1,);
+        return array (  185 => 38,  166 => 35,  147 => 31,  127 => 30,  102 => 39,  100 => 38,  96 => 36,  94 => 35,  89 => 32,  87 => 31,  83 => 30,  52 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -184,6 +222,31 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
 <html>
     <head>
         <meta charset=\"UTF-8\">
+        <link rel=\"apple-touch-icon\" sizes=\"57x57\" href=\"/meta/apple-icon-57x57.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"60x60\" href=\"/meta/apple-icon-60x60.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"/meta/apple-icon-72x72.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"76x76\" href=\"/meta/apple-icon-76x76.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"/meta/apple-icon-114x114.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"120x120\" href=\"/meta/apple-icon-120x120.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"/meta/apple-icon-144x144.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"152x152\" href=\"/meta/apple-icon-152x152.png\">
+        <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/meta/apple-icon-180x180.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"192x192\"  href=\"/meta/android-icon-192x192.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"/meta/favicon-32x32.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"96x96\" href=\"/meta/favicon-96x96.png\">
+        <link rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"/meta/favicon-16x16.png\">
+        <link rel=\"manifest\" href=\"/manifest.json\">
+        <meta name=\"msapplication-TileColor\" content=\"#ffffff\">
+        <meta name=\"msapplication-TileImage\" content=\"/meta/ms-icon-144x144.png\">
+        <meta name=\"theme-color\" content=\"#ffffff\">
+        <meta name=\"mobile-web-app-capable\" content=\"yes\">
+        <meta name=\"apple-mobile-web-app-capable\" content=\"yes\">
+        <meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />
+        <meta name=\"mobile-web-app-capable\" content=\"yes\" />
+        <meta name=\"apple-mobile-web-app-status-bar-style\" content=\"white\">
+        <meta name=\"apple-mobile-web-app-title\" content=\"Muzeum\">
+
+        <link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/app/style/addtohomescreen.css\">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
@@ -191,7 +254,20 @@ class __TwigTemplate_3e9b963d15080603efd163f4acb37900 extends Template
     Computer Engineering, Symfony Framework<br>
         {% block body %}{% endblock %}
         <br> ********* Test ********* <br>
+        
         {% block javascripts %}{% endblock %}
+        <script src=\"/assets/app/js/addtohomescreen.js\"></script>
+        <script>
+            // if the website is not opened in app mode show (i.e. in a browser) the add to homescreen prompt
+            if (
+                ((\"standalone\" in window.navigator) && !window.navigator.standalone) // iOS
+                || 
+                (!window.matchMedia('(display-mode: standalone)').matches) // Android
+            ) {
+                addToHomescreen();
+            }
+        </script>
+            
     </body>
 </html>
 ", "base.html.twig", "/Applications/XAMPP/xamppfiles/htdocs/apps/muzeum/templates/base.html.twig");

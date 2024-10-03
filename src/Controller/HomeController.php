@@ -100,10 +100,31 @@ class HomeController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/events", name="events")
+     */
+    public function events(Request $request, SettingRepository $settingRepository,  ShopcartRepository $shopcartRepository, EventRepository $eventRepository)
+    {
+        $setting = $settingRepository->findBy(['id'=>3]);
+       
+
+        $shopcarts = $shopcartRepository->findBy(['user'=>$this->getUser()]);
+        $events = $eventRepository->findActiveEventsWithinTimeframe();
+        //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
+
+        // array findBy(array $criteria, array $orderBy = null, int|null $limit = null, int|null $offset = null)
+        // dump($slider);
+        // die();
+        return $this->render('home/events.html.twig', [
+            'setting' => $setting,
+            'events' => $events
+        ]);
+    }
+
     /**
      * @Route("/product/{id}", name="product_show", methods={"GET"})
      */
-    public function show(SettingRepository $settingRepository, ShopcartRepository $shopcartRepository,Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository, UserRepository $userRepository): Response
+    public function show(SettingRepository $settingRepository, ShopcartRepository $shopcartRepository,Product $product, $id, ImageRepository $imageRepository, CommentRepository $commentRepository, UserRepository $userRepository, EventRepository $eventRepository): Response
     {
         $images = $imageRepository->findBy(['product'=>$id]);
         $comments = $commentRepository->findBy(['productid'=>$id,'status'=>'True']);
@@ -115,6 +136,8 @@ class HomeController extends AbstractController
                 'class'=>'contact_form'
                 ]
         ]);
+        $event = $eventRepository->findOneByProducts([$product]);
+
 
         return $this->render('home/productshow.html.twig', [
             'product' => $product,
@@ -122,7 +145,8 @@ class HomeController extends AbstractController
             'comments' => $comments,
             'users' => $users,
             'form' => $form->createView(),
-            'setting' => $settingRepository->findAll()
+            'setting' => $settingRepository->findAll(),
+            'event' => $event
 
         ]);
     }

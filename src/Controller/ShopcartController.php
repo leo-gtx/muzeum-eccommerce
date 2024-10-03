@@ -79,7 +79,7 @@ class ShopcartController extends AbstractController
                 }
                 $entityManager->flush();
 
-                return $this->redirectToRoute('shopcart_index');
+                return $this->redirectToRoute('orders_new');
             } else {
                 // Handle guest cart by saving to cookies
                 $cookieName = 'guest_cart';
@@ -108,7 +108,7 @@ class ShopcartController extends AbstractController
                 );
                 $response->send();
 
-                return $this->redirectToRoute('shopcart_index');
+                return $this->redirectToRoute('orders_new');
             }
         }
 
@@ -133,7 +133,7 @@ class ShopcartController extends AbstractController
                 }
                 $entityManager->flush();
 
-                return $this->redirectToRoute('shopcart_index');
+                return $this->redirectToRoute('orders_new');
             } else {
                 // Handle guest cart
                 $cookieName = 'guest_cart';
@@ -162,7 +162,7 @@ class ShopcartController extends AbstractController
                 );
                 $response->send();
 
-                return $this->redirectToRoute('shopcart_index');
+                return $this->redirectToRoute('orders_new');
             }
         }
 
@@ -324,17 +324,12 @@ class ShopcartController extends AbstractController
     /**
      * @Route("/{id}/del", name="shopcart_del", methods={"GET","POST"})
      */
-    public function del(Request $request, $id): Response
+    public function del(Request $request, Shopcart $shopcart): Response
     {
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
-        
+        $id = $shopcart->getId();
         if ($user) {
-            // Handle for authenticated users
-            $shopcart = $this->getDoctrine()->getRepository(Shopcart::class)->findOneBy([
-                'product' => $id,
-                'user' => $user
-            ]);
 
             if ($shopcart) {
                 $entityManager->remove($shopcart);

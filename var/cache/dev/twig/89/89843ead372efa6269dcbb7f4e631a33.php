@@ -74,37 +74,33 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
         // line 18
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home_contact");
         yield "\">Vendre mon livre</a></li>
-                            <li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-        // line 19
-        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home_about");
-        yield "\">A propos</a></li>
                             ";
-        // line 20
-        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 20, $this->source); })()), "user", [], "any", false, false, false, 20)) {
-            // line 21
+        // line 19
+        if (CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 19, $this->source); })()), "user", [], "any", false, false, false, 19)) {
+            // line 20
             yield "                            <li class=\"nav-item submenu dropdown\">
 \t\t\t\t\t\t\t\t<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"
 \t\t\t\t\t\t\t\t aria-expanded=\"false\">";
-            // line 23
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 23, $this->source); })()), "user", [], "any", false, false, false, 23), "name", [], "any", false, false, false, 23), "html", null, true);
+            // line 22
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 22, $this->source); })()), "user", [], "any", false, false, false, 22), "name", [], "any", false, false, false, 22), "html", null, true);
             yield "</a>
 \t\t\t\t\t\t\t\t<ul class=\"dropdown-menu\">
                                     <li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 25
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 25, $this->source); })()), "user", [], "any", false, false, false, 25), "id", [], "any", false, false, false, 25)]), "html", null, true);
+            // line 24
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 24, $this->source); })()), "user", [], "any", false, false, false, 24), "id", [], "any", false, false, false, 24)]), "html", null, true);
             yield "\">Mon profile</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 26
+            // line 25
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
             yield "\">Mon Pannier</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 27
+            // line 26
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_library");
             yield "\">Ma Bibliothèque</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/user/comments\">Mes Commentaires</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 30
+            // line 29
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_show_favorites");
             yield "\">Mes favories</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/logout\">Deconnexion</a></li>
@@ -112,29 +108,29 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t\t\t\t\t\t</li>
                             ";
         } else {
-            // line 35
+            // line 34
             yield "                            <li class=\"nav-item submenu dropdown\">
 \t\t\t\t\t\t\t\t<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"
 \t\t\t\t\t\t\t\t aria-expanded=\"false\">Connexion</a>
 \t\t\t\t\t\t\t\t<ul class=\"dropdown-menu\">
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 39
+            // line 38
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_index");
             yield "\">Mon Pannier</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"/orders\">Mes Commandes</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 41
+            // line 40
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             yield "\">Se Connecter</a></li>
 \t\t\t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"";
-            // line 42
+            // line 41
             yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             yield "\">S'inscrire</a></li>
 \t\t\t\t\t\t\t\t</ul>
 \t\t\t\t\t\t\t</li>
                             ";
         }
-        // line 46
+        // line 45
         yield "\t\t\t\t\t\t\t
 \t\t\t\t\t\t</ul>
 \t\t\t\t\t\t<ul class=\"nav navbar-nav navbar-right\">
@@ -149,7 +145,7 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t<div class=\"search_input\" id=\"search_input_box\">
 \t\t\t<div class=\"container\">
 \t\t\t\t<form method=\"get\" action=\"";
-        // line 59
+        // line 58
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("home");
         yield "\" class=\"d-flex justify-content-between\">
 \t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"search_input\" name=\"query\" placeholder=\"Rechercher un produit...\">
@@ -190,7 +186,7 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  153 => 59,  138 => 46,  131 => 42,  127 => 41,  122 => 39,  116 => 35,  108 => 30,  102 => 27,  98 => 26,  94 => 25,  89 => 23,  85 => 21,  83 => 20,  79 => 19,  75 => 18,  71 => 17,  56 => 7,  48 => 1,);
+        return array (  149 => 58,  134 => 45,  127 => 41,  123 => 40,  118 => 38,  112 => 34,  104 => 29,  98 => 26,  94 => 25,  90 => 24,  85 => 22,  81 => 20,  79 => 19,  75 => 18,  71 => 17,  56 => 7,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -213,7 +209,6 @@ class __TwigTemplate_ea5f3d049a85ba8d35248391c16683a5 extends Template
 \t\t\t\t\t\t<ul class=\"nav navbar-nav menu_nav ml-auto\">
 \t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('home')}}\">Acceuil</a></li>
 \t\t\t\t\t\t\t<li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('home_contact')}}\">Vendre mon livre</a></li>
-                            <li class=\"nav-item\"><a class=\"nav-link\" href=\"{{path('home_about')}}\">A propos</a></li>
                             {% if app.user %}
                             <li class=\"nav-item submenu dropdown\">
 \t\t\t\t\t\t\t\t<a href=\"#\" class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\"

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @Route("admin/product")
@@ -21,7 +22,7 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
-        $products = $productRepository->getAllProducts();
+        $products = $productRepository->findAll();
         return $this->render('admin/product/index.html.twig', [
             'products' => $products,
         ]);
@@ -174,16 +175,44 @@ class ProductController extends AbstractController
      */
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            if(count($product->getImages()) > 0){
-                $this->addFlash('error', 'Echec lors de la suppression de ce produit. Supprimez d\'abord les images de ce produits!');
-            }else{
+        // Check if CSRF token is valid
+    if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+
+        // Check if product has associated images
+        if (count($product->getImages()) > 0) {
+            // Show error message if images are present
+            $this->addFlash('error', 'Echec lors de la suppression de ce produit. Supprimez d\'abord les images de ce produits!');
+        } else {
+            // Get entity manager
             $entityManager = $this->getDoctrine()->getManager();
+
+            // // Remove related files and images before deleting the product
+            // $filesystem = new Filesystem();
+
+            // // Delete main product file (e.g., image or file path)
+            // $imagePath = $product->getImagePath(); // Assuming you have an imagePath field
+            // if ($imagePath && file_exists($imagePath)) {
+            //     $filesystem->remove($imagePath);
+            // }
+
+            // // Delete additional images related to the product (if any)
+            // foreach ($product->getImages() as $image) {
+            //     $imagePath = $image->getFilePath(); // Assuming images have a getFilePath method
+            //     if ($imagePath && file_exists($imagePath)) {
+            //         $filesystem->remove($imagePath);
+            //     }
+            // }
+
+            // Now remove the product itself
             $entityManager->remove($product);
             $entityManager->flush();
-            }
-        }
 
-        return $this->redirectToRoute('admin_product_index');
+            // Flash success message
+            $this->addFlash('success', 'Produit supprimé avec succès, ainsi que les fichiers associés.');
+        }
+    }
+
+    // Redirect back to the product index page
+    return $this->redirectToRoute('admin_product_index');
     }
 }

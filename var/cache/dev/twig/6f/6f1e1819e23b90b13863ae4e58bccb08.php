@@ -508,7 +508,7 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
                       ";
             // line 432
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 432), "html", null, true);
-            yield " FCFA
+            yield " XAF
                     </td>
                     <td class=\"item-col\">
                       ";
@@ -520,7 +520,7 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
                       ";
             // line 438
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((CoreExtension::getAttribute($this->env, $this->source, $context["item"], "quantity", [], "any", false, false, false, 438) * CoreExtension::getAttribute($this->env, $this->source, $context["item"], "price", [], "any", false, false, false, 438)), "html", null, true);
-            yield " FCFA
+            yield " XAF
                     </td>
                   </tr>
                     ";
@@ -537,7 +537,7 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
                     <td class=\"item-col price\">";
         // line 447
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["order"]) || array_key_exists("order", $context) ? $context["order"] : (function () { throw new RuntimeError('Variable "order" does not exist.', 447, $this->source); })()), "amount", [], "any", false, false, false, 447), "html", null, true);
-        yield " FCFA</td>
+        yield " XAF</td>
                   </tr>
 
                 </table>
@@ -554,8 +554,8 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
         <table cellspacing=\"0\" cellpadding=\"0\" width=\"600\" class=\"w320\">
           <tr>
             <td style=\"padding: 25px 0 25px\">
-              <strong>©Museum 2024</strong><br />
-               www.museum.ndlpixel.com
+              <strong>©Muzeum 2024</strong><br />
+               www.my-muzeum.com
             </td>
           </tr>
         </table>
@@ -1032,13 +1032,13 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
                       </table>
                     </td>
                     <td class=\"item-col\">
-                      {{item.price}} FCFA
+                      {{item.price}} XAF
                     </td>
                     <td class=\"item-col\">
                       {{item.quantity}}
                     </td>
                     <td class=\"item-col\">
-                      {{item.quantity * item.price }} FCFA
+                      {{item.quantity * item.price }} XAF
                     </td>
                   </tr>
                     {% endfor %}
@@ -1047,7 +1047,7 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
 
                   <tr>
                     <td class=\"item-col item mobile-row-padding\">Total</td>
-                    <td class=\"item-col price\">{{order.amount}} FCFA</td>
+                    <td class=\"item-col price\">{{order.amount}} XAF</td>
                   </tr>
 
                 </table>
@@ -1064,8 +1064,8 @@ class __TwigTemplate_8f67ea0f8e76764cc243455717017659 extends Template
         <table cellspacing=\"0\" cellpadding=\"0\" width=\"600\" class=\"w320\">
           <tr>
             <td style=\"padding: 25px 0 25px\">
-              <strong>©Museum 2024</strong><br />
-               www.museum.ndlpixel.com
+              <strong>©Muzeum 2024</strong><br />
+               www.my-muzeum.com
             </td>
           </tr>
         </table>

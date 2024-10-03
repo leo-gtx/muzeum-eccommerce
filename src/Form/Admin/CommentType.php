@@ -3,8 +3,10 @@
 namespace App\Form\Admin;
 
 use App\Entity\Admin\Comment;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +25,13 @@ class CommentType extends AbstractType
                 ],
             ])
             ->add('ip')
-            ->add('userid')
+            ->add('author', EntityType::class, [
+                'class' => User::class,
+                'choice_label'=>'name',
+
+            ])
+            ->add('productid')
+            ->add('created_at')
             ->add('rate')
         ;
     }

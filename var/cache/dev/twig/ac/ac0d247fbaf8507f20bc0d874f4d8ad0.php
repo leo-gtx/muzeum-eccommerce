@@ -253,7 +253,7 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
         yield "\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
 \t\t\t\t\t\t<h6>Payez</h6>
-\t\t\t\t\t\t<p>Par OM ou MoMo</p>
+\t\t\t\t\t\t<p>Par OM, MoMo, Wave, Moov, etc.</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->
@@ -572,7 +572,7 @@ class __TwigTemplate_cfe44105fe9a3bfd7891ec360e99aa32 extends Template
 \t\t\t\t\t\t\t<img src=\"{{asset('assets/client/img/features/3.png')}}\" style=\"height:50px\" alt=\"\">
 \t\t\t\t\t\t</div>
 \t\t\t\t\t\t<h6>Payez</h6>
-\t\t\t\t\t\t<p>Par OM ou MoMo</p>
+\t\t\t\t\t\t<p>Par OM, MoMo, Wave, Moov, etc.</p>
 \t\t\t\t\t</div>
 \t\t\t\t</div>
 \t\t\t\t<!-- single features -->

@@ -99,11 +99,9 @@ class __TwigTemplate_6973d01990ee23303cf11605071ffa20 extends Template
             // line 28
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["rs"], "title", [], "any", false, false, false, 28), "html", null, true);
             yield "</h1>
-\t\t\t\t\t\t\t\t\t<p>";
-            // line 29
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["rs"], "description", [], "any", false, false, false, 29), "html", null, true);
-            yield "</p>
-\t\t\t\t\t\t\t\t\t<div class=\"add-bag d-flex align-items-center\">
+\t\t\t\t\t\t\t\t\t";
+            // line 30
+            yield "\t\t\t\t\t\t\t\t\t<div class=\"add-bag d-flex align-items-center\">
 \t\t\t\t\t\t\t\t\t\t<a class=\"add-btn\" href=\"";
             // line 31
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("shopcart_new", ["productId" => CoreExtension::getAttribute($this->env, $this->source, $context["rs"], "id", [], "any", false, false, false, 31)]), "html", null, true);
@@ -156,7 +154,7 @@ class __TwigTemplate_6973d01990ee23303cf11605071ffa20 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  123 => 39,  109 => 31,  104 => 29,  100 => 28,  88 => 19,  83 => 17,  77 => 14,  69 => 11,  66 => 10,  63 => 9,  58 => 8,  56 => 7,  48 => 1,);
+        return array (  121 => 39,  107 => 31,  104 => 30,  100 => 28,  88 => 19,  83 => 17,  77 => 14,  69 => 11,  66 => 10,  63 => 9,  58 => 8,  56 => 7,  48 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -189,7 +187,7 @@ class __TwigTemplate_6973d01990ee23303cf11605071ffa20 extends Template
 \t\t\t\t\t\t\t<div class=\"col-lg-5 col-sm-5 my-5\">
 \t\t\t\t\t\t\t\t<div class=\"banner-content\">
 \t\t\t\t\t\t\t\t\t<h1>{{rs.title}}</h1>
-\t\t\t\t\t\t\t\t\t<p>{{rs.description}}</p>
+\t\t\t\t\t\t\t\t\t{#<p>{{rs.description}}</p>#}
 \t\t\t\t\t\t\t\t\t<div class=\"add-bag d-flex align-items-center\">
 \t\t\t\t\t\t\t\t\t\t<a class=\"add-btn\" href=\"{{path('shopcart_new', {'productId':rs.id})}}\"><span class=\"lnr lnr-cross\"></span></a>
 \t\t\t\t\t\t\t\t\t\t<span class=\"add-text text-uppercase\">Ajouter au panier</span>

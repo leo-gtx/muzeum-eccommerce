@@ -183,32 +183,45 @@ class ProductController extends AbstractController
             // Show error message if images are present
             $this->addFlash('error', 'Echec lors de la suppression de ce produit. Supprimez d\'abord les images de ce produits!');
         } else {
-            // Get entity manager
-            $entityManager = $this->getDoctrine()->getManager();
 
-            // // Remove related files and images before deleting the product
-            // $filesystem = new Filesystem();
+            try {
+                // Get entity manager
+                $entityManager = $this->getDoctrine()->getManager();
 
-            // // Delete main product file (e.g., image or file path)
-            // $imagePath = $product->getImagePath(); // Assuming you have an imagePath field
-            // if ($imagePath && file_exists($imagePath)) {
-            //     $filesystem->remove($imagePath);
-            // }
+                // // Remove related files and images before deleting the product
+                $filesystem = new Filesystem();
 
-            // // Delete additional images related to the product (if any)
-            // foreach ($product->getImages() as $image) {
-            //     $imagePath = $image->getFilePath(); // Assuming images have a getFilePath method
-            //     if ($imagePath && file_exists($imagePath)) {
-            //         $filesystem->remove($imagePath);
-            //     }
-            // }
+                // Delete main product file (e.g., image or file path)
+                $imagePath = $product->getImage(); // Assuming you have an imagePath field
+                if ($imagePath && file_exists($imagePath)) {
+                    $filesystem->remove($imagePath);
+                }
 
-            // Now remove the product itself
-            $entityManager->remove($product);
-            $entityManager->flush();
+                // Delete file
+                $filePath = $product->getFile();
+                if ($filePath && file_exists($filePath)) {
+                    $filesystem->remove($filePath);
+                }
 
-            // Flash success message
-            $this->addFlash('success', 'Produit supprimé avec succès, ainsi que les fichiers associés.');
+                // Delete additional images related to the product (if any)
+                foreach ($product->getImages() as $image) {
+                    $imagePath = $image->getImage(); // Assuming images have a getFilePath method
+                    if ($imagePath && file_exists($imagePath)) {
+                        $filesystem->remove($imagePath);
+                    }
+                }
+
+                // Now remove the product itself
+                $entityManager->remove($product);
+                $entityManager->flush();
+                // Flash success message
+                $this->addFlash('success', 'Produit supprimé avec succès, ainsi que les fichiers associés.');
+            } catch (FileException $e) {
+                throw $e->getMessage();
+            }
+            
+
+            
         }
     }
 

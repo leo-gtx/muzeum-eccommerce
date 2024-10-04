@@ -65,7 +65,7 @@
                        
                         <th>Price</th>
                         <th>Type</th>
-                        <th>Year</th>
+                        <th>File</th>
                         <th>User</th>
                         <th>I.Gallery</th>
                         <th>Status</th>
@@ -84,7 +84,7 @@
                          
                             <td>{{ product.price }}</td>
                             <td>{{ product.type }}</td>
-                            <td>{{ product.year }}</td>
+                            <td>{{ product.file ? 'Yes':'None' }}</td>
                             
                             <td>
                                 <a href="{{ path('admin_user_show', {'id': product.user.id}) }}">

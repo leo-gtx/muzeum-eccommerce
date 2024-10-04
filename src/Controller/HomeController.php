@@ -101,7 +101,7 @@ class HomeController extends AbstractController
     }
 
      /**
-     * @Route("/events", name="events")
+     * @Route("/events", name="home_events")
      */
     public function events(Request $request, SettingRepository $settingRepository,  ShopcartRepository $shopcartRepository, EventRepository $eventRepository)
     {
@@ -152,12 +152,23 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="home_about")
+     * @Route("/terms-conditions", name="home_about")
      */
     public function abouts(SettingRepository $settingRepository): Response
     {
         $setting = $settingRepository->findAll();
         return $this->render('home/aboutus.html.twig', [
+            'setting' => $setting,
+        ]);
+    }
+
+     /**
+     * @Route("/privacy-policy", name="home_privacy")
+     */
+    public function privacy(SettingRepository $settingRepository): Response
+    {
+        $setting = $settingRepository->findAll();
+        return $this->render('home/privacy.html.twig', [
             'setting' => $setting,
         ]);
     }

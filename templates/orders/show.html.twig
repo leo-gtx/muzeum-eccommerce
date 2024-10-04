@@ -95,7 +95,7 @@
 								<td>
 									<p>{{ detail.price * detail.quantity }} XAF</p>
 								</td>
-								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.product.id })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></></a></td>{% endif %}
+								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.product.id })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></i></a></td>{% endif %}
 							</tr>
                         {% endfor %}
 							<tr>

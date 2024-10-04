@@ -278,34 +278,35 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                     'text/html'
                 );
             // Attach the digital product files, if any
-            foreach ($details as $detail) {
-                $product = $detail->getProduct();
-                if ($product->getType() == 'DIGITAL') {
-                    $fileName = $product->getFile();
-                    $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+            // foreach ($details as $detail) {
+            //     $product = $detail->getProduct();
+            //     if ($product->getType() == 'DIGITAL') {
+            //         $fileName = $product->getFile();
+            //         $filePath = $this->getParameter('files_directory') . '/' . $fileName;
 
-                    // Check if the file exists
-                    if (file_exists($filePath) && $fileName) {
-                        // Determine the MIME type of the file
-                        $mimeType = mime_content_type($filePath);
+            //         // Check if the file exists
+            //         if (file_exists($filePath) && $fileName) {
+            //             // Determine the MIME type of the file
+            //             $mimeType = mime_content_type($filePath);
 
-                        // Attach the file to the email
-                        $message->attach(
-                            \Swift_Attachment::fromPath($filePath)
-                                ->setFilename($product->getSlug() . '.' . pathinfo($fileName, PATHINFO_EXTENSION)) // Custom filename
-                                ->setContentType($mimeType) // Set the file's MIME type
-                        );
-                    } 
-                }
-            }
+            //             // Attach the file to the email
+            //             $message->attach(
+            //                 \Swift_Attachment::fromPath($filePath)
+            //                     ->setFilename($product->getSlug() . '.' . pathinfo($fileName, PATHINFO_EXTENSION)) // Custom filename
+            //                     ->setContentType($mimeType) // Set the file's MIME type
+            //             );
+            //         } 
+            //     }
+            // }
         
         // Send the email with the attachment(s)
-        $this->addFlash('success', 'Votre commande vous a été envoyé dans votre boîte mail!');
+        
         $this->mailer->send($message);  
         //$mailer->send($message);
         } catch (\Swift_TransportException $e) {
-            echo $e->getMessage();
+            $this->addFlash('error', $e->getMessage());
         }
+        $this->addFlash('success', 'Votre paiement a été éffectué avec succès !');
         
         return $this->redirectToRoute('orders_show', ['id'=>$orderid]);
     }

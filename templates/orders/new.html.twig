@@ -115,7 +115,7 @@
                             <div class="creat_account">
                                 <input type="checkbox" id="f-option4" name="selector" required checked>
                                 <label for="f-option4">En commandant j'accepte les </label>
-                                <a href="#">termes & conditions*</a>
+                                <a href="{{path('home_about')}}">termes & conditions*</a>
                             </div>
                             <input type="text" hidden="yes" name="token" value={{ csrf_token('form-order') }} />
                             <button type="submit" class="primary-btn">Commandez</button>

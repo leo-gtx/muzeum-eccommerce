@@ -415,6 +415,9 @@
                     <td class="title-dark" width="97">
                       Total
                     </td>
+                    <td class="title-dark" width="97">
+                    Fichier
+                    </td>
                   </tr>
 
                     {% for item in orderDetail %}
@@ -436,6 +439,9 @@
                     </td>
                     <td class="item-col">
                       {{item.quantity * item.price }} XAF
+                    </td>
+                    <td class="item-col">
+                      <a href="{{ path('product_download', {'id': item.product.id })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></i></a>
                     </td>
                   </tr>
                     {% endfor %}
@@ -462,7 +468,7 @@
           <tr>
             <td style="padding: 25px 0 25px">
               <strong>©Muzeum 2024</strong><br />
-               www.my-muzeum.com
+              Contactez nous en cas de problème: support@my-muzeum.com
             </td>
           </tr>
         </table>

@@ -112,6 +112,7 @@ class ProductController extends AbstractController
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+        $filesystem = new Filesystem();
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var file $file*/
@@ -125,7 +126,13 @@ class ProductController extends AbstractController
                         $fileName
                     );
                 } catch (FileException $e){
-                    // ... handle exception f something happens during file upload
+                    throw new Exception($e->getMessage(), 1) ;
+                }
+                // Delete Old image 
+                
+                $imagePath = $this->getParameter('images_directory').'/'.$product->getImage(); // Assuming you have an imagePath field
+                if ($imagePath && file_exists($imagePath)) {
+                    $filesystem->remove($imagePath);
                 }
                 $product->setImage($fileName); // Related upload file name with Product table image field
             }
@@ -144,6 +151,12 @@ class ProductController extends AbstractController
                     // ... handle exception f something happens during file upload
                     throw new Exception($e->getMessage(), 1);
                     
+                }
+                // Delete Old file 
+                
+                $filePath = $this->getParameter('files_directory').'/'.$product->getFile(); // Assuming you have an imagePath field
+                if ($filePath && file_exists($filePath)) {
+                    $filesystem->remove($filePath);
                 }
                 $product->setFile($fileName);
             }
@@ -179,10 +192,6 @@ class ProductController extends AbstractController
     if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
 
         // Check if product has associated images
-        if (count($product->getImages()) > 0) {
-            // Show error message if images are present
-            $this->addFlash('error', 'Echec lors de la suppression de ce produit. Supprimez d\'abord les images de ce produits!');
-        } else {
 
             try {
                 // Get entity manager
@@ -192,20 +201,20 @@ class ProductController extends AbstractController
                 $filesystem = new Filesystem();
 
                 // Delete main product file (e.g., image or file path)
-                $imagePath = $product->getImage(); // Assuming you have an imagePath field
+                $imagePath = $this->getParameter('images_directory').'/'.$product->getImage(); // Assuming you have an imagePath field
                 if ($imagePath && file_exists($imagePath)) {
                     $filesystem->remove($imagePath);
                 }
 
                 // Delete file
-                $filePath = $product->getFile();
+                $filePath = $this->getParameter('files_directory').'/'.$product->getFile();
                 if ($filePath && file_exists($filePath)) {
                     $filesystem->remove($filePath);
                 }
 
                 // Delete additional images related to the product (if any)
                 foreach ($product->getImages() as $image) {
-                    $imagePath = $image->getImage(); // Assuming images have a getFilePath method
+                    $imagePath = $this->getParameter('images_directory').'/'.$image->getImage(); // Assuming images have a getFilePath method
                     if ($imagePath && file_exists($imagePath)) {
                         $filesystem->remove($imagePath);
                     }
@@ -216,13 +225,10 @@ class ProductController extends AbstractController
                 $entityManager->flush();
                 // Flash success message
                 $this->addFlash('success', 'Produit supprimé avec succès, ainsi que les fichiers associés.');
-            } catch (FileException $e) {
-                throw $e->getMessage();
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
             }
             
-
-            
-        }
     }
 
     // Redirect back to the product index page

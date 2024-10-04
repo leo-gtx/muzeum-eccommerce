@@ -8,7 +8,7 @@
                 <div class="m-subheader ">
                     <div class="d-flex align-items-center">
                         <div class="mr-auto">
-                            <h3 class="m-subheader__title m-subheader__title--separator">Category</h3>
+                            <h3 class="m-subheader__title m-subheader__title--separator">Product</h3>
                             <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
                                 <li class="m-nav__item m-nav__item--home">
                                     <a href="#" class="m-nav__link m-nav__link--icon">
@@ -24,7 +24,7 @@
                                 <li class="m-nav__separator">-</li>
                                 <li class="m-nav__item">
                                     <a href="" class="m-nav__link">
-                                        <span class="m-nav__link-text">Category</span>
+                                        <span class="m-nav__link-text">Product</span>
                                     </a>
                                 </li>
                             </ul>
@@ -77,11 +77,15 @@
                                 </tr>
                                 <tr>
                                     <th>Detail</th>
-                                    <td>{{ product.detail }}</td>
+                                    <td>{{ product.detail|raw }}</td>
                                 </tr>
                                 <tr>
                                     <th>Price</th>
                                     <td>{{ product.price }}</td>
+                                </tr>
+                                <tr>
+                                    <th>File</th>
+                                    <td>{{ product.file }}</td>
                                 </tr>
                                 <tr>
                                     <th>Type</th>

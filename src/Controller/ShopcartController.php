@@ -6,6 +6,7 @@ use App\Entity\Shopcart;
 use App\Form\ShopcartType;
 use App\Repository\ProductRepository;
 use App\Repository\ShopcartRepository;
+use App\Repository\SettingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class ShopcartController extends AbstractController
     /**
      * @Route("/", name="shopcart_index", methods={"GET"})
      */
-    public function index(Request $request, ShopcartRepository $shopcartRepository, ProductRepository $productRepository): Response
+    public function index(Request $request, ShopcartRepository $shopcartRepository, ProductRepository $productRepository, SettingRepository $settingRepository): Response
     {
         $cookieName = 'guest_cart';
         $user = $this->getUser();
@@ -46,8 +47,11 @@ class ShopcartController extends AbstractController
             }
         }
 
+        $setting = $settingRepository->findAll();
+
         return $this->render('shopcart/index.html.twig', [
             'shopcarts' => $shopcarts,
+            'setting'=>$setting
         ]);
     }
     /**
@@ -285,11 +289,14 @@ class ShopcartController extends AbstractController
         }
     }
 
-    private function removeCartItemFromCookie(Request $request, string $cookieName, Shopcart $shopcart): void
+    private function removeCartItemFromCookie(Request $request, string $cookieName, Shopcart|null $shopcart): void
     {
         $cart = json_decode($request->cookies->get($cookieName, '[]'), true);
-        $cart = array_filter($cart, function($item) use ($shopcart) {
-            return $item['productId'] !== $shopcart->getProduct()->getId();
+        $cart = array_filter($cart, function($item) use ($shopcart, $request) {
+            if($shopcart){
+                return $item['productId'] !== $shopcart->getProduct()->getId();
+            }
+            return $item['productId'] !== $request->attributes->get('id');;
         });
 
         $response = new Response();
@@ -324,11 +331,12 @@ class ShopcartController extends AbstractController
     /**
      * @Route("/{id}/del", name="shopcart_del", methods={"GET","POST"})
      */
-    public function del(Request $request, Shopcart $shopcart): Response
+    public function del(int $id, Request $request, ShopcartRepository $shopcartRepository): Response
     {
         $user = $this->getUser();
         $entityManager = $this->getDoctrine()->getManager();
-        $id = $shopcart->getId();
+        $cookieName = 'guest_cart';
+        $shopcart = $shopcartRepository->find($id);
         if ($user) {
 
             if ($shopcart) {
@@ -337,19 +345,8 @@ class ShopcartController extends AbstractController
                 $this->addFlash('success', 'Produit supprimé avec succès!');
             }
         } else {
-            // Handle for guest users
-            $cookieName = 'guest_cart';
-            $cart = json_decode($request->cookies->get($cookieName, '[]'), true);
-            
-            // Filter out the item to be deleted
-            $cart = array_filter($cart, function ($item) use ($id) {
-                return $item['productId'] != $id;
-            });
-
-            // Update the cookie
-            $response = new Response();
-            $response->headers->setCookie(new Cookie($cookieName, json_encode(array_values($cart))));
-            $response->send();
+            $this->removeCartItemFromCookie($request, $cookieName, $shopcart);
+            $this->addFlash('success', 'Produit supprimé avec succès!');
         }
 
         return $this->redirectToRoute('shopcart_index');

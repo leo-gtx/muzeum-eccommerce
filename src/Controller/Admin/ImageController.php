@@ -51,7 +51,7 @@ class ImageController extends AbstractController
                         $fileName
                     );
                 } catch (FileException $e){
-                    // ... handle exception f something happens during file upload
+                    throw new Exception($e->getMessage(), 1);
                 }
                 $image->setImage($fileName); // Related upload file name with Product table image field
             }
@@ -117,6 +117,12 @@ class ImageController extends AbstractController
             // die();
             if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
+                // Delete Old image 
+                
+                $imagePath = $this->getParameter('images_directory').'/'.$image->getImage(); // Assuming you have an imagePath field
+                if ($imagePath && file_exists($imagePath)) {
+                    $filesystem->remove($imagePath);
+                }
                 $entityManager->remove($image);
                 $entityManager->flush();
             }

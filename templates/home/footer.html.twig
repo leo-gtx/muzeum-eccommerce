@@ -17,22 +17,20 @@
 						<h6>Contactez Nous</h6>
 						<p></p>
 						<div class="" id="mc_embed_signup">
-
 							<!-- <p><i class="fa fa-phone"></i>{% if setting is defined %} {{setting[0].phone}} {% endif %}</p> -->
 							<p><i class="fa fa-envelope"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
+							<p><a style="color: inherit;" href="{{path('home_contact')}}">Vendre Mon Livre</a></p>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-lg-2 col-md-6 col-sm-6">
 					<div class="single-footer-widget">
-						<h6>Suivez nous</h6>
-						<div class="footer-social d-flex align-items-center">
-						{% if setting is defined %}
-							<a href="{{setting[0].facebook}}"><i class="fa fa-facebook"></i></a>
-							<a href="{{setting[0].twitter}}"><i class="fa fa-twitter"></i></a>
-							<a href="{{setting[0].instagram}}"><i class="fa fa-instagram"></i></a>
-						{% endif %}
+						<h6>Mention Légale</h6>
+						<div class="footer-social ">
+						<p><a style="color: inherit;" href="{{path('home_about')}}">Termes et conditions</a></p>
+						<p><a style="color: inherit;" href="{{path('home_privacy')}}">Politique de confidentialité</a></p>
+						
 						</div>
 					</div>
 				</div>

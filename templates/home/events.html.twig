@@ -18,57 +18,12 @@
     {% else %}
         <div class="col-12">
 						<blockquote class="generic-blockquote">
-							Aucun évènement en cours!
+							Aucune promotion en cours!
 						</blockquote>
 					</div>
 	{% endif %}
 	<!-- start features Area -->
-	<section class="features-area section_gap">
-		<div class="container">
-			<div class="row features-inner">
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{{asset('assets/client/img/features/1.png')}}" style="height:50px" alt="">
-						</div>
-						<h6>Ajoutez Au Panier</h6>
-						<p>Autant que vous le pouvez</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{{asset('assets/client/img/features/2.png')}}" style="height:50px" alt="">
-						</div>
-						<h6>Commandez</h6>
-						<p>En un click</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{{asset('assets/client/img/features/3.png')}}" style="height:50px" alt="">
-						</div>
-						<h6>Payez</h6>
-						<p>Par OM, MoMo, Wave, Moov, etc.</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="{{asset('assets/client/img/features/4.png')}}" style="height:50px" alt="">
-						</div>
-						<h6>Téléchargez</h6>
-						<p>Ou reçevez par email</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	{{ include('features.html.twig') }}
 	<!-- end features Area -->
 
 

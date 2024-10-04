@@ -8,6 +8,7 @@ use App\Entity\OrderDetail;
 use App\Entity\Orders;
 use App\Repository\ProductRepository;
 use App\Repository\EventRepository;
+use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -198,64 +199,111 @@ class ProductController extends AbstractController
     /**
      * @Route("/download/{id}", name="product_download", methods={"GET"})
      */
-    public function downloadFile(Request $request, Product $product): Response
+    public function downloadFile(Request $request, Product $product, OrdersRepository $ordersRepository): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         // Check if the user is allowed to download the file
         $user = $this->getUser();
+        $cookieName = 'guest_orders';
         
         if($user) {
-        // Check if the user has paid for this product
-        $orderDetails = $this->getDoctrine()
-            ->getRepository(OrderDetail::class)
-            ->findBy([
-                'product' => $product,
-                'user' => $user,
-            ]);
-        foreach ($orderDetails as $orderDetail) {
-            if ($orderDetail) {
-                $order = $this->getDoctrine()
-                    ->getRepository(Orders::class)
-                    ->find($orderDetail->getOrderParent()->getId());
-                
-                if ($order && $order->getIsPaid()) {
-                    try {
-                        // User has paid for the product, allow download
-                        $fileName = $product->getFile();
-                        // Define the path to the file (stored outside public directory)
-                        $filePath = $this->getParameter('files_directory') . '/' . $fileName;
-        
-                        if (!file_exists($filePath) && !$fileName) {
-                            throw new NotFoundHttpException('Fichier introuvable.');
-                        }
-
-                        
-        
-                        // Stream the file to avoid loading large files into memory
-                        $response = new StreamedResponse(function() use ($filePath) {
-                            readfile($filePath);
-                        });
-                        $mimeType = mime_content_type($filePath);
-                        
-                        // Set headers to download the file with a custom name
-                        $disposition = $response->headers->makeDisposition(
-                            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                            $product->getSlug().'.pdf'  // Custom filename
-                        );
-                        // Set headers for file download (you can modify content-type for other file types)
-                        $response->headers->set('Content-Type', $mimeType);
-                        // $response->headers->set('Content-Type', 'application/octet-stream');
-                        $response->headers->set('Content-Disposition', $disposition);
-                        $response->headers->set('Content-Length', filesize($filePath));
-        
-                        return $response;
-                    } catch (\Exception $e) {
-                        return new Response("An error occurred: " . $e->getMessage(), 500);
-                    }
+            // Check if the user has paid for this product
+            $orderDetails = $this->getDoctrine()
+                ->getRepository(OrderDetail::class)
+                ->findBy([
+                    'product' => $product,
+                    'user' => $user,
+                ]);
+            foreach ($orderDetails as $orderDetail) {
+                if ($orderDetail) {
+                    $order = $this->getDoctrine()
+                        ->getRepository(Orders::class)
+                        ->find($orderDetail->getOrderParent()->getId());
                     
+                    if ($order && $order->getIsPaid()) {
+                        try {
+                            // User has paid for the product, allow download
+                            $fileName = $product->getFile();
+                            // Define the path to the file (stored outside public directory)
+                            $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+            
+                            if (!file_exists($filePath) && !$fileName) {
+                                throw new NotFoundHttpException('Fichier introuvable.');
+                            }
+
+                            
+            
+                            // Stream the file to avoid loading large files into memory
+                            $response = new StreamedResponse(function() use ($filePath) {
+                                readfile($filePath);
+                            });
+                            $mimeType = mime_content_type($filePath);
+                            
+                            // Set headers to download the file with a custom name
+                            $disposition = $response->headers->makeDisposition(
+                                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                                $product->getSlug(). '.' . pathinfo($fileName, PATHINFO_EXTENSION) // Custom filename
+                            );
+                            // Set headers for file download (you can modify content-type for other file types)
+                            $response->headers->set('Content-Type', $mimeType);
+                            // $response->headers->set('Content-Type', 'application/octet-stream');
+                            $response->headers->set('Content-Disposition', $disposition);
+                            $response->headers->set('Content-Length', filesize($filePath));
+            
+                            return $response;
+                        } catch (\Exception $e) {
+                            return new Response("An error occurred: " . $e->getMessage(), 500);
+                        }
+                        
+                    }
                 }
             }
-        }
+        }else{
+            $guestOrders = json_decode($request->cookies->get($cookieName),true);
+            //dd($cookiesOrders);
+            $order = null;
+            foreach ($guestOrders as $co) {
+                if(key_exists('id', (array) $co))
+                $order = $ordersRepository->find($co['id']);
+                if($order && $order->getIsPaid()) {
+                    foreach ($order->getOrderDetails() as $detail) {
+                        if($detail->getProduct()->getId() == $product->getId()){
+                            try {
+                                // User has paid for the product, allow download
+                                $fileName = $product->getFile();
+                                // Define the path to the file (stored outside public directory)
+                                $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+                
+                                if (!file_exists($filePath) && !$fileName) {
+                                    throw new NotFoundHttpException('Fichier introuvable.');
+                                }
+    
+                                
+                
+                                // Stream the file to avoid loading large files into memory
+                                $response = new StreamedResponse(function() use ($filePath) {
+                                    readfile($filePath);
+                                });
+                                $mimeType = mime_content_type($filePath);
+                                
+                                // Set headers to download the file with a custom name
+                                $disposition = $response->headers->makeDisposition(
+                                    ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                                    $product->getSlug(). '.' . pathinfo($fileName, PATHINFO_EXTENSION)  // Custom filename
+                                );
+                                // Set headers for file download (you can modify content-type for other file types)
+                                $response->headers->set('Content-Type', $mimeType);
+                                // $response->headers->set('Content-Type', 'application/octet-stream');
+                                $response->headers->set('Content-Disposition', $disposition);
+                                $response->headers->set('Content-Length', filesize($filePath));
+                
+                                return $response;
+                            } catch (\Exception $e) {
+                                return new Response("An error occurred: " . $e->getMessage(), 500);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // If the user hasn't paid or order doesn't exist, deny access

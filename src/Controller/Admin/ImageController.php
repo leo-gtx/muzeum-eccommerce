@@ -110,7 +110,7 @@ class ImageController extends AbstractController
     /**
      * @Route("/{id}/{pid}", name="admin_image_delete", methods={"DELETE"})
      */
-    public function delete(Request $request,$pid, Image $image): Response
+    public function delete(Request $request,Image $image, $pid ): Response
     {
         {
             // echo "Product Id: ".$pid;
@@ -118,10 +118,13 @@ class ImageController extends AbstractController
             if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
                 // Delete Old image 
-                
-                $imagePath = $this->getParameter('images_directory').'/'.$image->getImage(); // Assuming you have an imagePath field
-                if ($imagePath && file_exists($imagePath)) {
-                    $filesystem->remove($imagePath);
+                try {
+                    $imagePath = $this->getParameter('images_directory').'/'.$image->getImage(); // Assuming you have an imagePath field
+                    if ($imagePath && file_exists($imagePath)) {
+                        $filesystem->remove($imagePath);
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('error', $e->getMessage()) ;
                 }
                 $entityManager->remove($image);
                 $entityManager->flush();

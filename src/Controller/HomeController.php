@@ -137,6 +137,10 @@ class HomeController extends AbstractController
                 ]
         ]);
         $event = $eventRepository->findOneByProducts([$product]);
+        $relatedProducts = $product->getCategory()->getProducts();
+
+
+       
 
 
         return $this->render('home/productshow.html.twig', [
@@ -146,7 +150,8 @@ class HomeController extends AbstractController
             'users' => $users,
             'form' => $form->createView(),
             'setting' => $settingRepository->findAll(),
-            'event' => $event
+            'event' => $event,
+            'relatedProducts' => $relatedProducts
 
         ]);
     }

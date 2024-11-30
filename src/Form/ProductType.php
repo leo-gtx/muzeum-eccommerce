@@ -32,7 +32,7 @@ class ProductType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/*', // All image types
                         ],
@@ -44,7 +44,6 @@ class ProductType extends AbstractType
             ->add('detail', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#ffffff',
-                    'toolbar'=>'full'
                 ),
             ))
             ->add('price')

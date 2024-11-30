@@ -23,12 +23,12 @@
 	
 	<!--================Event Product Area =================-->
 	{% if event %}
-	<div>
-	<div class="row ">
-		<div class="col-lg-12 no-padding exclusive-left" style="background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
+	<div class="sticky-header" style="z-index: 1000;">
+	<div class="row">
+		<div class="col-lg-12 no-padding exclusive-left" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
 			<div class="row clock_sec clockdiv" style="background-color: rgba(213, 40, 40, 0.8);" id="clockdiv{{event.id}}">
 				<div class="col-lg-12">
-					<h1 class="text-center">{{event.title}}</h1>
+					<h2 class="text-center">{{event.title}}</h2>
 					<h3 class="text-center">Offre à -{{event.discount}}% pendant encore: </h3>
 				</div>
 				<div class="col-lg-12">
@@ -86,6 +86,7 @@
 						<ul class="list">
 							<li><a class="active" href="{{ path('home', {'category': product.category.id}) }}"><span>Categorie</span> : {{product.category.title}}</a></li>
 							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>
+							{#<li><a href="#"><span>Size</span> : {% if size %}{{size}} Mo{% endif %}</a></li>#}
 						</ul>
 						<p class="lead">{{product.description}}</p>
 						<div class="product_count">
@@ -119,7 +120,7 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-					 aria-selected="false">Foire Aux Questions</a>
+					 aria-selected="false">Comment l'obtenir ?</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
@@ -131,7 +132,7 @@
 					<p>{{ product.detail |raw }}</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<div class="table-responsive">
+					<!-- <div class="table-responsive">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -190,7 +191,8 @@
 								</tr>
 							</tbody>
 						</table>
-					</div>
+					</div> -->
+					{{ include('features.html.twig') }}
 				</div>
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
 					<div class="row">
@@ -260,8 +262,63 @@
 	</section>
 	<!--================End Product Description Area =================-->
 
-   
-    </section>
+	 <!--================Related Product Area =================-->
+	 <!-- Start Best Seller -->
+	 <section class="lattest-product-area pb-40 category-list px-5">
+		<div id="productList" class="row">
+		{% if relatedProducts|length > 0 %}
+		{% for product in relatedProducts %}
+			<!-- single product -->
+			<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
+
+					<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+						<div class="scene" style="height: 300px;width: 200px;">
+							<div class="dvd-box">
+								<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.title}}</div>
+								<div class="cover back"></div>
+								<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
+							</div>
+						</div>
+					</a>
+					<div class="product-details">
+						<h6>{{product.title}}</h6>
+						<div class="price">
+							<h6>{{product.price}}</h6><h6> XAF</h6>
+							<h6 class="l-through">{{product.price + (product.price * 0.8) }} XAF</h6>
+						</div>
+						<div class="prd-bottom">
+
+							<a href="{{path('shopcart_new', {'productId':product.id})}}" class="social-info">
+								<span class="ti-bag"></span>
+								<p class="hover-text">Ajouter au panier</p>
+							</a>
+							<a href="{{path('user_toggle_favorite', {'id': product.id })}}" class="social-info">
+								<span class="lnr lnr-heart"></span>
+								<p class="hover-text">Favorie</p>
+							</a>
+							{# <a href="" class="social-info">
+								<span class="lnr lnr-sync"></span>
+								<p class="hover-text">compare</p>
+							</a> #}
+							<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+								<span class="lnr lnr-move"></span>
+								<p class="hover-text">voir plus</p>
+							</a>
+						</div>
+					</div>
+				
+			</div>
+		{% endfor %}
+		{% else %}
+		<div class="col-12">
+			<blockquote class="generic-blockquote">
+				Aucun produit trouvé!
+			</blockquote>
+		</div>
+		{% endif %}
+		</div>
+	</section>
+	<!-- End Best Seller -->
 	<script src="{{asset('assets/client/js/countdown.js')}}"></script>
 		<script>
 			// Parse the event start and end times

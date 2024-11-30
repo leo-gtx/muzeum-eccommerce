@@ -44,7 +44,6 @@ class Product1Type extends AbstractType
             ->add('detail', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#ffffff',
-                    'toolbar'=>'full'
                 ),
             ))
             ->add('price')

@@ -188,6 +188,7 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
 
             // Send email
             $orderDetail = $orderDetailRepository->findBy(['orderParent' => $orders]);
+            dd($user);
             try {
                 $message = (new \Swift_Message('Nouvelle Commande Muzeum'))
                     ->setFrom($this->getParameter('app.address'))
@@ -202,8 +203,9 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                         'text/html'
                     );
                 $mailer->send($message);
+                $this->addFlash('success', 'Votre facture a été envoyé dans votre boîte mail!');
             } catch (\Swift_TransportException $e) {
-                echo $e->getMessage();
+                $this->addFlash('error', $e->getMessage());
             }
 
             // Redirect To Payment

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a
+class ComposerStaticInitb924179e5b6e2af449a9bd652304d5d4
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -189,8 +189,8 @@ class ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -598,8 +598,8 @@ class ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a
         ),
         'Doctrine\\Common\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/common/src',
-            1 => __DIR__ . '/..' . '/doctrine/event-manager/src',
+            0 => __DIR__ . '/..' . '/doctrine/event-manager/src',
+            1 => __DIR__ . '/..' . '/doctrine/common/src',
         ),
         'Doctrine\\Bundle\\MigrationsBundle\\' => 
         array (
@@ -1280,9 +1280,9 @@ class ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit5ade2d404cfeb1833bbd8426075c8e1a::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb924179e5b6e2af449a9bd652304d5d4::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb924179e5b6e2af449a9bd652304d5d4::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb924179e5b6e2af449a9bd652304d5d4::$classMap;
 
         }, null, ClassLoader::class);
     }

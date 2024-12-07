@@ -22,41 +22,77 @@
 	<!-- End Banner Area -->
 	
 	<!--================Event Product Area =================-->
-	{% if event %}
+	{% if event is  not null %}
 	<div class="sticky-header" style="z-index: 1000;">
-	<div class="row">
-		<div class="col-lg-12 no-padding exclusive-left" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
-			<div class="row clock_sec clockdiv" style="background-color: rgba(213, 40, 40, 0.8);" id="clockdiv{{event.id}}">
-				<div class="col-lg-12">
-					<h2 class="text-center">{{event.title}}</h2>
-					<h3 class="text-center">Offre à -{{event.discount}}% pendant encore: </h3>
-				</div>
-				<div class="col-lg-12">
-					<center>
-						<div class="row clock-wrap" >
-							<div class="col clockinner1 clockinner">
-								<h1 class="days">1</h1>
-								<span class="smalltext text-body">Jours</span>
+		<div class="row">
+			<div class="col-lg-12 no-padding exclusive-left" style="background-repeat: no-repeat; background-size: cover; background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
+				<div class="row clock_sec clockdiv" style="background: linear-gradient(45deg, violet, #00008B);" id="clockdiv{{event.id}}">
+					<div class="col-lg-12">
+						<h2 class="text-center">{{event.title}}</h2>
+						<h3 class="text-center">Offre à -{{event.discount}}% pendant encore: </h3>
+					</div>
+					<div class="col-lg-12">
+						<center>
+							<div class="row clock-wrap" >
+								<div class="col clockinner1 clockinner">
+									<h1 class="days">1</h1>
+									<span class="smalltext text-body">Jours</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="hours">00</h1>
+									<span class="smalltext text-body">Heure</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="minutes">00</h1>
+									<span class="smalltext text-body">Minutes</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="seconds">00</h1>
+									<span class="smalltext text-body">Secondes</span>
+								</div>
 							</div>
-							<div class="col clockinner clockinner1">
-								<h1 class="hours">00</h1>
-								<span class="smalltext text-body">Heure</span>
-							</div>
-							<div class="col clockinner clockinner1">
-								<h1 class="minutes">00</h1>
-								<span class="smalltext text-body">Minutes</span>
-							</div>
-							<div class="col clockinner clockinner1">
-								<h1 class="seconds">00</h1>
-								<span class="smalltext text-body">Secondes</span>
-							</div>
-						</div>
-					</center>
+						</center>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+	{% else %}
+	<div class="sticky-header" style="z-index: 1000;">
+		<div class="row">
+			<div class="col-lg-12 no-padding exclusive-left">
+				<div class="row clock_sec clockdiv" style="background: linear-gradient(45deg, violet, #00008B);
+" id="clockdiv">
+					<div class="col-lg-12">
+						
+						<h3 class="text-center">Offre à -80% pendant encore: </h3>
+					</div>
+					<div class="col-lg-12">
+						<center>
+							<div class="row clock-wrap" >
+								<div class="col clockinner1 clockinner">
+									<h1 class="days">1</h1>
+									<span class="smalltext text-body">Jours</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="hours">00</h1>
+									<span class="smalltext text-body">Heure</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="minutes">00</h1>
+									<span class="smalltext text-body">Minutes</span>
+								</div>
+								<div class="col clockinner clockinner1">
+									<h1 class="seconds">00</h1>
+									<span class="smalltext text-body">Secondes</span>
+								</div>
+							</div>
+						</center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	{% endif %}
     	<!--================Single Product Area =================-->
 	<div class="product_image_area">
@@ -86,7 +122,6 @@
 						<ul class="list">
 							<li><a class="active" href="{{ path('home', {'category': product.category.id}) }}"><span>Categorie</span> : {{product.category.title}}</a></li>
 							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>
-							{#<li><a href="#"><span>Size</span> : {% if size %}{{size}} Mo{% endif %}</a></li>#}
 						</ul>
 						<p class="lead">{{product.description}}</p>
 						<div class="product_count">
@@ -319,11 +354,16 @@
 		</div>
 	</section>
 	<!-- End Best Seller -->
-	<script src="{{asset('assets/client/js/countdown.js')}}"></script>
+	 <script src="{{asset('assets/client/js/countdown.js')}}"></script>
+	 {% if event is not null %}
+	
 		<script>
 			// Parse the event start and end times
-			var startAt = new Date("{{ event.startAt | date('Y-m-d H:i:s') }}");
-			var endAt = new Date("{{ event.endAt | date('Y-m-d H:i:s') }}");
+			
+				var startAt = new Date("{{ event.startAt | date('Y-m-d H:i:s') }}");
+			    var endAt = new Date("{{ event.endAt | date('Y-m-d H:i:s') }}");
+			
+			
 
 			// Calculate the total event duration (in milliseconds)
 			var totalDuration = endAt - startAt;
@@ -337,6 +377,34 @@
 
 			// Set the deadline to the current time plus the remaining time
 			var deadline = new Date(now.getTime() + remainingTime);
-			initializeClock('clockdiv{{event.id}}', deadline);
+				initializeClock('clockdiv{{event.id}}', deadline);
+			
+			
 		</script>
+		{% else %}
+		<script>
+			// Parse the event start and end times
+			var startAt = new Date();
+			var endAt = new Date(Date.now() + 3600 * 1000 * 24); 
+			
+			
+
+			// Calculate the total event duration (in milliseconds)
+			var totalDuration = endAt - startAt;
+
+			// Calculate the time elapsed since the event started
+			var now = new Date();
+			var timeElapsed = now - startAt;
+
+			// Calculate the remaining time by subtracting the elapsed time from the total duration
+			var remainingTime = totalDuration - timeElapsed;
+
+			// Set the deadline to the current time plus the remaining time
+			var deadline = new Date(now.getTime() + remainingTime);
+			
+				initializeClock('clockdiv', deadline);
+			
+			
+		</script>
+		{% endif %}
 {% endblock %}

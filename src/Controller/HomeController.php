@@ -206,7 +206,7 @@ class HomeController extends AbstractController
                 // On attribue l'expéditeur
                 ->setFrom($message->getEmail())
                 // On attribue le destinataire
-                ->setTo('leonel@ndlpixel.com')
+                ->setTo('support@my-muzeum.com')
                 // On crée le texte avec la vue
                 ->setBody(
                     $this->renderView(

@@ -3,6 +3,23 @@
 {% block title %}{{ product.title }}{% endblock %}
 {% block keywords %}{{ product.keywords }}{% endblock %}
 {% block description %}{{ product.description }}{% endblock %}
+{% block meta %}
+	<!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="{{product.title}}">
+    <meta property="og:description" content="{{product.description}}">
+    <meta property="og:image" content="{{ asset('uploads/images/' ~ product.image)}}">
+    <meta property="og:url" content="{{path('product_show',{'id': product.id })}}">
+    <meta property="og:type" content="product">
+    <meta property="og:site_name" content="Muzeum.com">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="Formation">
+    <meta name="twitter:title" content="{{product.title}}">
+    <meta name="twitter:description" content="{{product.description}}">
+    <meta name="twitter:image" content="{{ asset('uploads/images/' ~ product.image)}}">
+    {# <meta name="twitter:site" content="@YourTwitterHandle"> #}
+
+{% endblock %}
 
 {% block body %}
 	<!-- Start Banner Area -->
@@ -322,11 +339,16 @@
 			</div> #}
 			<div class="container">
 				<div class="tab-pane" >
+					<div class="head py-2 my-2">
+						<h2 class="text-center text-white">Plus De détails</h2>
+						</div>
 					<p>{{ product.detail |raw }}</p>
 				</div>
 				{% if product.modules %}
 					<div class="tab-pane">
-						<h1>Cours Dans Cette Formation</h1>
+						<div class=" py-2 my-2">
+						<h2 class="text-center">Cours Dans Cette Formation</h2>
+						</div>
 						{% for module in product.modules %}
 							<div class="card">
 								<div class="filter-bar d-flex flex-wrap align-items-center">
@@ -336,10 +358,10 @@
 								</div>
 								<div class="card-body">
 									<div class="row">
-										<div class="col-lg-1">
-										<span class="lnr lnr-book" style="font-size:40px;"></span>
+										<div class="col-sm-12 col-md-1">
+										 <p class="text-center"><i class="fa fa-hdd-o" style="font-size:40px;"></i></p>
 										</div>
-										<div class="col-lg-11">
+										<div class="col-sm-12 col-md-11">
 											<p class="lead">{{module.description}}</p>
 										</div>
 									</div>
@@ -353,7 +375,9 @@
 					{{ include('features.html.twig') }}
 				</div>
 				<div class="tab-pane">
-					<h1>Ils L'ont Essayé...</h1>
+					<div class="head py-2 my-2">
+					<h2 class="text-center text-white">Ils Ont Essayé...</h2>
+					</div>
 					<div class="row">
 						<div class="col-lg-12">
 							
@@ -388,6 +412,9 @@
                                 {% endfor %}
 							</div>
 						</div>
+						<div class="col-sm-12">
+						{{include('reviews.html.twig')}}
+						</div>
                         {% if app.user %}
 						<div class="col-lg-6">
                         {{ include('messages.html.twig') }}
@@ -406,6 +433,7 @@
                             <a href="{{path('app_login')}}"><i class="fa fa-lock"></i>Si vous voulez laisser un avis connectez-vous svp</a>
                         {% endif %}
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -414,7 +442,11 @@
 
 	 <!--================Related Product Area =================-->
 	 <!-- Start Best Seller -->
+	 
 	 <section class="lattest-product-area pb-40 category-list px-5">
+	 <div class="head py-2 my-2">
+	 	<h2 class="text-center text-white">Formations Similaires</h2>
+	 </div>
 		<div id="productList" class="row">
 		{% if relatedProducts|length > 0 %}
 		{% for product in relatedProducts %}

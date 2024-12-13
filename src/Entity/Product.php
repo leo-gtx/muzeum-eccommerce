@@ -258,7 +258,7 @@ class Product
         if($flag){
             return $this->price;
         }
-        return $this->price + ($this->price * 80 / 100);
+        return $this->price + ($this->price + 20000);
         
     }
 

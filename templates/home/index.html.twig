@@ -65,23 +65,23 @@
     <h2 class="text-center mb-4">Explorez Nos Formations</h2>
 	{% if shelfs|length > 0 %}
 	{% for shelf in shelfs %}
-    <div class="card p-3 my-5">
+    <div class="card my-5 border-0">
 		<div class="head d-flex flex-wrap justify-content-between ">
 			<span>
 				{{shelf.name}}
 			</span>
 			 <!-- Navigation Buttons -->
 			<div class="justify-content-center">
-				<div class="scroll-buttons">
-					<button id="prevButton{{shelf.id}}" class="btn btn_icon"><i class="fa fa-chevron-left"></i></button>
-					<button id="nextButton{{shelf.id}}" class="btn btn_icon"><i class="fa fa-chevron-right"></i></button>
+				<div class="scroll-buttons btn-group" role="group" aria-label="Controls">
+					<button id="prevButton{{shelf.id}}" class="btn btn-outline-primary btn_icon"><i class="fa fa-chevron-left "></i></button>
+					<button id="nextButton{{shelf.id}}" class="btn btn-outline-primary btn_icon"><i class="fa fa-chevron-right"></i></button>
 				</div>
 			</div>
 		</div>
         <!-- Horizontal Scroll View -->
         <div class="scroll-container" id="courseScrollView{{shelf.id}}">
             {% for product in shelf.products %}
-            <div class="single-product col-md-4 py-3">
+            <div class="single-product col-md-4 pt-3">
 
 								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
 									<div class="scene" style="height: 300px;width: 200px;">
@@ -135,7 +135,7 @@
 	{% endif %}
 	<h2 class="text-center mb-4">Les Apprenants Aiment Muzeum</h2>				
 		<div class="review_list row">
-			<div class="col-md-4 review_item card p-3">
+			<div class="col-md-4 review_item card p-3 border border-primary">
 				<div class="media">
 					
 						
@@ -160,7 +160,7 @@
 				<p>Les formations sont incroyables ! Je viens de terminer le cours sur l'intelligence artificielle, et je suis bluffé par la qualité des vidéos. Tout est clair, pratique et directement applicable à mon travail. C'est la meilleure plateforme pour apprendre les nouvelles technologies !</p>
 			</div>
 
-			<div class="col-md-4 review_item card p-3">
+			<div class="col-md-4 review_item card p-3 border border-primary">
 				<div class="media">
 					
 						
@@ -186,7 +186,7 @@
 				<p>En tant que développeuse, j'étais à la recherche de formations qui vont droit au but et qui m'aident à rester à jour avec les dernières innovations. J'ai suivi la formation sur le développement d'applications mobiles, et grâce à cela, j'ai pu lancer mon propre projet. Merci pour cette qualité exceptionnelle !</p>
 			</div>
 
-			<div class="col-md-4 review_item card p-3">
+			<div class="col-md-4 review_item card p-3 border border-primary">
 				<div class="media">
 					
 						
@@ -239,6 +239,5 @@ function initScroll(IDelem) {
 	{% endfor %}
 
 </script>
-}
 
 {% endblock %} 

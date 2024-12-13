@@ -84,7 +84,7 @@
 							</tr>
 						</thead>
 						<tbody>
-                        {% for detail in orderdetail %}
+                        {% for detail in orderDetails %}
 							<tr>
 								<td>
 									<p>{{detail.name}}</p>
@@ -95,7 +95,14 @@
 								<td>
 									<p>{{ detail.price * detail.quantity }} XAF</p>
 								</td>
-								{% if order.isPaid %}<td><a href="{{ path('product_download', {'id': detail.product.id })}}" class="btn btn-info">Télécharger<i class="lnr lnr-download"></i></a></td>{% endif %}
+								{% if order.isPaid %}
+								<td>
+									<!-- Button trigger modal -->
+									<button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal">
+									Télécharger
+									</button>
+								</td>
+								{% endif %}
 							</tr>
                         {% endfor %}
 							<tr>
@@ -148,6 +155,48 @@
 					{% endif %}
 				</div>
 			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modules Téléchargeables</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			{% for detail in orderDetails %}
+				{% for module in detail.product.modules %}
+					<div class="card">
+						<div class="filter-bar d-flex flex-wrap align-items-center">
+							<div class="sorting">
+								<p class="lead text-white">{{ module.title }}</p>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-12 col-md-1">
+									<p class="text-center"><i class="fa fa-hdd-o" style="font-size:40px;"></i></p>
+								</div>
+								<div class="col-sm-12 col-md-9">
+									<p>{{module.description}}</p>
+								</div>
+								<div class="col-sm-12 col-md-2">
+									<a class="btn btn-primary" href="{{path('product_download',{'productId': detail.product.id, 'moduleId': module.id})}}"><i class="fa fa-download"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			{% endfor %}
+			</div>
+			{# <div class="modal-footer d-flex justify-content-center align-items-center">
+				<button type="button" class="btn primary-btn">Postulez Pour Une Certification</button>
+			</div> #}
+			</div>
+		</div>
 		</div>
 	</section>
 	<!--================End Order Details Area =================-->

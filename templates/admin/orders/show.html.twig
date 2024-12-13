@@ -56,12 +56,18 @@
                                     <th>Payment Link</th>
                                     <td><a href="{{order.paymentLink}}">Lien de paiement</a></td>
                                 </tr>
-                                <tr>
-                                    <th>Is Paid</th>
-                                    <td>{{ order.isPaid ? 'Yes': 'No' }}</td>
-                                </tr>
+                                
 
                                 <form action="{{ path('admin_orders_update',{'id': order.id}) }}" method="post">
+                                    <tr>
+                                        <th>Is Paid</th>
+                                        <td>{{ order.isPaid ? 'Yes': 'No' }}</td>
+                                        <td>
+                                            <!-- Hidden input ensures "false" is sent when checkbox is unchecked -->
+                                            <input type="hidden" name="isPaid" value="0">
+                                            <input type="checkbox" name="isPaid" value="1" {% if order.isPaid %}checked{% endif %}>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <th>Shipinfo</th>
                                         <td> <textarea class="form-control" name="shipinfo" cols="100" rows="3">{{ order.shipinfo }}</textarea></td>

@@ -82,11 +82,12 @@ class AdminController extends AbstractController
     public function order_update($id, Request $request, Orders $orders): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $sql = "UPDATE orders SET shipinfo=:shipinfo, note=:note, status=:status WHERE id=:id";
+        $sql = "UPDATE orders SET shipinfo=:shipinfo, note=:note, is_paid=:isPaid, status=:status WHERE id=:id";
         $statement = $em->getConnection()->prepare($sql);
         $statement->bindValue('shipinfo', $request->request->get('shipinfo'));
         $statement->bindValue('note', $request->request->get('note'));
         $statement->bindValue('status', $request->request->get('status'));
+        $statement->bindValue('isPaid', $request->request->get('isPaid'));
         $statement->bindValue('id', $id);
         $statement->execute();
         $this->addFlash('success','Mise à jour effectuée!');

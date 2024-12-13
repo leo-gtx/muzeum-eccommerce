@@ -204,7 +204,7 @@ class HomeController extends AbstractController
 
                 // ************ SEND EMAIL ************
 
-                $message = (new \Swift_Message('Museum Message de '.$message->getName()))
+                $message = (new \Swift_Message('Demande De Partenariat '.$message->getName()))
                 // On attribue l'expéditeur
                 ->setFrom($message->getEmail())
                 // On attribue le destinataire

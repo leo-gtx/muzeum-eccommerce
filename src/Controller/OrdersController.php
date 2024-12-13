@@ -46,14 +46,17 @@ class OrdersController extends AbstractController
             // Fetch orders with the session ID
             $guestOrders = json_decode($request->cookies->get('guest_orders'), true);
             $entityManager = $this->getDoctrine()->getManager();
-            foreach ($guestOrders as $order) {
-                if(key_exists('id',(array) $order)){
-                    $ord = $ordersRepository->find($order['id']);
-                    $ord->setUser($user); // Associate the order with the logged-in user
-                    $entityManager->persist($ord);
-                }
+            if($guestOrders != null){
+                foreach ($guestOrders as $order) {
+                    if(key_exists('id',(array) $order)){
+                        $ord = $ordersRepository->find($order['id']);
+                        $ord->setUser($user); // Associate the order with the logged-in user
+                        $entityManager->persist($ord);
+                    }
                 
+                }
             }
+            
             $entityManager->flush();
 
             $orders = $ordersRepository->findBy(['user' => $user], ['created_at'=> 'DESC']);
@@ -152,7 +155,7 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                 // Handle for guest users (Persist orders differently if needed)
                 $entityManager->persist($orders);
                 $entityManager->flush();
-                $orderId = $orders->getId();
+                
 
                 foreach ($cartItems as $item) {
                     $orderDetail = new OrderDetail();
@@ -188,7 +191,7 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
 
             // Send email
             $orderDetail = $orderDetailRepository->findBy(['orderParent' => $orders]);
-            dd($user);
+            
             try {
                 $message = (new \Swift_Message('Nouvelle Commande Muzeum'))
                     ->setFrom($this->getParameter('app.address'))
@@ -204,13 +207,26 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                     );
                 $mailer->send($message);
                 $this->addFlash('success', 'Votre facture a été envoyé dans votre boîte mail!');
+                $message = (new \Swift_Message('Nouvelle Commande Sur Muzeum'))
+                    ->setFrom($this->getParameter('app.address'))
+                    ->setTo('support@my-muzeum.com')
+                    ->setBody(
+                        $this->renderView(
+                            'email/new.html.twig', [
+                                'orderDetail' => $orderDetail,
+                                'order' => $orders,
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $mailer->send($message);
             } catch (\Swift_TransportException $e) {
                 $this->addFlash('error', $e->getMessage());
             }
 
             // Redirect To Payment
-            $successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
-            $failedUrl = $urlGenerator->generate('orders_show', ['id' => $orderId], UrlGeneratorInterface::ABSOLUTE_URL);
+            $successUrl = $urlGenerator->generate('orders_confirm', ['id' => $orders->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
+            $failedUrl = $urlGenerator->generate('orders_show', ['id' => $orders->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
             //$successUrl = "https://my-muzeum.com/product/26";
             //$failedUrl = "https://my-muzeum.com/product/26";
             $data = [
@@ -279,28 +295,7 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
                     ),
                     'text/html'
                 );
-            // Attach the digital product files, if any
-            // foreach ($details as $detail) {
-            //     $product = $detail->getProduct();
-            //     if ($product->getType() == 'DIGITAL') {
-            //         $fileName = $product->getFile();
-            //         $filePath = $this->getParameter('files_directory') . '/' . $fileName;
-
-            //         // Check if the file exists
-            //         if (file_exists($filePath) && $fileName) {
-            //             // Determine the MIME type of the file
-            //             $mimeType = mime_content_type($filePath);
-
-            //             // Attach the file to the email
-            //             $message->attach(
-            //                 \Swift_Attachment::fromPath($filePath)
-            //                     ->setFilename($product->getSlug() . '.' . pathinfo($fileName, PATHINFO_EXTENSION)) // Custom filename
-            //                     ->setContentType($mimeType) // Set the file's MIME type
-            //             );
-            //         } 
-            //     }
-            // }
-        
+            
         // Send the email with the attachment(s)
         
         $this->mailer->send($message);  
@@ -322,12 +317,12 @@ public function new(Request $request, UrlGeneratorInterface $urlGenerator, Order
         $user = $this->getUser(); // Calling login user data
         $setting = $settingRepository->findAll();
         
-        $orderdetail = $orderDetailRepository->findBy(
+        $orderDetails = $orderDetailRepository->findBy(
             ['orderParent' => $order]
         );
         return $this->render('orders/show.html.twig', [
             'order' => $order,
-            'orderdetail' => $orderdetail,
+            'orderDetails' => $orderDetails,
             'setting' => $setting
         ]);
     }

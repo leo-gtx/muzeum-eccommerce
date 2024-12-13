@@ -10,11 +10,22 @@
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
-					<h1>Détail du produit</h1>
+					<h1 style="color:black;">{{product.title}}</h1>
 					<nav class="d-flex align-items-center">
-						<a href="{{path('home')}}">Acceuil<span class="lnr lnr-arrow-right"></span></a>
-						<a href="#">{{product.title}}</a>
+						<a href="{{path('home', {'category': product.category.parent.id})}}" style="color:#222222;">{{product.category.parent.title}}<span class="lnr lnr-arrow-right"></span></a>
+						<a href="{{path('home', {'category': product.category.id})}}" style="color:#222222;">{{product.category.title}}</a>
 					</nav>
+					
+					<div class="row total_rate">
+						<div class="col-12">
+							<div class="box_total">
+								<h5>Total</h5>
+								<h4>{% if comments|length > 0 %}{% set foo = 0 %}{% for rs in comments %} {% set foo = foo + rs.rate %} {% endfor %} {{ (foo / comments|length)|number_format(1, '.', ',') }}{% endif %}</h4>
+								<h6>({{comments|length}}) Notes</h6>
+							</div>
+						</div>
+						
+					</div>
 				</div>
 			</div>
 		</div>
@@ -110,7 +121,8 @@
 				<div class="col-lg-5 offset-lg-1">
                 <form name="shopcart" class="form-horizontal qtyFrm" action="{{ path('shopcart_new') }}" method="post">
 					<div class="s_product_text">
-						<h3>{{product.title}}</h3>
+						<!-- <h3>{{product.title}}</h3> -->
+						
 						<div class="row">
 							<h2>{{product.price}} XAF</h2>
 							&nbsp;
@@ -120,24 +132,39 @@
 						
 						
 						<ul class="list">
-							<li><a class="active" href="{{ path('home', {'category': product.category.id}) }}"><span>Categorie</span> : {{product.category.title}}</a></li>
-							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}En stock{% else %} Stock écoulé {% endif %}</a></li>
+							<li><a href="#"><span>Disponibilité</span> : {% if product.amount %}{{product.amount}} place(s) restante(s){% else %} Fermé {% endif %}</a></li>
 						</ul>
+						{% if product.keywords %}
+						<ul class="list">
+							<li><span>Préréquis</span> : 
+								
+									{% set keys = product.keywords|split(',') %}
+									{% for key in keys %}
+									<span class="badge badge-pill badge-info">{{key}}</span>
+									{% endfor %}
+								
+							</li>
+						</ul>
+						{% endif %}
 						<p class="lead">{{product.description}}</p>
-						<div class="product_count">
-							<label for="qty">Quantité:</label>
-                            <input type="number" name="shopcart[Q]" id="sst" class="input-text qty" value="1" placeholder="Qté" min="1" max="{{ product.amount }}">
+						<!-- <div class="product_count">
+							<label for="qty">Quantité:</label>-->
+                            <input type="hidden" name="shopcart[Q]" id="sst" class="input-text qty" value="1" placeholder="Qté" min="1" max="{{ product.amount }}">
                             <input type="hidden" name="shopcart[ID]" value="{{ product.id }}">
-							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{product.amount}}) result.value++;return false;"
+							<!--<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && sst < {{product.amount}}) result.value++;return false;"
 							 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
 							<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
 							 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-						</div>
+						</div> -->
                         <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
 						<div class="card_area d-flex align-items-center">
-							<button type="submit" class="primary-btn" style="border:none;" >Ajouter au panier</button>
+							<button type="submit" class="primary-btn" style="border:none;" >Acheter Maintenant</button>
 							<a class="icon_btn" href="{{path('user_toggle_favorite', {'id': product.id })}}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
+						<div class="card_area py-4">
+							<a class="btn btn-primary" style="background-color:#828BB2;border:none;" href="{{path('product_download_roadmap',{'id': product.id }) }}" >Télécharger le programme d'étude</a>
+						</div>
+						
 					</div>
                 </form>
 				</div>
@@ -149,7 +176,7 @@
     <!--================Product Description Area =================-->
 	<section class="product_description_area">
 		<div class="container">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			{# <ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
 					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
 				</li>
@@ -167,7 +194,7 @@
 					<p>{{ product.detail |raw }}</p>
 				</div>
 				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-					<!-- <div class="table-responsive">
+					 <div class="table-responsive">
 						<table class="table">
 							<tbody>
 								<tr>
@@ -226,7 +253,7 @@
 								</tr>
 							</tbody>
 						</table>
-					</div> -->
+					</div>
 					{{ include('features.html.twig') }}
 				</div>
 				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -242,6 +269,94 @@
 								</div>
 								
 							</div><br>
+							<div class="review_list">
+                                {% for rs in comments %}
+								<div class="review_item">
+									<div class="media">
+                                        
+											{% if rs.author.image is not null %}
+                                                  <div class="d-flex">
+                                                        <img src="{{asset('uploads/images/' ~ rs.author.image)}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar-{{rs.author.name}}">
+                                                  </div>
+											{% else %}
+												<div class="d-flex">
+													<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+												</div>
+                                            {% endif %}
+                                        
+										
+										<div class="media-body">
+											<h4></h4>
+                                            {% for i in 1.. rs.rate %}
+											<i class="fa fa-star"></i>
+                                            {% endfor %}
+										</div>
+									</div>
+                                    {% if rs.author is not null %}
+                                    	<h5>{{rs.author.name}}</h5> 
+                                    {% endif %}
+									<p>{{rs.comment}}</p>
+								</div>
+                                {% endfor %}
+							</div>
+						</div>
+                        {% if app.user %}
+						<div class="col-lg-6">
+                        {{ include('messages.html.twig') }}
+							<div class="review_box">
+								<h4>Ajouter votre commentaire</h4>
+								{{form_start(form)}}
+                                {{ form_widget(form) }}
+                                <div class="col-md-12 text-right">
+										 <button class="primary-btn">{{ button_label|default('Envoyez') }}</button>
+									</div>
+                               
+                                {{form_end(form)}}
+							</div>
+						</div>
+                        {% else %}
+                            <a href="{{path('app_login')}}"><i class="fa fa-lock"></i>Si vous voulez laisser un avis connectez-vous svp</a>
+                        {% endif %}
+					</div>
+				</div>
+			</div> #}
+			<div class="container">
+				<div class="tab-pane" >
+					<p>{{ product.detail |raw }}</p>
+				</div>
+				{% if product.modules %}
+					<div class="tab-pane">
+						<h1>Cours Dans Cette Formation</h1>
+						{% for module in product.modules %}
+							<div class="card">
+								<div class="filter-bar d-flex flex-wrap align-items-center">
+									<div class="sorting">
+										<p class="h4 text-white">{{ module.title }}</p>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-1">
+										<span class="lnr lnr-book" style="font-size:40px;"></span>
+										</div>
+										<div class="col-lg-11">
+											<p class="lead">{{module.description}}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+				<br>
+				<div class="tab-pane">
+					{{ include('features.html.twig') }}
+				</div>
+				<div class="tab-pane">
+					<h1>Ils L'ont Essayé...</h1>
+					<div class="row">
+						<div class="col-lg-12">
+							
 							<div class="review_list">
                                 {% for rs in comments %}
 								<div class="review_item">

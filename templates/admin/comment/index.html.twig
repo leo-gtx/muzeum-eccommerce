@@ -57,9 +57,9 @@
                         <th>Ip</th>
                         <th>User</th>
                         <th>Product</th>
-                        <th>Created_at</th>
+                        {# <th>Created_at</th> #}
                         <th>Rate</th>
-                        <th>actions</th>
+                        <th colspan="2">actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,9 +70,9 @@
                             <td>{{ comment.comment }}</td>
                             <td>{{ comment.status }}</td>
                             <td>{{ comment.ip }}</td>
-                            <td><a href="{{ path('admin_user_show', {'id': comment.id}) }}"> {{ comment.name }} {{ comment.surname }}</td>
-                            <td><a href="{{ path('admin_product_show', {'id': comment.id}) }}">{{ comment.title }}</a></td>
-                            <td>{{ comment.created_at }}</td>
+                            <td><a href="{{ path('admin_user_show', {'id': comment.id}) }}"> {{ comment.author.name }} {{ comment.author.surname }}</td>
+                            <td><a href="{{ path('admin_product_show', {'id': comment.productid}) }}">{{ comment.productid }}</a></td>
+                            {# <td>{{  comment.created_at ? comment.created_at|date('Y-m-d H:i:s'):'' }}</td> #}
                             <td>{{ comment.rate }}</td>
                             <td>
                                 <a href="{{ path('admin_comment_show', {'id': comment.id}) }}" class="btn btn-block btn-success">Show</a>

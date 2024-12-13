@@ -310,4 +310,46 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
+     /**
+     * @Route("/download/roadmap/{id}", name="product_download_roadmap", methods={"GET"})
+     */
+    public function downloadRoadmap(Request $request, Product $product, OrdersRepository $ordersRepository): Response
+    {
+       
+                        try {
+                            // User has paid for the product, allow download
+                            $fileName = $product->getFile();
+                            // Define the path to the file (stored outside public directory)
+                            $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+            
+                            if (!file_exists($filePath) && !$fileName) {
+                                throw new NotFoundHttpException('Fichier introuvable.');
+                            }
+
+                            
+            
+                            // Stream the file to avoid loading large files into memory
+                            $response = new StreamedResponse(function() use ($filePath) {
+                                readfile($filePath);
+                            });
+                            $mimeType = mime_content_type($filePath);
+                            
+                            // Set headers to download the file with a custom name
+                            $disposition = $response->headers->makeDisposition(
+                                ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                                $product->getSlug().'_Roadmap'. '.' . pathinfo($fileName, PATHINFO_EXTENSION) // Custom filename
+                            );
+                            // Set headers for file download (you can modify content-type for other file types)
+                            $response->headers->set('Content-Type', $mimeType);
+                            // $response->headers->set('Content-Type', 'application/octet-stream');
+                            $response->headers->set('Content-Disposition', $disposition);
+                            $response->headers->set('Content-Length', filesize($filePath));
+            
+                            return $response;
+                        } catch (\Exception $e) {
+                            return new Response("An error occurred: " . $e->getMessage(), 500);
+                        }
+         
+    }
+
 }

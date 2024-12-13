@@ -13,6 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
+
 class ProductType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -53,7 +54,7 @@ class ProductType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '200M',
+                        'maxSize' => '20M',
                         'mimeTypes' => [
                             'application/pdf',
                             'application/zip',

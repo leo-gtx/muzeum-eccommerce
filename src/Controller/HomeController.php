@@ -17,6 +17,7 @@ use App\Repository\SettingRepository;
 use App\Repository\ShopcartRepository;
 use App\Repository\UserRepository;
 use App\Repository\EventRepository;
+use App\Repository\ShelfRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +34,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository, EventRepository $eventRepository)
+    public function index(Request $request, SettingRepository $settingRepository, PaginatorInterface $paginator, ProductRepository $productRepository, CategoryRepository $categoryRepository, ShopcartRepository $shopcartRepository, EventRepository $eventRepository, ShelfRepository $shelfRepository)
     {
         $setting = $settingRepository->findBy(['id'=>3]);
         $slider = $productRepository->findBy(['status'=> 'True', 'isPromoted' => true],['title'=>'ASC']);
@@ -83,7 +84,7 @@ class HomeController extends AbstractController
             ]);
         }
 
-        $shopcarts = $shopcartRepository->findBy(['user'=>$this->getUser()]);
+        $shelves = $shelfRepository->findAll();
         $events = $eventRepository->findActiveEventsWithinTimeframe();
         //$newproducts = $productRepository->findBy([],['title'=>'DESC'],10 );
 
@@ -96,7 +97,8 @@ class HomeController extends AbstractController
             'products' => $products,
             'categories' => $categories,
             'promotedProducts' => $promotedProducts,
-            'events' => $events
+            'events' => $events,
+            'shelfs' => $shelves
         ]);
     }
 
@@ -179,7 +181,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/contact", name="home_contact", methods={"GET","POST"})
+     * @Route("/partnership", name="home_contact", methods={"GET","POST"})
      */
     public function contact(SettingRepository $settingRepository, Request $request, \Swift_Mailer $mailer): Response
     {

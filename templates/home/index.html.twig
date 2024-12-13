@@ -6,6 +6,42 @@
 {% block stylesheets %}
 <style>
 
+.scroll-container {
+	display: flex;
+	overflow-x: auto;
+	scroll-behavior: smooth;
+}
+.scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 4px;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+.scroll-container .course-card {
+	flex: 0 0 auto;
+	margin-right: 15px;
+	width: 300px;
+}
+.scroll-container img {
+	max-height: 200px;
+	object-fit: cover;
+	width: 100%;
+}
+.scroll-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 15px;
+}   
 </style>
 {% endblock %}
 
@@ -22,23 +58,30 @@
 		{% endfor %}
 	{% endif %}
 	<!-- start features Area -->
-	{{ include('features.html.twig') }}
+	{{ include('brand.html.twig') }}
 	<!-- end features Area -->
     <!-- End Banner Area -->
 	<div class="container">
-		<div class="row">
-			<div class="col-xl-3 col-lg-4 col-md-5">
-				{% block sidebar %} {% include('home/sidebar.html.twig') %}{% endblock %}
+    <h2 class="text-center mb-4">Explorez Nos Formations</h2>
+	{% if shelfs|length > 0 %}
+	{% for shelf in shelfs %}
+    <div class="card p-3 my-5">
+		<div class="head d-flex flex-wrap justify-content-between ">
+			<span>
+				{{shelf.name}}
+			</span>
+			 <!-- Navigation Buttons -->
+			<div class="justify-content-center">
+				<div class="scroll-buttons">
+					<button id="prevButton{{shelf.id}}" class="btn btn_icon"><i class="fa fa-chevron-left"></i></button>
+					<button id="nextButton{{shelf.id}}" class="btn btn_icon"><i class="fa fa-chevron-right"></i></button>
+				</div>
 			</div>
-			<div class="col-xl-9 col-lg-8 col-md-7">
-				
-				<!-- Start Best Seller -->
-				<section class="lattest-product-area pb-40 category-list">
-					<div id="productList" class="row">
-                    {% if products|length > 0 %}
-                    {% for product in products %}
-						<!-- single product -->
-						<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
+		</div>
+        <!-- Horizontal Scroll View -->
+        <div class="scroll-container" id="courseScrollView{{shelf.id}}">
+            {% for product in shelf.products %}
+            <div class="single-product col-md-4 py-3">
 
 								<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
 									<div class="scene" style="height: 300px;width: 200px;">
@@ -53,7 +96,7 @@
 									<h6>{{product.title}}</h6>
 									<div class="price">
 										<h6>{{product.price}}</h6><h6> XAF</h6>
-										<h6 class="l-through">{{product.price + (product.price * 0.8) }} XAF</h6>
+										<h6 class="l-through">{{product.originalPrice }} XAF</h6>
 									</div>
 									<div class="prd-bottom">
 
@@ -76,43 +119,126 @@
 									</div>
 								</div>
 							
-						</div>
-                    {% endfor %}
-                    {% else %}
-					<div class="col-12">
-						<blockquote class="generic-blockquote">
-							Aucun produit trouvé!
-						</blockquote>
-					</div>
-                    {% endif %}
-					</div>
-				</section>
-				<!-- End Best Seller -->
-				<!-- Start Filter Bar -->
-				{% include('home/filterbar.html.twig') %}
-				<!-- End Filter Bar -->
 			</div>
-		</div>
+            {% endfor %}
+        </div>
+
+       
+    </div>
+	{% endfor %}
+	{% else %}
+	<div class="col-12">
+		<blockquote class="generic-blockquote">
+			Aucune Formation Disponible!
+		</blockquote>
 	</div>
+	{% endif %}
+	<h2 class="text-center mb-4">Les Apprenants Aiment Muzeum</h2>				
+		<div class="review_list row">
+			<div class="col-md-4 review_item card p-3">
+				<div class="media">
+					
+						
+							<div class="d-flex">
+								<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+							</div>
+					
+					
+					<div class="media-body">
+						<h4></h4>
+						
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						
+					</div>
+				</div>
+				
+					<h5>Lucas B.</h5> 
+				
+				<p>Les formations sont incroyables ! Je viens de terminer le cours sur l'intelligence artificielle, et je suis bluffé par la qualité des vidéos. Tout est clair, pratique et directement applicable à mon travail. C'est la meilleure plateforme pour apprendre les nouvelles technologies !</p>
+			</div>
 
+			<div class="col-md-4 review_item card p-3">
+				<div class="media">
+					
+						
+							<div class="d-flex">
+								<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+							</div>
+					
+					
+					<div class="media-body">
+						<h4></h4>
+						
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						
+					</div>
+				</div>
+				
+					<h5>Sophie M.</h5> 
+				
+				<p>En tant que développeuse, j'étais à la recherche de formations qui vont droit au but et qui m'aident à rester à jour avec les dernières innovations. J'ai suivi la formation sur le développement d'applications mobiles, et grâce à cela, j'ai pu lancer mon propre projet. Merci pour cette qualité exceptionnelle !</p>
+			</div>
 
-
+			<div class="col-md-4 review_item card p-3">
+				<div class="media">
+					
+						
+							<div class="d-flex">
+								<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+							</div>
+					
+					
+					<div class="media-body">
+						<h4></h4>
+						
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						
+						
+					</div>
+				</div>
+				
+					<h5>Amadou K.</h5> 
+				
+				<p>Ces formations en vidéo sont un véritable atout pour quiconque veut se former aux nouvelles technologies. J'ai particulièrement aimé les explications simples et les exemples concrets. Depuis, j'ai décroché un poste en cybersécurité grâce aux compétences acquises ici !</p>
+			</div>
+			
+		</div>
+	{{ include('reviews.html.twig') }}
+</div>
 {% endblock %}
 
  {% block javascripts %} 
 {{parent()}}
 <script>
-$("#price-range").on("click",function(){
-	$("#productList .single-product").filter(function (index){
-		
-		if( $(this).data("price") >= parseInt($("#lower-value").text(),10) && $(this).data("price") <= parseInt($("#upper-value").text(),10)){
-			$(this).show()
-		} else{
-			$(this).hide()
-		}
 
-	})		
-})
+function initScroll(IDelem) {
+	const scrollView = document.getElementById('courseScrollView' + IDelem);
+    const prevButton = document.getElementById('prevButton' + IDelem);
+    const nextButton = document.getElementById('nextButton' + IDelem);
+
+    prevButton.addEventListener('click', () => {
+        scrollView.scrollBy({ left: -300, behavior: 'smooth' });
+    });
+
+    nextButton.addEventListener('click', () => {
+        scrollView.scrollBy({ left: 300, behavior: 'smooth' });
+    });
+}
+	{% for shelf in shelfs %}
+	initScroll('{{shelf.id}}')
+	{% endfor %}
 
 </script>
+}
+
 {% endblock %} 

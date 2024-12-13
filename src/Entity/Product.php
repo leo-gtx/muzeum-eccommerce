@@ -122,6 +122,11 @@ class Product
      */
     private $user;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Module::class, mappedBy="products")
+     */
+    private $modules;
+
 
     public function getSlug()
     {
@@ -136,6 +141,7 @@ class Product
         if($this->created_at){
             $this->updated_at = new \DateTimeImmutable();
         }
+        $this->modules = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,7 +228,7 @@ class Product
             
             $currentEvent = new Event();
             foreach ($events as $event) {
-                if($event->getPriority() < $currentEvent->getPriority() && $event->active)
+                if($event->getPriority() < $currentEvent->getPriority() && $event->getActive())
                 {
                     $currentEvent = $event;
                 }
@@ -235,7 +241,24 @@ class Product
 
     public function getOriginalPrice(): ?string
     {
-        return $this->price;
+        $events = $this->events;
+        $flag = false;
+        if(count($events) > 0){
+            
+            
+            foreach ($events as $event) {
+                if($event->getActive())
+                {
+                    $flag = true;
+                    break;
+                }
+            }
+    
+        }
+        if($flag){
+            return $this->price;
+        }
+        return $this->price + ($this->price * 80 / 100);
         
     }
 
@@ -443,6 +466,33 @@ class Product
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Module>
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(Module $module): self
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules[] = $module;
+            $module->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): self
+    {
+        if ($this->modules->removeElement($module)) {
+            $module->removeProduct($this);
+        }
 
         return $this;
     }

@@ -444,4 +444,9 @@ class User implements UserInterface
         return $this;
     }
 
+    public function toString(): string
+    {
+        return $this->name . ' '. $this->surname;
+    }
+
 }

@@ -19,7 +19,8 @@
 						<div class="" id="mc_embed_signup">
 							<!-- <p><i class="fa fa-phone"></i>{% if setting is defined %} {{setting[0].phone}} {% endif %}</p> -->
 							<p><i class="fa fa-envelope"></i>{% if setting is defined %} {{setting[0].email}} {% endif %}</p>
-							<p><a style="color: inherit;" href="{{path('home_contact')}}">Vendre Mon Livre</a></p>
+							<p><a style="color: inherit;" href="{% if setting is defined %} {{setting[0].facebook}} {% endif %}"><i class="fa fa-facebook"></i> Facebook</a></p>
+							<p><a style="color: inherit;" href="{{path('home_contact')}}"><i class="fa fa-handshake-o"></i> Devenir Partenaire</a></p>
 						</div>
 					</div>
 				</div>

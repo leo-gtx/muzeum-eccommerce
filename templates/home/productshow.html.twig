@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{product.title}}">
     <meta property="og:description" content="{{product.description}}">
     <meta property="og:image" content="{{ asset('uploads/images/' ~ product.image)}}">
-    <meta property="og:url" content="{{path('product_show',{'id': product.id })}}">
+    <meta property="og:url" content="{{path('product_show',{'slug': product.slug })}}">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="Muzeum.com">
 
@@ -34,11 +34,19 @@
 					</nav>
 					
 					<div class="row total_rate">
-						<div class="col-12">
+						<div class="col-sm-12">
 							<div class="box_total">
 								<h5>Total</h5>
 								<h4>{% if comments|length > 0 %}{% set foo = 0 %}{% for rs in comments %} {% set foo = foo + rs.rate %} {% endfor %} {{ (foo / comments|length)|number_format(1, '.', ',') }}{% endif %}</h4>
 								<h6>({{comments|length}}) Notes</h6>
+							</div>
+						</div>
+						<div class="col-sm-12 py-2">
+							<div class="row d-flex align-items-center justify-content-end my-2">
+								<a href="{{path('shopcart_new', {'productId':product.id})}}" class="primary-btn rounded" style="" >Obtenir Maintenant</a>
+							</div>
+							<div class="row d-flex align-items-center justify-content-end mt-3">
+								<a class="btn btn-primary" style="background-color:#828BB2;border:none;" href="{{path('product_download_roadmap',{'id': product.id }) }}" >Télécharger le programme d'étude</a>
 							</div>
 						</div>
 						
@@ -122,6 +130,7 @@
 		</div>
 	</div>
 	{% endif %}
+	
     	<!--================Single Product Area =================-->
 	<div class="product_image_area">
 		<div class="container">
@@ -175,7 +184,7 @@
 						</div> -->
                         <input type="hidden" name="token" value="{{ csrf_token('add-item') }}">
 						<div class="card_area d-flex align-items-center">
-							<button type="submit" class="primary-btn" style="border:none;" >Acheter Maintenant</button>
+							<button type="submit" class="primary-btn" style="border:none;" >Obtenir Maintenant</button>
 							<a class="icon_btn" href="{{path('user_toggle_favorite', {'id': product.id })}}"><i class="lnr lnr lnr-heart"></i></a>
 						</div>
 						<div class="card_area py-4">
@@ -375,7 +384,7 @@
 					{{ include('features.html.twig') }}
 				</div>
 				<div class="tab-pane">
-					<div class="head py-2 my-2">
+					<div class="head py-2 mt-2">
 					<h2 class="text-center text-white">Ils Ont Essayé...</h2>
 					</div>
 					<div class="row">
@@ -442,7 +451,7 @@
 
 	 <!--================Related Product Area =================-->
 	 <!-- Start Best Seller -->
-	 
+	 {{ include('brand.html.twig')}}
 	 <section class="lattest-product-area pb-40 category-list px-5">
 	 <div class="head py-2 my-2">
 	 	<h2 class="text-center text-white">Formations Similaires</h2>
@@ -453,7 +462,7 @@
 			<!-- single product -->
 			<div  data-price="{{product.price}}" class="single-product col-lg-4 col-md-6">
 
-					<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+					<a href="{{ path('product_show', {'slug': product.slug}) }}" class="social-info">
 						<div class="scene" style="height: 300px;width: 200px;">
 							<div class="dvd-box">
 								<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.title}}</div>
@@ -482,7 +491,7 @@
 								<span class="lnr lnr-sync"></span>
 								<p class="hover-text">compare</p>
 							</a> #}
-							<a href="{{ path('product_show', {'id': product.id}) }}" class="social-info">
+							<a href="{{ path('product_show', {'slug': product.slug}) }}" class="social-info">
 								<span class="lnr lnr-move"></span>
 								<p class="hover-text">voir plus</p>
 							</a>

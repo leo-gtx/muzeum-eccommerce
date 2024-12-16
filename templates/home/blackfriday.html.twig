@@ -1,67 +1,94 @@
 
 <!-- Start exclusive deal Area -->
 	<section class="exclusive-deal-area">
-		<div class="container-fluid">
+		<h2 class="text-center mb-4">{{event.title}}</h2>
+		<div class="container">
 			<div class="row justify-content-center align-items-center">
-				<div class="col-lg-6 no-padding exclusive-left" style="background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
-					<div class="row clock_sec clockdiv" id="clockdiv{{event.id}}">
-						<div class="col-lg-12">
-							<h1>{{event.title}}</h1>
-							<p>{{event.description}}</p>
-						</div>
-						<div class="col-lg-12">
-							<div class="row clock-wrap">
-								<div class="col clockinner1 clockinner">
-									<h1 class="days">1</h1>
-									<span class="smalltext">Jours</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="hours">00</h1>
-									<span class="smalltext">Heure</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="minutes">00</h1>
-									<span class="smalltext">Min</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="seconds">00</h1>
-									<span class="smalltext">Sec</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 no-padding exclusive-right">
-					<div class="active-exclusive-product-slider">
-					{% for product in event.products %}
-						
-						<!-- single exclusive carousel -->
-						<div class="single-exclusive-slider">
-							<a href="{{path('product_show', {'id':product.id})}}">
-								<div class="scene">
-									<div class="dvd-box">
-										<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.slug}}</div>
-										<div class="cover back"></div>
-										<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
+				<div class="col-lg-12">
+					<div class="card my-5 border-0">
+						<div class="head" style="background-image: url('{{ asset('uploads/images/' ~ event.image) }}')">
+							<div class="row clock_sec clockdiv" id="clockdiv{{event.id}}">
+								<div class="col-lg-12">
+									<div class="row clock-wrap">
+										<div class="col clockinner1 clockinner">
+											<h2 class="days text-white">1</h2>
+											<span class="smalltext text-muted">Jours</span>
+										</div>
+										<div class="col clockinner clockinner1">
+											<h2 class="hours text-white">00</h2>
+											<span class="smalltext text-muted" >Heure</span>
+										</div>
+										<div class="col clockinner clockinner1">
+											<h2 class="minutes text-white">00</h2>
+											<span class="smalltext text-muted">Min</span>
+										</div>
+										<div class="col clockinner clockinner1">
+											<h2 class="seconds text-white">00</h2>
+											<span class="smalltext text-muted">Sec</span>
+										</div>
 									</div>
 								</div>
-							</a>
-							<div class="product-details">
-								<a href="{{path('product_show', {'id':product.id})}}">
-								<div class="price">
-									<h6>{{product.price }} XAF</h6>
-									<h6 class="l-through">{{product.originalPrice}} XAF</h6>
-								</div>
-								<h4>{{product.title}}</h4>
-								</a>
-								<div class="add-bag d-flex align-items-center justify-content-center">
-									<a class="add-btn" href="{{path('shopcart_new', {'productId':product.id})}}"><span class="ti-bag"></span></a>
-									<span class="add-text text-uppercase">Ajouter au panier</span>
+							</div>
+							<div class="d-flex flex-wrap justify-content-between">
+								<span>
+								{{event.description}}
+								</span>
+								<!-- Navigation Buttons -->
+								<div class="justify-content-center">
+									<div class="scroll-buttons btn-group" role="group" aria-label="Controls">
+										<button id="prevButton{{event.id}}" class="btn btn-outline-primary btn_icon"><i class="fa fa-chevron-left "></i></button>
+										<button id="nextButton{{event.id}}" class="btn btn-outline-primary btn_icon"><i class="fa fa-chevron-right"></i></button>
+									</div>
 								</div>
 							</div>
+							
 						</div>
-						
-					{% endfor %}
+						<!-- Horizontal Scroll View -->
+						<div class="scroll-container pt-4" id="courseScrollView{{event.id}}">
+							{% for product in event.products %}
+							<div class="single-product col-md-4 pt-3">
+
+								<a href="{{ path('product_show', {'slug': product.slug}) }}" class="social-info">
+									<div class="scene" style="height: 300px;width: 200px;">
+										<div class="dvd-box">
+											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ product.image) }}');">{{product.title}}</div>
+											<div class="cover back"></div>
+											<div class="spine"><span class="vertical-text">{{product.title}}</span></div>
+										</div>
+									</div>
+								</a>
+								<div class="product-details">
+									<h6>{{product.title}}</h6>
+									<div class="price">
+										<h6>{{product.price}}</h6><h6> XAF</h6>
+										<h6 class="l-through">{{product.originalPrice }} XAF</h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="{{path('shopcart_new', {'productId':product.id})}}" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Ajouter au panier</p>
+										</a>
+										<a href="{{path('user_toggle_favorite', {'id': product.id })}}" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Favorie</p>
+										</a>
+										{# <a href="" class="social-info">
+											<span class="lnr lnr-sync"></span>
+											<p class="hover-text">compare</p>
+										</a> #}
+										<a href="{{ path('product_show', {'slug': product.slug}) }}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">voir plus</p>
+										</a>
+									</div>
+								</div>
+											
+							</div>
+							{% endfor %}
+						</div>
+
+					
 					</div>
 				</div>
 			</div>
@@ -86,6 +113,22 @@
 			// Set the deadline to the current time plus the remaining time
 			var deadline = new Date(now.getTime() + remainingTime);
 			initializeClock('clockdiv{{event.id}}', deadline);
+			function initScroll(IDelem) {
+			const scrollView = document.getElementById('courseScrollView' + IDelem);
+			const prevButton = document.getElementById('prevButton' + IDelem);
+			const nextButton = document.getElementById('nextButton' + IDelem);
+
+			prevButton.addEventListener('click', () => {
+				scrollView.scrollBy({ left: -300, behavior: 'smooth' });
+			});
+
+			nextButton.addEventListener('click', () => {
+				scrollView.scrollBy({ left: 300, behavior: 'smooth' });
+			});
+		}
+		
+			initScroll('{{event.id}}')
+			
 		</script>
 
 	<!-- End exclusive deal Area -->

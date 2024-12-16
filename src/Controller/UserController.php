@@ -25,29 +25,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/", name="user_index", methods={"GET"})
-     */
-    public function index(): Response
-    {
-        return $this->render('user/show.html.twig');
-    }
-
-    /**
-     * @Route("/comments", name="user_comments", methods={"GET"})
-     */
-    public function comments(SettingRepository $settingRepository, CommentRepository $commentRepository): Response
-    {
-        $user = $this->getUser();
-        $comments = $commentRepository->getAllCommentsUser($user->getId());
-        $setting = $settingRepository->findAll();
-        //dump($comments);
-        //die();
-        return $this->render('/user/comments.html.twig', [
-            'comments' => $comments,
-            'setting' => $setting
-        ]);
-    }
 
     /**
      * @Route("/products", name="user_products", methods={"GET"})
@@ -123,22 +100,45 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"}, requirements={"id":"\d+"})
+     * @Route("/", name="user_show", methods={"GET"}, requirements={"id":"\d+"})
      */
-    public function show(User $user): Response
+    public function show(
+        SettingRepository $settingRepository, 
+        CommentRepository $commentRepository,
+        OrdersRepository $ordersRepository
+        ): Response
     {
+        $user = $this->getUser();
+        $comments = $commentRepository->getAllCommentsUser($user->getId());
+        $setting = $settingRepository->findAll();
+        $orders = $ordersRepository->findBy(['user'=>$user->getId(), 'isPaid'=>true]);
+        $products = [];
+        foreach ($orders as $order) {
+            foreach ($order->getOrderDetails() as $orderDetail) {
+                if($orderDetail->getProduct()->getType() == 'DIGITAL'){
+                    $products[] = $orderDetail->getProduct();
+                }
+                
+            }
+            
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'favorites' => $user->getFavorites(),
+            'products' =>$products,
+            'comments' => $comments,
+            'setting' =>$setting
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, $id, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $this->getUser(); // Get Login User data
-        if ($user->getId() != $id) {
+        if (!$user) {
             return $this->redirectToRoute('home');
         }
 
@@ -289,47 +289,8 @@ class UserController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->redirectToRoute('user_show_favorites');
+        return $this->redirectToRoute('user_show');
       
-    }
-
-     /**
-     * @Route("/favorites", name="user_show_favorites")
-     */
-    public function showFavorites(SettingRepository $settingRepository): Response
-    {
-        $setting = $settingRepository->findAll();
-       $user = $this->getUser();
-       return $this->render('user/favorites.html.twig', [
-        'favorites' => $user->getFavorites(),
-        'setting' => $setting
-    ]);
-
-    }
-
-    /**
-     * @Route("/library", name="user_library")
-     */
-    public function library(SettingRepository $settingRepository, OrderDetailRepository $orderDetailRepository, OrdersRepository $ordersRepository): Response
-    {
-        $setting = $settingRepository->findAll();
-        $user = $this->getUser();
-        $orders = $ordersRepository->findBy(['user'=>$user->getId(), 'isPaid'=>true]);
-        $products = [];
-        foreach ($orders as $order) {
-            foreach ($order->getOrderDetails() as $orderDetail) {
-                if($orderDetail->getProduct()->getType() == 'DIGITAL'){
-                    $products[] = $orderDetail->getProduct();
-                }
-                
-            }
-            
-        }
-
-        return $this->render('user/library.html.twig', [
-            'products' => $products,
-            'setting' => $setting
-        ]);
     }
 
 }

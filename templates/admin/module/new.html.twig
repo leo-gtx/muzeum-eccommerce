@@ -1,7 +1,26 @@
 {% extends 'adminbase.html.twig' %}
 
 {% block title %}New Module{% endblock %}
+{% block stylesheet %}
+{{parent()}}
+<style>
+#progress-bar-container {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+    height: 25px;
+}
 
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #007bff;
+    transition: width 0.4s ease;
+}
+
+</style>
+{% endblock %}
 {% block body %}
 
     <!-- BEGIN: Subheader -->
@@ -40,10 +59,69 @@
             <div class="m-portlet__body">
                 <h1>Create New Module</h1>
 
-                {{ include('admin/module/_form.html.twig') }}
+                <!-- Progress bar -->
+                <div id="progress-bar-container" style="display: none; margin-top: 20px;">
+                    <div id="progress-bar" style="width: 0%; height: 25px; background-color: #007bff;"></div>
+                </div>
+
+                <!-- Form for creating the module -->
+                <form id="module-upload-form" enctype="multipart/form-data" action="{{ path('admin_module_new') }}" method="post">
+                    {{ form_start(form, {'attr': {'id': 'uploadForm'}}) }}
+                    {{ form_widget(form) }}
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    {{ form_end(form) }}
+                </form>
 
                 <a href="{{ path('admin_module_index') }}" class="btn btn-info">Back to List</a>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for handling the progress bar -->
+    <script>
+        document.getElementById('module-upload-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const form = document.getElementById('module-upload-form');
+            const formData = new FormData(form); // Collect all form data
+            const progressBarContainer = document.getElementById('progress-bar-container');
+            const progressBar = document.getElementById('progress-bar');
+
+            // Show the progress bar
+            progressBarContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', form.action, true);
+
+            // Track upload progress
+            xhr.upload.addEventListener('progress', function(e) {
+                if (e.lengthComputable) {
+                    const percentComplete = (e.loaded / e.total) * 100;
+                    progressBar.style.width = percentComplete + '%';
+                }
+            });
+
+            // Handle response
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('Upload successful!');
+                    window.location.href = "{{ path('admin_module_index') }}"; // Redirect after success
+                } else {
+                    alert('Upload failed. Please try again.');
+                }
+                // Hide the progress bar
+                progressBarContainer.style.display = 'none';
+            };
+
+            // Handle errors
+            xhr.onerror = function() {
+                alert('An error occurred during file upload.');
+                progressBarContainer.style.display = 'none';
+            };
+
+            xhr.send(formData); // Send the form data
+        });
+    </script>
+
 {% endblock %}

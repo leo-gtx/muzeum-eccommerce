@@ -11,7 +11,7 @@
 						<div class="row single-slide {% if count == 1 %} active {% endif %}">
 							<div class="col-lg-7 col-sm-7 my-5">
 								<div class="banner-img">
-								<a href="{{ path('product_show', {'id': rs.id}) }} ">
+								<a href="{{ path('product_show', {'slug': rs.slug}) }} ">
 									<div class="scene">
 										<div class="dvd-box-float">
 											<div class="cover front" style="background-image: url('{{ asset('uploads/images/' ~ rs.image) }}');"></div>

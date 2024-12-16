@@ -6,6 +6,7 @@ use App\Entity\Module;
 use App\Form\ModuleType;
 use App\Repository\ModuleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ModuleController extends AbstractController
 {
+
     /**
      * @Route("/", name="admin_module_index", methods={"GET"})
      */
@@ -26,55 +28,36 @@ class ModuleController extends AbstractController
         ]);
     }
 
+   
+
     /**
      * @Route("/new", name="admin_module_new", methods={"GET","POST"})
      */
-    public function new(Request $request,ModuleRepository $moduleRepository): Response
+    public function new(Request $request): Response
     {
-        //echo "Product id:". $id;
-        //die();
         $module = new Module();
         $form = $this->createForm(ModuleType::class, $module);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-
             $file = $form['file']->getData();
-            if($file){
-                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                // Move the file to the directory where brachures are stored
-                try{
-                    $file->move(
-                        $this->getParameter('files_directory'), // in servis.yaml defined folder for upload modules
-                        $fileName
-                    );
-                } catch (FileException $e){
-                    throw new Exception($e->getMessage(), 1);
-                }
-                $module->setFile($fileName); // Related upload file name with Product table module field
+            if ($file) {
+                $fileName = $this->handleFileUpload($file);
+                $module->setFile($fileName);
             }
+
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($module);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_module_index');
         }
 
-        
-
         return $this->render('admin/module/new.html.twig', [
-            
             'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName(){
-        return md5(uniqid());
-    }
     /**
      * @Route("/{id}", name="admin_module_show", methods={"GET"})
      */
@@ -94,33 +77,21 @@ class ModuleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-
-
             $file = $form['file']->getData();
-            if($file){
-                $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
-                // Move the file to the directory where brachures are stored
-                try{
-                    $file->move(
-                        $this->getParameter('files_directory'), // in servis.yaml defined folder for upload modules
-                        $fileName
-                    );
-                    $fileOld = $this->getParameter('files_directory').'/'.$module->getFile(); // Assuming you have an imagePath field
-                    if ($fileOld && file_exists($fileOld)) {
-                        $filesystem->remove($fileOld);
-                    }
-                } catch (FileException $e){
-                    throw new Exception($e->getMessage(), 1);
-                }
-                $module->setFile($fileName); // Related upload file name with Product table module field
+            if ($file) {
+                // Delete the old file
+                $this->deleteFile($module->getFile());
+
+                // Upload new file
+                $fileName = $this->handleFileUpload($file);
+                $module->setFile($fileName);
             }
-            $entityManager->persist($module);
+
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_module_index');
         }
-
 
         return $this->render('admin/module/edit.html.twig', [
             'module' => $module,
@@ -131,26 +102,66 @@ class ModuleController extends AbstractController
     /**
      * @Route("/{id}", name="admin_module_delete", methods={"DELETE"})
      */
-    public function delete(Request $request,Module $module ): Response
+    public function delete(Request $request, Module $module): Response
     {
-        {
-            // echo "Product Id: ".$pid;
-            // die();
-            if ($this->isCsrfTokenValid('delete'.$module->getId(), $request->request->get('_token'))) {
-                $entityManager = $this->getDoctrine()->getManager();
-                // Delete Old module 
-                try {
-                    $modulePath = $this->getParameter('files_directory').'/'.$module->getFile(); // Assuming you have an imagePath field
-                    if ($modulePath && file_exists($modulePath)) {
-                        $filesystem->remove($modulePath);
-                    }
-                } catch (\Exception $e) {
-                    $this->addFlash('error', $e->getMessage()) ;
-                }
-                $entityManager->remove($module);
-                $entityManager->flush();
-            }
+        if ($this->isCsrfTokenValid('delete' . $module->getId(), $request->request->get('_token'))) {
+            // Delete associated file
+            $this->deleteFile($module->getFile());
 
-            return $this->redirectToRoute('admin_module_index');
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($module);
+            $entityManager->flush();
         }
-    }}
+
+        return $this->redirectToRoute('admin_module_index');
+    }
+
+    /**
+     * Handle file upload
+     * 
+     * @param UploadedFile $file
+     * @return string
+     */
+    private function handleFileUpload($file): string
+    {
+        $fileName = $this->generateUniqueFileName() . '.' . $file->guessExtension();
+
+        try {
+            $file->move(
+                $this->getParameter('files_directory'),
+                $fileName
+            );
+        } catch (FileException $e) {
+            throw new \Exception('File upload failed: ' . $e->getMessage());
+        }
+
+        return $fileName;
+    }
+
+    /**
+     * Delete a file from the server
+     * 
+     * @param string|null $fileName
+     * @return void
+     */
+    private function deleteFile(?string $fileName): void
+    {
+        $filesystem = new Filesystem();
+        if ($fileName) {
+            $filePath = $this->getParameter('files_directory') . '/' . $fileName;
+            if ($filesystem->exists($filePath)) {
+                $filesystem->remove($filePath);
+            }
+        }
+    }
+
+    /**
+     * Generate a unique file name
+     * 
+     * @return string
+     */
+    private function generateUniqueFileName(): string
+    {
+        return md5(uniqid());
+    }
+}

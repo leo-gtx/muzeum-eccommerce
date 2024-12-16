@@ -8,23 +8,40 @@
         <div class="container">
             <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
                 <div class="col-first">
-                    <h1>Mon Profile</h1>
+                    <h1>Dashboard</h1>
                     <nav class="d-flex align-items-center">
                         <a href="{{path('home')}}">Accueil<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="#">Mon profile</a>
+                        <a href="#">Mon dashboard</a>
                     </nav>
                 </div>
             </div>
         </div>
     </section>
     <!-- End Banner Area -->
-    <section>
-        <div class="container">
-            <div class="row">
-               
-                <div class="col-sm-12">
 
-                    <div class="left-sidebar">
+    <section class="product_description_area">
+        <div class="container">
+            
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+					 aria-selected="false">Bibliothèque</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab" aria-controls="favorite"
+					 aria-selected="false">Favorie</a>
+				</li>
+                <li class="nav-item">
+					<a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+					 aria-selected="false">Commentaires</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+					<div class="left-sidebar">
                         <div class="brands_products"><!--brands_products-->
                             <table class="table">
                                 <tbody>
@@ -59,12 +76,109 @@
                                 </tr>
                                 </tbody>
                             </table>
-                            <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="genric-btn success circle arrow">Modifier mon profile</a>
+                            <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="primary-btn">Modifier mon profile</a>
                         </div>
                     </div>
-
-                </div>
-            </div>
+				</div>
+				<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+					 <div class="table-responsive">
+						
+                                {% for product in products %}
+                                <div  id="accordion">
+							        <div class="card">
+                                        <div class="head" id="heading{{product.id}}">
+                                            <h5 class="mb-0">
+                                                <button class="btn btn-link text-white" data-toggle="collapse" data-target="#collapse{{product.id}}" aria-expanded="true" aria-controls="collapse{{product.id}}">
+                                                {{ product.title }}
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div id="collapse{{product.id}}" class="collapse show" aria-labelledby="heading{{product.id}}" data-parent="#accordion">
+                                            <div class="card-body table-responsive">
+                                                <table class="table">
+                                                    <tbody>
+                                                        {% for module in product.modules %}
+                                                            <tr>
+                                                                <td class="d-flex justify-content-between border-1">
+                                                                    <p class="lead">{{ module.title }}</p>
+                                                                    <p>{{module.description}}</p>
+                                                                    <a class="btn btn-primary" href="{{path('product_download',{'productId': product.id, 'moduleId': module.id})}}"><i class="fa fa-download"></i></a>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                           
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+						        </div>
+								{% endfor %}
+							
+					</div>
+				</div>
+                <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
+					 <div class="table-responsive">
+						<table class="table">
+							<tbody>
+                                {% for favorite in favorites %}
+								<tr>
+									<td>
+                                        <img src="{{ asset('uploads/images/' ~ favorite.image) | imagine_filter('shopcart_thumb')}}" alt="{{favorite.title}}">
+									</td>
+                                    <td>	
+                                        <h2>{{favorite.title}}</h2>
+                                    </td>
+                                    <td>    
+                                        <a class="btn btn-info" href="{{path('product_show',{'slug': favorite.slug })}}">Voir Plus</a>
+									</td>
+								</tr>
+                                {% endfor %}
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+					<div class="row">
+							
+							<div class="review_list">
+                                {% for rs in comments %}
+								<div class="review_item">
+									<div class="media">
+                                        
+											{% if rs.author.image is not null %}
+                                                  <div class="d-flex">
+                                                        <img src="{{asset('uploads/images/' ~ rs.author.image)}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar-{{rs.author.name}}">
+                                                  </div>
+											{% else %}
+												<div class="d-flex">
+													<img src="{{asset('assets/client/img/avatar.jpg' )}}" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;" alt="avatar">
+												</div>
+                                            {% endif %}
+                                        
+										
+										<div class="media-body">
+											<h4></h4>
+                                            {% for i in 1.. rs.rate %}
+											<i class="fa fa-star"></i>
+                                            {% endfor %}
+										</div>
+									</div>
+                                    {% if rs.author is not null %}
+                                    	<h5>{{rs.author.name}}</h5> 
+                                    {% endif %}
+									<p>{{rs.comment}}</p>
+								</div>
+                                {% endfor %}
+							</div>
+						
+					</div>
+				</div>
+			</div>
+                
+               
         </div>
     </section>
 {% endblock %}
